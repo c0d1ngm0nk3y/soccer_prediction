@@ -43,15 +43,17 @@ class NN(object):
         errors = target - final_output
         h_errors = numpy.dot(self.w2.T, errors)
 
-        delta_w2 = self.alpha * numpy.dot((errors * final_output * (1.0 - final_output)), numpy.transpose(h_output))
+        delta_w2 = self._calculate_delta_weights(errors, final_output, h_output)
         self.w2 += delta_w2
 
-        delta_w1 = self.alpha * numpy.dot((h_errors * h_output * (1.0 - h_output)), numpy.transpose(input))
+        delta_w1 = self._calculate_delta_weights(h_errors, h_output, input)
         self.w1 += delta_w1
 
         return (final_output, errors)
 
-
+    def _calculate_delta_weights(self, errors, output, prev_output):
+        delta_w = self.alpha * numpy.dot((errors * output * (1.0 - output)), numpy.transpose(prev_output))
+        return delta_w
 
 class  NN2(NN):
     def init_weights(self):
