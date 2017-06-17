@@ -16,19 +16,12 @@ class NN(object):
         self.w1 = numpy.random.rand(self.h_size, self.i_size) - 0.5
         self.w2 = numpy.random.rand(self.o_size, self.h_size) - 0.5
 
-    def query(self, input_list):
-        input = numpy.array(input_list, ndmin=2).T
-        h_input = numpy.dot(self.w1, input)
-        h_output = self.activate_function(h_input)
-
-        final_input = numpy.dot(self.w2, h_output)
-        final_output = self.activate_function(final_input)
-
-        result = final_output
-        return result
-
     def activate_function(self, x):
         return scipy.special.expit(x)
+
+    def query(self, input_list):
+        (result, _) = self.train(input_list, None)
+        return result
 
     def train(self, input_list, target_list):
         input = numpy.array(input_list, ndmin=2).T
@@ -38,8 +31,10 @@ class NN(object):
         final_input = numpy.dot(self.w2, h_output)
         final_output = self.activate_function(final_input)
 
-        target = numpy.array(target_list, ndmin=2).T
+        if not target_list:
+            return (final_output, None)
 
+        target = numpy.array(target_list, ndmin=2).T
         errors = target - final_output
         h_errors = numpy.dot(self.w2.T, errors)
 
