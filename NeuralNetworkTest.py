@@ -39,9 +39,10 @@ class NeuralNetworkTests(unittest.TestCase):
     def test_simple_can_be_learned(self):
         net = NN2(3, 100, 2)
 
-        for x in range(0, 25):
+        for x in range(0, 50):
             (out, err) = net.train([0.5, 1, 0], [0.5, 0.5])
 
+        print(err)
         self.assertGreater(0.1, max(abs(err)))
 
 
