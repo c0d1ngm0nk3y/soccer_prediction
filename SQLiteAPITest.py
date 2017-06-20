@@ -17,5 +17,6 @@ class MyTestCase(unittest.TestCase):
         self.assertEquals(-35, table.get_goal_diff(18))
         self.assertEquals('Werder Bremen', table.get_name(8))
         self.assertEquals(45, table.get_points(8))
+
 if __name__ == '__main__':
     unittest.main()
