@@ -9,10 +9,11 @@ class MyTestCase(unittest.TestCase):
         self.assertEquals(306, len(data))
 
         game1 = data[0]
-        print(game1)
 
         self.assertEquals(1, game1['Group']['GroupOrderID'])
         self.assertEquals('FC Bayern', game1['Team1']['ShortName'])
+        print(game1['Team2'])
+        self.assertEquals('x', game1['Team2']['ShortName'])
         self.assertEquals(6, game1['Goals'][-1]['ScoreTeam1'])
 
         game305 = data [305]
