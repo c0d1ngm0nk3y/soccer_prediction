@@ -24,36 +24,50 @@ class GameTable(object):
         (_, _, diff) = self.data[position - 1]
         return diff
 
+    def print_data(self):
+        for x in self.data:
+            print(x)
+
 
 class SQLiteAPI(object):
     def __init__(self):
         self.api = OpenLigaDB.OpenLigaDB()
         self.conn = None
 
-    def import_season(self, league, season):
+    def import_season(self, league, season, debug=False):
         self.conn = sqlite3.connect('games.sqlite')
 
         data = self.api.request_data(league, season)
 
         for game in data:
+            if debug:
+                print(game)
             game_day = game['Group']['GroupOrderID']
 
             team = self.get_name(game['Team1'])
             home = 1
-            goals_own = game['MatchResults'][-1]['PointsTeam1']
-            goals_opponent = game['MatchResults'][-1]['PointsTeam2']
+            goals_own = self.get_result(game)['PointsTeam1']
+            goals_opponent = self.get_result(game)['PointsTeam2']
             points = self.calculate_points(goals_own, goals_opponent)
-            self.insert_game(league, season, game_day, team, home, goals_own, goals_opponent, points)
+            if not debug:
+                self.insert_game(league, season, game_day, team, home, goals_own, goals_opponent, points)
 
             team = self.get_name(game['Team2'])
             home = 0
-            goals_own = game['MatchResults'][-1]['PointsTeam2']
-            goals_opponent = game['MatchResults'][-1]['PointsTeam1']
+            goals_own = self.get_result(game)['PointsTeam2']
+            goals_opponent = self.get_result(game)['PointsTeam1']
             points = self.calculate_points(goals_own, goals_opponent)
-            self.insert_game(league, season, game_day, team, home, goals_own, goals_opponent, points)
+            if not debug:
+                self.insert_game(league, season, game_day, team, home, goals_own, goals_opponent, points)
 
         self.conn.commit()
         self.conn.close()
+
+    def get_result(self, game):
+        for result in game['MatchResults']:
+            if result['ResultName'] == 'Endergebnis':
+                return result
+        raise Exception()
 
     def calculate_points(self, goals1, goals2):
         if goals1 > goals2:
