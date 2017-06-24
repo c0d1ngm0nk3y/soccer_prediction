@@ -42,9 +42,7 @@ class NeuralNetworkTests(unittest.TestCase):
         for x in range(0, 50):
             (out, err) = net.train([0.5, 1, 0], [0.5, 0.5])
 
-        print(err)
         self.assertGreater(0.1, max(abs(err)))
-
 
 if __name__ == '__main__':
     unittest.main()

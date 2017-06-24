@@ -2,7 +2,7 @@ import unittest
 from OpenLigaDB import OpenLigaDB
 
 
-class MyTestCase(unittest.TestCase):
+class OpenLigaDBTest(unittest.TestCase):
     def test_data_retrieval(self):
         api = OpenLigaDB()
         data = api.request_data('bl1', '2016')
@@ -17,7 +17,6 @@ class MyTestCase(unittest.TestCase):
 
         game305 = data [305]
         self.assertEquals(34, game305['Group']['GroupOrderID'])
-
 
 if __name__ == '__main__':
     unittest.main()

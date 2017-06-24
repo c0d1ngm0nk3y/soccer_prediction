@@ -1,7 +1,7 @@
 import unittest
 import SQLiteAPI
 
-class MyTestCase(unittest.TestCase):
+class SQLiteDataTest(unittest.TestCase):
     def _test_insert_season_bl1_2016(self):
         api = SQLiteAPI.SQLiteAPI()
         api.import_season('bl1', '2016')
