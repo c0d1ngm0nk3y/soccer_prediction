@@ -1,7 +1,6 @@
 import unittest
 import SQLiteAPI
 
-
 class MyTestCase(unittest.TestCase):
     def _test_insert_season_bl1_2016(self):
         api = SQLiteAPI.SQLiteAPI()
@@ -21,7 +20,6 @@ class MyTestCase(unittest.TestCase):
     def _test_insert_season_bl1_2015(self):
         api = SQLiteAPI.SQLiteAPI()
         api.import_season('bl1', '2015')
-
 
     def test_season_bl1_2015(self):
         api = SQLiteAPI.SQLiteAPI()
@@ -66,6 +64,21 @@ class MyTestCase(unittest.TestCase):
 
         table = api.get_game_table('bl1', '2013', 18)
         self.assertEquals(50, table.get_points(1))
+
+
+    def _test_insert_season_bl1_2012(self):
+        api = SQLiteAPI.SQLiteAPI()
+        api.import_season('bl1', '2012')
+
+
+    def test_season_bl1_2012(self):
+        api = SQLiteAPI.SQLiteAPI()
+
+        table = api.get_game_table('bl1', '2012', 34)
+        self.assertEquals(u'Bayern M\xfcnchen', table.get_name(1))
+        self.assertEquals(91, table.get_points(1))
+        self.assertEquals(21, table.get_points(18))
+        self.assertEquals(u'SpVgg Greuther Fuerth', table.get_name(18))
 
 if __name__ == '__main__':
     unittest.main()
