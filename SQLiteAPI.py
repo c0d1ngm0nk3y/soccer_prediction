@@ -1,6 +1,27 @@
 import sqlite3
 import OpenLigaDB
 
+class Game(object):
+    def __init__(self, data):
+        self.data = data
+
+    def print_data(self):
+        for x in self.data:
+            print(x)
+
+    def get_home_team(self):
+        return self.data[0]
+
+    def get_home_points(self):
+        return self.data[1]
+
+    def get_away_team(self):
+        return self.data[2]
+
+    def get_away_points(self):
+        return self.data[3]
+
+
 class GameTable(object):
     def __init__(self, data):
         self.data = data
@@ -43,6 +64,7 @@ class SQLiteAPI(object):
             if debug:
                 print(game)
             game_day = game['Group']['GroupOrderID']
+            match = game['MatchID']
 
             team = self.get_name(game['Team1'])
             home = 1
@@ -50,7 +72,7 @@ class SQLiteAPI(object):
             goals_opponent = self.get_result(game)['PointsTeam2']
             points = self.calculate_points(goals_own, goals_opponent)
             if not debug:
-                self.insert_game(league, season, game_day, team, home, goals_own, goals_opponent, points)
+                self.insert_game(league, season, game_day, team, home, goals_own, goals_opponent, points, match)
 
             team = self.get_name(game['Team2'])
             home = 0
@@ -58,7 +80,7 @@ class SQLiteAPI(object):
             goals_opponent = self.get_result(game)['PointsTeam1']
             points = self.calculate_points(goals_own, goals_opponent)
             if not debug:
-                self.insert_game(league, season, game_day, team, home, goals_own, goals_opponent, points)
+                self.insert_game(league, season, game_day, team, home, goals_own, goals_opponent, points, match)
 
         self.conn.commit()
         self.conn.close()
@@ -79,10 +101,10 @@ class SQLiteAPI(object):
     def get_name(self, team):
         return team['TeamName']
 
-    def insert_game(self, league, season, game_day, team, home, goals_own, goals_opponent, points):
+    def insert_game(self, league, season, game_day, team, home, goals_own, goals_opponent, points, match):
         c = self.conn.cursor()
-        c.execute(u"INSERT INTO results VALUES('{0}', '{1}', {2}, '{3}', {4}, {5}, {6}, {7})"
-                  .format(league, season, game_day, team, home, goals_own, goals_opponent, points))
+        c.execute(u"INSERT INTO results VALUES('{0}', '{1}', {2}, '{3}', {4}, {5}, {6}, {7}, {8})"
+                  .format(league, season, game_day, team, home, goals_own, goals_opponent, points, match))
 
     def get_game_table(self, league, season, game_day):
         self.conn = sqlite3.connect('games.sqlite')
@@ -96,3 +118,24 @@ class SQLiteAPI(object):
         self.conn.close()
 
         return GameTable(data)
+
+    def get_game_day(self, league, season, game_day):
+        games = []
+        self.conn = sqlite3.connect('games.sqlite')
+        c = self.conn.cursor()
+        data = c.execute("SELECT home.team, home.goals_own, away.team, away.goals_own "
+                         "FROM results home "
+                         "INNER JOIN "
+                         "results away "
+                         "ON home.match = away.match "
+                         "WHERE home.league = ? and home.season = ? and home.game_day = ? "
+                         "AND away.league = ? and away.season = ? and away.game_day = ? "
+                         "AND home.home = 1 "
+                         "AND away.home = 0 ",
+                         [league, season, game_day, league, season, game_day]).fetchall()
+
+        for row in data:
+            games.append(Game(row))
+
+        self.conn.close()
+        return games

@@ -32,7 +32,6 @@ class SQLiteDataTest(unittest.TestCase):
         api = SQLiteAPI.SQLiteAPI()
         api.import_season('bl1', '2014')
 
-
     def test_season_bl1_2014(self):
         api = SQLiteAPI.SQLiteAPI()
         table = api.get_game_table('bl1', '2014', 34)
@@ -65,11 +64,9 @@ class SQLiteDataTest(unittest.TestCase):
         table = api.get_game_table('bl1', '2013', 18)
         self.assertEquals(50, table.get_points(1))
 
-
     def _test_insert_season_bl1_2012(self):
         api = SQLiteAPI.SQLiteAPI()
         api.import_season('bl1', '2012')
-
 
     def test_season_bl1_2012(self):
         api = SQLiteAPI.SQLiteAPI()
@@ -79,6 +76,17 @@ class SQLiteDataTest(unittest.TestCase):
         self.assertEquals(91, table.get_points(1))
         self.assertEquals(21, table.get_points(18))
         self.assertEquals(u'SpVgg Greuther Fuerth', table.get_name(18))
+
+    def test_get_game_day(self):
+        api = SQLiteAPI.SQLiteAPI()
+        data = api.get_game_day('bl1', '2014', 1)
+
+        self.assertEqual(9, len(data))
+        game = data[0]
+        self.assertIsNotNone(game.get_home_team())
+        self.assertIsNotNone(game.get_home_points())
+        self.assertIsNotNone(game.get_away_team())
+        self.assertIsNotNone(game.get_away_points())
 
 if __name__ == '__main__':
     unittest.main()
