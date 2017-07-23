@@ -27,6 +27,9 @@ class NetTrainer(object):
     def __init__(self, net):
         self.net = net
         self.generator = TestDataGenerator()
+        self.count = 0
+        self.hits = 0
+        self.statistics = [0, 0, 0]
 
     def train_season(self, league, season):
         season_data = self.generator.generateFromSeason(league, season)
@@ -38,26 +41,34 @@ class NetTrainer(object):
     def check_season(self, league, season):
         season_data = self.generator.generateFromSeason(league, season)
 
-        count = 0
-        hits = 0
+        self._reset_statistics()
         for data in season_data:
             (input, output, result) = data
             result = result[0]
             query_output = self.net.query(input)
             query_result = self._interprete(query_output)
 
-            count = count + 1
-            if result == query_result:
-                hits = hits + 1
+            self._update_statistics(result, query_result)
 
-            performance = self._get_performance(hits, count)
+        result = self._get_result()
 
-        return (performance, hits, count)
+        return result
 
-    def _get_performance(self, hits, count):
-        percent = 100.0 * hits / count
+    def _reset_statistics(self):
+        self.count = 0
+        self.hits = 0
+        self.statistics = [0, 0, 0]
+
+    def _update_statistics(self, expected, actual):
+        self.count = self.count + 1
+        if expected == actual:
+            self.hits = self.hits + 1
+            self.statistics[actual] = self.statistics[actual] + 1
+
+    def _get_result(self):
+        percent = 100.0 * self.hits / self.count
         performance = int(percent)
-        return performance
+        return (performance, self.hits, self.count, self.statistics)
 
     def _interprete(self, out):
         home = out[0]
