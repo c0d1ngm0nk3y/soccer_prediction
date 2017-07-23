@@ -60,7 +60,7 @@ class MyTestCase(unittest.TestCase):
 
         self.assertGreaterEqual(result, 55)
         self.assertGreaterEqual(stats[0], 10)
-        self.assertGreaterEqual(stats[1], 90)
+        self.assertGreaterEqual(stats[1], 88)
         self.assertGreaterEqual(stats[2], 27)
 
     def test_interprete_0_low(self):
