@@ -2,7 +2,7 @@ import unittest
 from TestDataGenerator import TestDataGenerator
 import numpy
 import pandas
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 
 class GenerateData(unittest.TestCase):
