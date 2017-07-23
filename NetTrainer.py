@@ -46,13 +46,15 @@ class NetTrainer(object):
             (input, output, result) = data
             result = result[0]
             query_output = self.net.query(input)
-            query_result = self._interprete(query_output)
+            query_result = self.interprete(query_output)
+            #if result == 0:
+                #print query_result, query_output
 
             self._update_statistics(result, query_result)
 
-        result = self._get_result()
+        rc = self._get_result()
 
-        return result
+        return rc
 
     def _reset_statistics(self):
         self.count = 0
@@ -70,13 +72,14 @@ class NetTrainer(object):
         performance = int(percent)
         return (performance, self.hits, self.count, self.statistics)
 
-    def _interprete(self, out):
+    def interprete(self, out):
         home = out[0]
         away = out[1]
         threshold = 0.5
+        variable = 0.05
 
-        if home > threshold and away < threshold:
+        if home > (threshold + variable) and away < (threshold - variable):
             return 1
-        if away > threshold and away < threshold:
+        if away > (threshold + variable) and home < (threshold - variable):
             return 2
         return 0

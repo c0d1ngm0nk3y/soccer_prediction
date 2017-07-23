@@ -35,10 +35,14 @@ class TestDataGenerator(object):
         return game_day_data
 
     def get_input_for_position(self, position):
-        return max(((18 - position) / 17), 0.01)
+        input = max(((18 - position) / 17.0), 0.01)
+        return round(input, 2)
 
     def get_output_for_points(self, x, y):
-        return 0.99 if x > y else 0.01
+        diff = x - y
+        out = 0.5 + (0.15 * diff)
+        out = max(min(out, 0.99), 0.01)
+        return out
 
     def calculate_result(self, home, away):
         if home > away:
