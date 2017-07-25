@@ -88,5 +88,15 @@ class SQLiteDataTest(unittest.TestCase):
         self.assertIsNotNone(game.get_away_team())
         self.assertIsNotNone(game.get_away_points())
 
+    def test_game_table_trend(self):
+        api = SQLiteAPI.SQLiteAPI()
+
+        table = api.get_game_table_trend('bl1', '2015', 32)
+        self.assertEquals(u'Borussia Dortmund', table.get_name(1))
+        self.assertEquals(9, table.get_points(1))
+        self.assertEquals(0, table.get_points(18))
+        self.assertEquals(u'VfB Stuttgart', table.get_name(18))
+
+
 if __name__ == '__main__':
     unittest.main()

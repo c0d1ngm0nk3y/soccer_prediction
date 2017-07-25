@@ -119,6 +119,19 @@ class SQLiteAPI(object):
 
         return GameTable(data)
 
+    def get_game_table_trend(self, league, season, game_day):
+        self.conn = sqlite3.connect('games.sqlite')
+        c = self.conn.cursor()
+        data = c.execute("SELECT team, SUM(points), SUM(goals_own - goals_opponent)"
+                         "FROM results "
+                         "WHERE league = ? and season = ? and game_day <= ? and game_day >= ?"
+                         "GROUP BY team "
+                         "ORDER BY 2 DESC, 3 DESC",
+                         [league, season, game_day, game_day - 2]).fetchall()
+        self.conn.close()
+
+        return GameTable(data)
+
     def get_game_day(self, league, season, game_day):
         games = []
         self.conn = sqlite3.connect('games.sqlite')
