@@ -17,15 +17,17 @@ class GenerateData(unittest.TestCase):
 
         for d in data:
             (input, output, result) = d
-            self.assertTrue(len(input) == 2)
+            self.assertTrue(len(input) == 4)
             self.assertTrue(len(output) == 2)
             self.assertTrue(len(result) == 1)
 
-            self.assertTrue(input[0] > 0)
-            self.assertTrue(input[0] <= 1)
+            for i in range(0, 4):
+                self.assertTrue(input[i] > 0)
+                self.assertTrue(input[i] <= 1)
 
-            self.assertTrue(output[0] > 0)
-            self.assertTrue(output[0] < 1)
+            for i in range(0, 2):
+                self.assertTrue(output[i] > 0)
+                self.assertTrue(output[i] < 1)
 
             self.assertTrue(result[0] in [0,1,2])
 

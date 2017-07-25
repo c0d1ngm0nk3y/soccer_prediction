@@ -6,7 +6,7 @@ from NeuralNetwork import NN2
 class MyTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.net = NN2(2,10,2,0.3)
+        self.net = NN2(4,5,2,0.3)
         self.trainer = NetTrainer(self.net)
 
     def test_initial_net(self):
@@ -45,11 +45,11 @@ class MyTestCase(unittest.TestCase):
         (result_2, _, _, stats) = self.trainer.check_season('bl1', '2016')
 
         self.assertGreater(result_2, result_1)
-        self.assertGreaterEqual(result_2, 55)
-        self.assertLessEqual(result_2, 58)
+        self.assertGreaterEqual(result_2, 65)
+        self.assertLessEqual(result_2, 69)
         self.assertGreaterEqual(stats[0], 10)
-        self.assertGreaterEqual(stats[1], 96)
-        self.assertGreaterEqual(stats[2], 27)
+        self.assertGreaterEqual(stats[1], 100)
+        self.assertGreaterEqual(stats[2], 50)
 
     def test_training_multiple(self):
         for i in range(0, 20):
@@ -59,11 +59,11 @@ class MyTestCase(unittest.TestCase):
 
         (result, _, _, stats) = self.trainer.check_season('bl1', '2016')
 
-        self.assertGreaterEqual(result, 55)
-        self.assertLessEqual(result, 58)
+        self.assertGreaterEqual(result, 65)
+        self.assertLessEqual(result, 69)
         self.assertGreaterEqual(stats[0], 10)
-        self.assertGreaterEqual(stats[1], 88)
-        self.assertGreaterEqual(stats[2], 27)
+        self.assertGreaterEqual(stats[1], 100)
+        self.assertGreaterEqual(stats[2], 50)
 
     def test_interprete_0_low(self):
         result = self.trainer.interprete([0.4, 0.45])
