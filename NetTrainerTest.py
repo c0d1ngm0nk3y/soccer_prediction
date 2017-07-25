@@ -46,6 +46,7 @@ class MyTestCase(unittest.TestCase):
 
         self.assertGreater(result_2, result_1)
         self.assertGreaterEqual(result_2, 55)
+        self.assertLessEqual(result_2, 58)
         self.assertGreaterEqual(stats[0], 10)
         self.assertGreaterEqual(stats[1], 96)
         self.assertGreaterEqual(stats[2], 27)
@@ -59,6 +60,7 @@ class MyTestCase(unittest.TestCase):
         (result, _, _, stats) = self.trainer.check_season('bl1', '2016')
 
         self.assertGreaterEqual(result, 55)
+        self.assertLessEqual(result, 58)
         self.assertGreaterEqual(stats[0], 10)
         self.assertGreaterEqual(stats[1], 88)
         self.assertGreaterEqual(stats[2], 27)
