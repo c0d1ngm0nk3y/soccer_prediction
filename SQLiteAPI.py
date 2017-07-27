@@ -107,19 +107,31 @@ class SQLiteAPI(object):
                   .format(league, season, game_day, team, home, goals_own, goals_opponent, points, match))
 
     def get_game_table(self, league, season, game_day):
-        table = self.get_game_table_trend(league, season, game_day, game_day)
-
+        table = self.get_game_table_generic(league, season, game_day, "1 =", 1)
         return table
 
     def get_game_table_trend(self, league, season, game_day, trend=2):
+        table = self.get_game_table_generic(league, season, game_day, "game_day >=", (game_day - trend))
+        return table
+
+    def get_game_table_home(self, league, season, game_day):
+        table = self.get_game_table_generic(league, season, game_day, "home =", 1)
+        return table
+
+    def get_game_table_away(self, league, season, game_day):
+        table = self.get_game_table_generic(league, season, game_day, "home =", 0)
+        return table
+
+    def get_game_table_generic(self, league, season, game_day, additional_prop, binding):
         self.conn = sqlite3.connect('games.sqlite')
         c = self.conn.cursor()
         data = c.execute("SELECT team, SUM(points), SUM(goals_own - goals_opponent)"
                          "FROM results "
-                         "WHERE league = ? and season = ? and game_day <= ? and game_day >= ?"
+                         "WHERE league = ? and season = ? and game_day <= ? and {0} ? "
+                         ""
                          "GROUP BY team "
-                         "ORDER BY 2 DESC, 3 DESC",
-                         [league, season, game_day, game_day - trend]).fetchall()
+                         "ORDER BY 2 DESC, 3 DESC".format(additional_prop),
+                         [league, season, game_day, binding]).fetchall()
         self.conn.close()
 
         return GameTable(data)

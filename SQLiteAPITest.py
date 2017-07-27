@@ -97,6 +97,24 @@ class SQLiteDataTest(unittest.TestCase):
         self.assertEquals(0, table.get_points(18))
         self.assertEquals(u'VfB Stuttgart', table.get_name(18))
 
+    def test_game_table_home(self):
+        api = SQLiteAPI.SQLiteAPI()
+
+        table = api.get_game_table_home('bl1', '2016', 34)
+        self.assertEquals(u'Borussia Dortmund', table.get_name(2))
+        self.assertEquals(43, table.get_points(2))
+        self.assertEquals(17, table.get_points(18))
+        self.assertEquals(u'FC Ingolstadt 04', table.get_name(18))
+
+    def test_game_table_away(self):
+        api = SQLiteAPI.SQLiteAPI()
+
+        table = api.get_game_table_away('bl1', '2016', 33)
+        self.assertEquals(u'RB Leipzig', table.get_name(2))
+        self.assertEquals(28, table.get_points(2))
+        self.assertEquals(3, table.get_points(18))
+        self.assertEquals(u'SV Darmstadt 98', table.get_name(18))
+
 
 if __name__ == '__main__':
     unittest.main()

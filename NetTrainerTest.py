@@ -2,11 +2,13 @@ import unittest
 from NetTrainer import NetTrainer, PickHome, PickLeader
 from NeuralNetwork import NN2
 
+INPUT_SIZE = 6
+ITERATIONS = 10
 
 class MyTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.net = NN2(4,10,2,0.3)
+        self.net = NN2(INPUT_SIZE, 10, 2, 0.3)
         self.trainer = NetTrainer(self.net)
 
     def test_initial_net(self):
@@ -43,7 +45,7 @@ class MyTestCase(unittest.TestCase):
     def test_training_improves(self):
         (result_1, _, _, _) = self.trainer.check_season('bl1', '2016')
 
-        for i in range(0,10):
+        for i in range(0, ITERATIONS):
             self.trainer.train_season('bl1', '2015')
 
         (result_2, _, _, stats) = self.trainer.check_season('bl1', '2016')
@@ -55,7 +57,7 @@ class MyTestCase(unittest.TestCase):
         self.isInRange(stats[2], 52)
 
     def test_training_multiple(self):
-        for i in range(0, 20):
+        for i in range(0, ITERATIONS):
             self.trainer.train_season('bl1', '2015')
             self.trainer.train_season('bl1', '2014')
             self.trainer.train_season('bl1', '2013')
@@ -68,7 +70,7 @@ class MyTestCase(unittest.TestCase):
         self.isInRange(stats[2], 52)
 
     def test_check_2015(self):
-        for i in range(0, 20):
+        for i in range(0, ITERATIONS):
             self.trainer.train_season('bl1', '2016')
             self.trainer.train_season('bl1', '2014')
             self.trainer.train_season('bl1', '2013')
@@ -76,9 +78,22 @@ class MyTestCase(unittest.TestCase):
         (result, _, _, stats) = self.trainer.check_season('bl1', '2015')
 
         self.isInRange(result, 68)
-        self.isInRange(stats[0], 17)
-        self.isInRange(stats[1], 101)
-        self.isInRange(stats[2], 57)
+        self.isInRange(stats[0], 16)
+        self.isInRange(stats[1], 100)
+        self.isInRange(stats[2], 60)
+
+    def test_check_2014(self):
+        for i in range(0, ITERATIONS):
+            self.trainer.train_season('bl1', '2016')
+            self.trainer.train_season('bl1', '2015')
+            self.trainer.train_season('bl1', '2013')
+
+        (result, _, _, stats) = self.trainer.check_season('bl1', '2014')
+
+        self.isInRange(result, 68)
+        self.isInRange(stats[0], 14)
+        self.isInRange(stats[1], 105)
+        self.isInRange(stats[2], 55)
 
     def test_interprete_0_low(self):
         result = self.trainer.interprete([0.4, 0.45])
