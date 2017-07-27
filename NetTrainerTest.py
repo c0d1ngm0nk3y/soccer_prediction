@@ -8,7 +8,7 @@ ITERATIONS = 10
 class MyTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.net = NN2(INPUT_SIZE, 10, 2, 0.3)
+        self.net = NN2(INPUT_SIZE, 4, 2, 0.2)
         self.trainer = NetTrainer(self.net)
 
     def test_initial_net(self):
@@ -60,7 +60,7 @@ class MyTestCase(unittest.TestCase):
         self.check_season_generic('2016', ['2015', '2014', '2013'], 67, 13, 103, 52)
 
     def test_check_2015(self):
-        self.check_season_generic('2015', ['2016', '2014', '2013'], 68, 16, 100, 60)
+        self.check_season_generic('2015', ['2016', '2014', '2013'], 68, 16, 100, 62)
 
     def test_check_2014(self):
         self.check_season_generic('2014', ['2016', '2015', '2013'], 68, 14, 105, 55)
