@@ -56,44 +56,26 @@ class MyTestCase(unittest.TestCase):
         self.isInRange(stats[1], 104)
         self.isInRange(stats[2], 52)
 
-    def test_training_multiple(self):
-        for i in range(0, ITERATIONS):
-            self.trainer.train_season('bl1', '2015')
-            self.trainer.train_season('bl1', '2014')
-            self.trainer.train_season('bl1', '2013')
-
-        (result, _, _, stats) = self.trainer.check_season('bl1', '2016')
-
-        self.isInRange(result, 67)
-        self.isInRange(stats[0], 13)
-        self.isInRange(stats[1], 103)
-        self.isInRange(stats[2], 52)
+    def test_check_2016(self):
+        self.check_season_generic('2016', ['2015', '2014', '2013'], 67, 13, 103, 52)
 
     def test_check_2015(self):
-        for i in range(0, ITERATIONS):
-            self.trainer.train_season('bl1', '2016')
-            self.trainer.train_season('bl1', '2014')
-            self.trainer.train_season('bl1', '2013')
-
-        (result, _, _, stats) = self.trainer.check_season('bl1', '2015')
-
-        self.isInRange(result, 68)
-        self.isInRange(stats[0], 16)
-        self.isInRange(stats[1], 100)
-        self.isInRange(stats[2], 60)
+        self.check_season_generic('2015', ['2016', '2014', '2013'], 68, 16, 100, 60)
 
     def test_check_2014(self):
+        self.check_season_generic('2014', ['2016', '2015', '2013'], 68, 14, 105, 55)
+
+    def check_season_generic(self, season, train_seasons, expected_result, expected_0, expected_1, expected_2):
         for i in range(0, ITERATIONS):
-            self.trainer.train_season('bl1', '2016')
-            self.trainer.train_season('bl1', '2015')
-            self.trainer.train_season('bl1', '2013')
+            for train_season in train_seasons:
+                self.trainer.train_season('bl1', train_season)
 
-        (result, _, _, stats) = self.trainer.check_season('bl1', '2014')
+        (result, _, _, stats) = self.trainer.check_season('bl1', season)
 
-        self.isInRange(result, 68)
-        self.isInRange(stats[0], 14)
-        self.isInRange(stats[1], 105)
-        self.isInRange(stats[2], 55)
+        self.isInRange(result, expected_result)
+        self.isInRange(stats[0], expected_0)
+        self.isInRange(stats[1], expected_1)
+        self.isInRange(stats[2], expected_2)
 
     def test_interprete_0_low(self):
         result = self.trainer.interprete([0.4, 0.45])
