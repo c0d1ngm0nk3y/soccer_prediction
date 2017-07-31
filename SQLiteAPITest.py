@@ -77,6 +77,20 @@ class SQLiteDataTest(unittest.TestCase):
         self.assertEquals(21, table.get_points(18))
         self.assertEquals(u'SpVgg Greuther Fuerth', table.get_name(18))
 
+    def test_season_bl1_2011(self):
+        api = SQLiteAPI.SQLiteAPI()
+
+        table = api.get_game_table('bl1', '2011', 34)
+        self.assertEquals(u'Borussia Dortmund', table.get_name(1))
+        self.assertEquals(81, table.get_points(1))
+
+    def test_bl2(self):
+        api = SQLiteAPI.SQLiteAPI()
+
+        for season in ['2011', '2012', '2013', '2014', '2015', '2016']:
+            table = api.get_game_table('bl2', season, 34)
+            self.assertGreater(table.get_points(1), 63)
+
     def test_get_game_day(self):
         api = SQLiteAPI.SQLiteAPI()
         data = api.get_game_day('bl1', '2014', 1)
