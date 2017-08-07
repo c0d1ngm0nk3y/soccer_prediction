@@ -55,11 +55,7 @@ class SQLiteAPI(object):
         self.api = OpenLigaDB.OpenLigaDB()
         self.conn = None
 
-    def import_season(self, league, season, debug=False):
-        self.conn = sqlite3.connect('games.sqlite')
-
-        data = self.api.request_data(league, season)
-
+    def _import_data(self, league, season, data, debug):
         for game in data:
             if debug:
                 print(game)
@@ -82,6 +78,21 @@ class SQLiteAPI(object):
             if not debug:
                 self.insert_game(league, season, game_day, team, home, goals_own, goals_opponent, points, match)
 
+    def import_game_day(self, league, season, game_day, debug=False):
+        self.conn = sqlite3.connect('games.sqlite')
+
+        data = self.api.request_data_game_day(league, season, game_day)
+        self._import_data(league, season, data, debug)
+
+        self.conn.commit()
+        self.conn.close()
+
+    def import_season(self, league, season, debug=False):
+        self.conn = sqlite3.connect('games.sqlite')
+
+        data = self.api.request_data(league, season)
+        self._import_data(league, season, data, debug)
+
         self.conn.commit()
         self.conn.close()
 
@@ -89,7 +100,7 @@ class SQLiteAPI(object):
         for result in game['MatchResults']:
             if result['ResultName'] == 'Endergebnis':
                 return result
-        raise Exception()
+        raise Exception('No result found')
 
     def calculate_points(self, goals1, goals2):
         if goals1 > goals2:
@@ -156,3 +167,17 @@ class SQLiteAPI(object):
 
         self.conn.close()
         return games
+
+
+    def print_data(self):
+        self.conn = sqlite3.connect('games.sqlite')
+        c = self.conn.cursor()
+        data = c.execute("SELECT count(*), max(game_day), league, season "
+                         "FROM results "
+                         "GROUP BY league, season "
+                         "ORDER BY league, season DESC").fetchall()
+
+        for row in data:
+            print(row)
+
+        self.conn.close()
