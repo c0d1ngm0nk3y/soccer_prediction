@@ -1,5 +1,7 @@
 import sqlite3
+
 import OpenLigaDB
+
 
 class Game(object):
     def __init__(self, data):

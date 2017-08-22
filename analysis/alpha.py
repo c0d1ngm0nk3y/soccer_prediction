@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
-from NetTrainer import NetTrainer
+
 from NeuralNetwork import NN2
+from prediction.NetTrainer import NetTrainer
 
 x = []
 y = []

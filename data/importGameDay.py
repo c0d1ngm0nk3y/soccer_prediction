@@ -1,4 +1,4 @@
-import SQLiteAPI
+from api import SQLiteAPI
 
 league = 'bl2'
 season = '2017'

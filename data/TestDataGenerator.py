@@ -1,4 +1,4 @@
-from SQLiteAPI import SQLiteAPI
+from api.SQLiteAPI import SQLiteAPI
 
 class TestDataGenerator(object):
 

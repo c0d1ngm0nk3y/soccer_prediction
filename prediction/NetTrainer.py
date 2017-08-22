@@ -1,4 +1,4 @@
-from TestDataGenerator import TestDataGenerator
+from data.TestDataGenerator import TestDataGenerator
 
 class PickLeader(object):
     def query(self, input_list):

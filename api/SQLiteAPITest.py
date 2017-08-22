@@ -1,5 +1,7 @@
 import unittest
+
 import SQLiteAPI
+
 
 class SQLiteDataTest(unittest.TestCase):
     def _test_insert_season_bl1_2016(self):
