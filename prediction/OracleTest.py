@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import unittest
 from prediction.Oracle import Oracle
 
@@ -11,6 +12,10 @@ class OracleTest(unittest.TestCase):
 
         self.assertIsNotNone(result)
         self.assertEqual(9, len(result))
+
+        game = result[0]
+        self.assertEqual(game.get_home_team(), u'1. FC K\xf6ln')
+        self.assertEqual(game.get_away_team(), u'TSG 1899 Hoffenheim')
 
 
 if __name__ == '__main__':
