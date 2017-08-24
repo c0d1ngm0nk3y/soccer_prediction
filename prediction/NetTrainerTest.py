@@ -4,12 +4,14 @@ from prediction.NetTrainer import NetTrainer, PickHome, PickLeader
 from NeuralNetwork import NN2
 
 INPUT_SIZE = 6
+HIDDEN_SIZE = 6
+ALPHA = 0.9
 ITERATIONS = 5
 
 class MyTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.net = NN2(INPUT_SIZE, 6, 2, 0.9)
+        self.net = NN2(INPUT_SIZE, HIDDEN_SIZE, 2, ALPHA)
         self.trainer = NetTrainer(self.net)
 
     def test_initial_net(self):

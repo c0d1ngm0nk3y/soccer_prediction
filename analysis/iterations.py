@@ -6,7 +6,7 @@ from prediction.NetTrainer import NetTrainer
 x = []
 y = []
 
-n = 10
+n = 20
 for i in range(0, n + 1):
     alpha = 0.9
     net = NN2(6, 4, 2, alpha)

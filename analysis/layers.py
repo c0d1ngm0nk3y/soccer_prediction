@@ -6,9 +6,9 @@ from prediction.NetTrainer import NetTrainer
 x = []
 y = []
 
-n = 15
+n = 30
 for i in range(1, n + 1):
-    alpha = 0.9
+    alpha = 1.1
     net = NN2(6, i, 2, alpha)
     x.append(i)
 
@@ -22,5 +22,5 @@ for i in range(1, n + 1):
 print 'Result', max(y)
 
 plt.plot(x, y, 'ro')
-plt.axis([0, n, 0, 100])
+plt.axis([0, n, 35, 50])
 plt.show()
