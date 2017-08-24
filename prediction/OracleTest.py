@@ -1,10 +1,12 @@
 from __future__ import absolute_import
 import unittest
 from prediction.Oracle import Oracle
+from prediction.NetTrainer import PickHome
 
 class OracleTest(unittest.TestCase):
     def setUp(self):
-        self.oracle = Oracle()
+        net = PickHome()
+        self.oracle = Oracle(net)
 
     def test_predict_game_day(self):
 
@@ -16,6 +18,7 @@ class OracleTest(unittest.TestCase):
         game = result[0]
         self.assertEqual(game.get_home_team(), u'1. FC K\xf6ln')
         self.assertEqual(game.get_away_team(), u'TSG 1899 Hoffenheim')
+        self.assertEqual(game.get_prediction(), 1)
 
 
 if __name__ == '__main__':

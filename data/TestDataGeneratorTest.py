@@ -1,8 +1,6 @@
+from __future__ import absolute_import
 import unittest
-from TestDataGenerator import TestDataGenerator
-import numpy
-import pandas
-#import matplotlib.pyplot as plt
+from data.TestDataGenerator import TestDataGenerator
 
 
 class GenerateData(unittest.TestCase):

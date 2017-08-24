@@ -8,30 +8,20 @@ class TestDataGenerator(object):
     def generateFromSeason(self, league, season):
         data = []
         for i in range(5, 33):
-            game_day = self.api.get_game_day(league, season, i)
-            table = self.api.get_game_table(league, season, i)
-            table_trend = self.api.get_game_table_trend(league, season, i)
-            table_home = self.api.get_game_table_home(league, season, i)
-            table_away = self.api.get_game_table_away(league, season, i)
-
-            game_day_data = self.genererateFromGameDay(game_day, table, table_trend, table_home, table_away)
+            game_day_data = self.genererateFromGameDay(league, season, i)
             data.extend(game_day_data)
         return data
 
-    def extractInput(self, table, table_trend, table_home, team):
-        pos = table.get_position(team)
-        x_pos = self.get_input_for_position(pos)
-
-        trend = table_trend.get_position(team)
-        x_trend = self.get_input_for_position(trend)
-
-        home = table_home.get_position(team)
-        x_home = self.get_input_for_position(home)
-
-        return (pos, trend, x_pos, x_trend, home, x_home)
-
-    def genererateFromGameDay(self, game_day, table, table_trend, table_home, table_away):
+    def genererateFromGameDay(self, league, season, day):
         game_day_data = []
+        game_day = self.api.get_game_day(league, season, day)
+
+        state = day - 1
+        table = self.api.get_game_table(league, season, state)
+        table_trend = self.api.get_game_table_trend(league, season, state)
+        table_home = self.api.get_game_table_home(league, season, state)
+        table_away = self.api.get_game_table_away(league, season, state)
+
         for game in game_day:
             ht = game.get_home_team()
             hp = game.get_home_points()
@@ -51,6 +41,18 @@ class TestDataGenerator(object):
             output = [y_points_home, y_points_away]
             game_day_data.append((input, output, [result]))
         return game_day_data
+
+    def extractInput(self, table, table_trend, table_home, team):
+        pos = table.get_position(team)
+        x_pos = self.get_input_for_position(pos)
+
+        trend = table_trend.get_position(team)
+        x_trend = self.get_input_for_position(trend)
+
+        home = table_home.get_position(team)
+        x_home = self.get_input_for_position(home)
+
+        return (pos, trend, x_pos, x_trend, home, x_home)
 
     def get_input_for_position(self, position):
         input = max(((18 - position) / 17.0), 0.01)
