@@ -43,7 +43,7 @@ class NetTrainer(object):
 
         self._reset_statistics()
         for data in season_data:
-            (input, output, result) = data
+            (input, output, result, _) = data
             result = result[0]
             query_output = self.net.query(input)
             query_result = self.interprete(query_output)
