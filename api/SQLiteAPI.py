@@ -23,6 +23,9 @@ class Game(object):
     def get_away_points(self):
         return self.data[3]
 
+    def print_it(self):
+        print('%25s : %25s' % (self.get_home_team(), self.get_away_team()))
+
 
 class GameTable(object):
     def __init__(self, data):

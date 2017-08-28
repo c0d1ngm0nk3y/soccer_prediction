@@ -35,7 +35,7 @@ class NetTrainer(object):
         season_data = self.generator.generateFromSeason(league, season)
 
         for data in season_data:
-            (input, output, result) = data
+            (input, output, result, _) = data
             self.net.train(input, output)
 
     def check_season(self, league, season):

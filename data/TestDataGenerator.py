@@ -39,7 +39,7 @@ class TestDataGenerator(object):
             result = self.calculate_result(hp, ap)
             input = [x_pos_home, x_pos_away, x_pos_home_trend, x_pos_away_trend, x_home_home, x_home_away]
             output = [y_points_home, y_points_away]
-            game_day_data.append((input, output, [result]))
+            game_day_data.append((input, output, [result], game.get_home_team()))
         return game_day_data
 
     def extractInput(self, table, table_trend, table_home, team):
