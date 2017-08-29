@@ -17,7 +17,18 @@ def create_net():
 
 net = create_net()
 oracle = Oracle(net)
-games = oracle.predict_game_day('bl1', '2016', 34)
 
+games = oracle.predict_game_day('bl1', '2016', 32)
+print "Game Day 32"
+for game in games:
+    game.print_it()
+
+games = oracle.predict_game_day('bl1', '2016', 33)
+print "Game Day 33"
+for game in games:
+    game.print_it()
+
+games = oracle.predict_game_day('bl1', '2016', 34)
+print "Game Day 34"
 for game in games:
     game.print_it()
