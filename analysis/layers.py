@@ -1,26 +1,20 @@
 import matplotlib.pyplot as plt
 
-from NeuralNetwork import NN2
-from prediction.NetTrainer import NetTrainer
+from prediction.NetTrainer import create_net, train_and_check
 
 x = []
 y = []
 
 n = 30
-for i in range(1, n + 1):
+for i in range(0, n + 1):
     alpha = 1.1
-    net = NN2(6, i, 2, alpha)
+    net = create_net(hidden = i)
     x.append(i)
 
-    trainer = NetTrainer(net)
-    trainer.train_season('bl1', '2015')
-    (_, _, _, _) = trainer.check_season('bl1', '2016')
-    (_, _, _, _) = trainer.check_season('bl1', '2014')
-    (result, _, _, _) = trainer.check_season('bl1', '2013')
-
+    result = train_and_check(net, ['2015'], '2016')
     y.append(result)
 print 'Result', max(y)
 
 plt.plot(x, y, 'ro')
-plt.axis([0, n, 35, 50])
+plt.axis([0, n, 0, 100])
 plt.show()
