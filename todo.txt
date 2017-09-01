@@ -1,0 +1,5 @@
+- Use create_net in tests
+- make away wins stable
+- input: points of last 4,3,2,1 games
+- output: goals made by team (fuzzy) to predict exact results
+- input: goals made/received comparison
