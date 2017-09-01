@@ -1,7 +1,7 @@
 from data.TestDataGenerator import TestDataGenerator
 from NeuralNetwork import NN2
 
-def create_net(alpha = 0.5, input = 6, hidden = 30, output = 2):
+def create_net(alpha = 0.5, input = 6, hidden = 4, output = 2):
     net = NN2(input, hidden, output, alpha)
     return net
 
