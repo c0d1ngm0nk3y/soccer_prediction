@@ -18,7 +18,11 @@ class TestDataGenerator(object):
 
         state = day - 1
         table = self.api.get_game_table(league, season, state)
-        table_trend = self.api.get_game_table_trend(league, season, state)
+        table_trend4 = self.api.get_game_table_trend(league, season, state, trend=4)
+        table_trend3 = self.api.get_game_table_trend(league, season, state, trend=3)
+        table_trend2 = self.api.get_game_table_trend(league, season, state, trend=2)
+        table_trend1 = self.api.get_game_table_trend(league, season, state, trend=1)
+        trends = [table_trend1, table_trend2, table_trend3, table_trend4]
         table_home = self.api.get_game_table_home(league, season, state)
         table_away = self.api.get_game_table_away(league, season, state)
 
@@ -26,28 +30,32 @@ class TestDataGenerator(object):
             ht = game.get_home_team()
             hp = game.get_home_points()
             (pos_home, pos_home_trend, x_pos_home, x_pos_home_trend, home_home, x_home_home) =\
-                self.extractInput(table, table_trend, table_home, ht)
+                self.extractInput(table, trends, table_home, ht)
 
             at = game.get_away_team()
             ap = game.get_away_points()
             (pos_away, pos_away_trend, x_pos_away, x_pos_away_trend, home_away, x_home_away) =\
-                self.extractInput(table, table_trend, table_away, at)
+                self.extractInput(table, trends, table_away, at)
 
             y_points_home = self.get_output_for_points(hp, ap)
             y_points_away = self.get_output_for_points(ap, hp)
 
             result = self.calculate_result(hp, ap)
-            input = [x_pos_home, x_pos_away, x_pos_home_trend, x_pos_away_trend, x_home_home, x_home_away]
+            input = [x_pos_home, x_home_home]
+            input.extend(x_pos_home_trend)
+            input.extend([x_pos_away, x_home_away])
+            input.extend(x_pos_away_trend)
+
             output = [y_points_home, y_points_away]
             game_day_data.append((input, output, [result], game.get_home_team()))
         return game_day_data
 
-    def extractInput(self, table, table_trend, table_home, team):
+    def extractInput(self, table, trends, table_home, team):
         pos = table.get_position(team)
         x_pos = self.get_input_for_position(pos)
 
-        trend = table_trend.get_position(team)
-        x_trend = self.get_input_for_position(trend)
+        trend = list(map(lambda t: t.get_position(team), trends))
+        x_trend = list(map(lambda t: self.get_input_for_position(t), trend))
 
         home = table_home.get_position(team)
         x_home = self.get_input_for_position(home)

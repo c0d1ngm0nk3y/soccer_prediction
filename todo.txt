@@ -9,4 +9,7 @@
 - iterations > 1
 - shell script for all tests
 - coverage
-- check_season: retun objrct instead of tuple
+- check_season: return object instead of tuple
+- generate_from_season return object instead of tuple
+- extract_input: return object instead of tuple
+- default net is sometimes better

@@ -13,11 +13,11 @@ class GenerateData(unittest.TestCase):
         self.assertTrue(len(data) > 100)
         self.assertTrue(len(data) < 1000)
 
-        input_size = 6
+        input_size = 12
 
         for d in data:
-            (input, output, result) = d
-            self.assertTrue(len(input) == input_size)
+            (input, output, result, home_team) = d
+            self.assertEqual(len(input), input_size)
             self.assertTrue(len(output) == 2)
             self.assertTrue(len(result) == 1)
 
