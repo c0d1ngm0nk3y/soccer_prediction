@@ -5,7 +5,7 @@ def create_net(alpha = 0.9, input = 6, hidden = 4, output = 2):
     net = NN2(input, hidden, output, alpha)
     return net
 
-def train_and_check(net, train_set, check, iterations = 5):
+def train_and_check(net, train_set, check, iterations = 3):
     trainer = NetTrainer(net)
     for i in range(0, iterations):
         for train in train_set:

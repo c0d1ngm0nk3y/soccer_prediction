@@ -10,9 +10,9 @@ i = 0
 seasons = ['2011', '2012', '2013', '2014', '2015']
 l = len(seasons)
 
-for i in range(0, l):
-    result = train_and_check(net, seasons[i:], '2016')
-    x.append(i)
+for i in range(0, l+1):
+    (result, _, _, _) = train_and_check(net, seasons[i:], '2016')
+    x.append(l-i)
     y.append(result)
 
 print 'Result', max(y)

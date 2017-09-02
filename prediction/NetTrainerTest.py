@@ -38,7 +38,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(result, 47)
 
     #FIXME
-    def isInRange(self, value, expected, range=5):
+    def isInRange(self, value, expected, range=4):
         self.assertLessEqual(value, expected + range)
         self.assertGreaterEqual(value, expected - range)
 
@@ -49,13 +49,13 @@ class MyTestCase(unittest.TestCase):
 
         self.assertGreater(result_2, result_1)
         self.isInRange(result_2, 44)
-        self.isInRange(stats[0], 25)
-        self.isInRange(stats[1], 76)
+        self.isInRange(stats[0], 24)
+        self.isInRange(stats[1], 75)
         #FIXME
         #self.isInRange(stats[2], 11)
 
     def test_check_2016(self):
-        self.check_season_generic('2016', ['2015', '2014', '2013'], 42, 30, 75, 5)
+        self.check_season_generic('2016', ['2015', '2014', '2013'], 42, 30, 78, 5)
 
     def test_check_2015(self):
         self.check_season_generic('2015', ['2016', '2014', '2013'], 43, 30, 71, 4)

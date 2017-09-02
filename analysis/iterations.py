@@ -10,7 +10,7 @@ for i in range(0, n + 1):
     net = create_net()
     x.append(i)
 
-    result = train_and_check(net, ['2015'], '2016', iterations = i)
+    (result, _, _, _) = train_and_check(net, ['2015'], '2016', iterations = i)
     y.append(result)
 print 'Result', max(y)
 
