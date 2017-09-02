@@ -56,13 +56,13 @@ class MyTestCase(unittest.TestCase):
         #self.isInRange(stats[2], 11)
 
     def test_check_2016(self):
-        self.check_season_generic('2016', ['2015'], 44, 29, 75, 15)
+        self.check_season_generic('2016', ['2015'], 47, 29, 75, 15)
 
     def test_check_2015(self):
-        self.check_season_generic('2015', ['2014'], 41, 29, 80, 7)
+        self.check_season_generic('2015', ['2014'], 43, 29, 80, 7)
 
     def test_check_2014(self):
-        self.check_season_generic('2014', ['2013'], 43, 26, 81, 15)
+        self.check_season_generic('2014', ['2013'], 45, 26, 81, 15)
 
     def check_season_generic(self, season, train_seasons, expected_result, expected_0, expected_1, expected_2):
 

@@ -1,4 +1,3 @@
-- Use create_net in tests
 - make away wins stable
 - input: points of last 4,3,2,1 games
 - output: goals made by team (fuzzy) to predict exact results
@@ -6,7 +5,6 @@
 - reuse analysis
 - games.sqlite symlinks
 - tackles FIXME in code
-- iterations > 1
 - shell script for all tests
 - coverage
 - check_season: return object instead of tuple

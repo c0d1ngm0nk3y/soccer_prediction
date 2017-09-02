@@ -50,17 +50,21 @@ class TestDataGenerator(object):
             game_day_data.append((input, output, [result], game.get_home_team()))
         return game_day_data
 
-    def extractInput(self, table, trends, table_home, team):
+    def extractInput(self, table, trend_tables, table_home, team):
         pos = table.get_position(team)
         x_pos = self.get_input_for_position(pos)
 
-        trend = list(map(lambda t: t.get_position(team), trends))
-        x_trend = list(map(lambda t: self.get_input_for_position(t), trend))
+        relative_points = list(map(lambda t: 1.0*t.get_points(t.get_position(team))/t.get_points(1), trend_tables))
+        x_trend_points = list(map(lambda rp: self.get_input_for_relative_points(rp), relative_points))
 
         home = table_home.get_position(team)
         x_home = self.get_input_for_position(home)
 
-        return (pos, trend, x_pos, x_trend, home, x_home)
+        return (pos, relative_points, x_pos, x_trend_points, home, x_home)
+
+    def get_input_for_relative_points(self, fraction):
+        input = max(fraction, 0.01)
+        return round(input, 2)
 
     def get_input_for_position(self, position):
         input = max(((18 - position) / 17.0), 0.01)
