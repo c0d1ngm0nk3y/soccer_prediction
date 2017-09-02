@@ -1,17 +1,17 @@
 from data.TestDataGenerator import TestDataGenerator
 from NeuralNetwork import NN2
 
-def create_net(alpha = 0.5, input = 6, hidden = 4, output = 2):
+def create_net(alpha = 0.9, input = 6, hidden = 4, output = 2):
     net = NN2(input, hidden, output, alpha)
     return net
 
-def train_and_check(net, train_set, check, iterations = 1):
+def train_and_check(net, train_set, check, iterations = 5):
     trainer = NetTrainer(net)
     for i in range(0, iterations):
         for train in train_set:
             trainer.train_season('bl1', train)
-    (result, _, _, _) = trainer.check_season('bl1', check)
-    return result
+    tuple = trainer.check_season('bl1', check)
+    return tuple
 
 class PickLeader(object):
     def query(self, input_list):

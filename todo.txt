@@ -5,3 +5,8 @@
 - input: goals made/received comparison
 - reuse analysis
 - games.sqlite symlinks
+- tackles FIXME in code
+- iterations > 1
+- shell script for all tests
+- coverage
+- check_season: retun objrct instead of tuple
