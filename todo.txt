@@ -11,3 +11,4 @@
 - generate_from_season return object instead of tuple
 - extract_input: return object instead of tuple
 - default net is sometimes better
+- store latest reults
