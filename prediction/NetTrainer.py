@@ -5,12 +5,12 @@ def create_net(alpha=0.1, input=12, hidden=8, output=2):
     net = NN2(input, hidden, output, alpha)
     return net
 
-def train_and_check(net, train_set, check, iterations = 25):
+def train_and_check(net, train_set, check, iterations = 25, league='bl1'):
     trainer = NetTrainer(net)
     for i in range(0, iterations):
         for train in train_set:
-            trainer.train_season('bl1', train)
-    tuple = trainer.check_season('bl1', check)
+            trainer.train_season(league, train)
+    tuple = trainer.check_season(league, check)
     return tuple
 
 class PickLeader(object):

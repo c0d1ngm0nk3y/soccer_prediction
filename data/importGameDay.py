@@ -1,6 +1,6 @@
 from api import SQLiteAPI
 
-league = 'bl2'
+league = 'bl1'
 season = '2017'
 game_day = 3
 

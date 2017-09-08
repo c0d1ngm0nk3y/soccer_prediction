@@ -105,7 +105,7 @@ class SQLiteAPI(object):
         for result in game['MatchResults']:
             if result['ResultName'] == 'Endergebnis':
                 return result
-        raise Exception('No result found')
+        return {"PointsTeam1": -1, "PointsTeam2": -1}
 
     def calculate_points(self, goals1, goals2):
         if goals1 > goals2:
