@@ -1,8 +1,8 @@
 from prediction.Oracle import Oracle
-from prediction.NetTrainer import NetTrainer, create_net, train_and_check
+from prediction.NetTrainer import create_net, train_and_check
 
-LEAGUE = 'bl1'
-GAME_DAY = 3
+LEAGUE = 'bl2'
+GAME_DAY = 5
 
 def create_a_net():
     net = create_net()
