@@ -1,7 +1,7 @@
 from data.TestDataGenerator import TestDataGenerator
 from NeuralNetwork import NN2
 
-def create_net(alpha=0.1, input=12, hidden=8, output=2):
+def create_net(alpha=0.1, input=14, hidden=8, output=2):
     net = NN2(input, hidden, output, alpha)
     return net
 
@@ -16,7 +16,7 @@ def train_and_check(net, train_set, check, iterations = 25, league='bl1'):
 class PickLeader(object):
     def query(self, input_list):
         home = input_list[0]
-        away = input_list[6]
+        away = input_list[len(input_list)/2]
 
         if home > away:
             return [0.99, 0.01]

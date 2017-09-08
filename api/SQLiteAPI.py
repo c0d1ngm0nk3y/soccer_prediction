@@ -26,33 +26,53 @@ class Game(object):
     def print_it(self):
         print('%25s : %25s' % (self.get_home_team(), self.get_away_team()))
 
+class Position(object):
+    def __init__(self, data):
+        (self.name, self.points, self.diff, self.offense) = data
+
+    def print_it(self):
+        print(self.name, self.points, self.diff)
 
 class GameTable(object):
     def __init__(self, data):
-        self.data = data
+        self.positions = map(lambda d: Position(d), data)
 
     def get_name(self, position):
-        (name, _, _) = self.data[position-1]
+        name = self.positions[position-1].name
         return name
 
     def get_points(self, position):
-        (_, points, _) = self.data[position-1]
+        points = self.positions[position-1].points
         return points
 
     def get_position(self, name):
-        for i in range(1, len(self.data)+1):
+        for i in range(1, len(self.positions)+1):
             n = self.get_name(i)
             if n == name:
                 return i
         return -1
 
     def get_goal_diff(self, position):
-        (_, _, diff) = self.data[position - 1]
+        diff = self.positions[position - 1].diff
         return diff
 
     def print_data(self):
-        for x in self.data:
-            print(x)
+        for p in self.positions:
+            p.print_it()
+
+    def get_max_offense(self):
+        return max(self._get_offenses())
+
+    def get_min_offense(self):
+        return min(self._get_offenses())
+
+    def _get_offenses(self):
+        return map(lambda p: p.offense, self.positions)
+
+    def get_offense(self, name):
+        pos = self.get_position(name)
+        offense = self.positions[pos - 1].offense
+        return offense
 
 
 class SQLiteAPI(object):
@@ -141,12 +161,12 @@ class SQLiteAPI(object):
     def get_game_table_generic(self, league, season, game_day, additional_prop, binding):
         self.conn = sqlite3.connect('games.sqlite')
         c = self.conn.cursor()
-        data = c.execute("SELECT team, SUM(points), SUM(goals_own - goals_opponent)"
+        data = c.execute("SELECT team, SUM(points), SUM(goals_own - goals_opponent), SUM(goals_own)"
                          "FROM results "
                          "WHERE league = ? and season = ? and game_day <= ? and {0} ? "
                          ""
                          "GROUP BY team "
-                         "ORDER BY 2 DESC, 3 DESC".format(additional_prop),
+                         "ORDER BY 2 DESC, 3 DESC, 4 DESC".format(additional_prop),
                          [league, season, game_day, binding]).fetchall()
         self.conn.close()
 
