@@ -6,6 +6,11 @@ class TestDataInput(object):
         self.trend_points = x_trend_points
         self.home = x_home
 
+    def fill_input(self, input):
+        input.extend([self.pos, self.home])
+        input.extend(self.trend_points)
+
+
 class TestDataGenerator(object):
 
     def __init__(self):
@@ -45,17 +50,14 @@ class TestDataGenerator(object):
             y_points_away = self.get_output_for_points(ap, hp)
 
             result = self.calculate_result(hp, ap)
+
             input = []
-            self.add_input(input, input_home)
-            self.add_input(input, input_away)
+            input_home.fill_input(input)
+            input_away.fill_input(input)
 
             output = [y_points_home, y_points_away]
             game_day_data.append((input, output, [result], game.get_home_team()))
         return game_day_data
-
-    def add_input(self, input, data_input):
-        input.extend([data_input.pos, data_input.home])
-        input.extend(data_input.trend_points)
 
     def extractInput(self, table, trend_tables, table_home, team):
         pos = table.get_position(team)
