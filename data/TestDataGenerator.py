@@ -1,5 +1,11 @@
 from api.SQLiteAPI import SQLiteAPI
 
+class TestDataInput(object):
+    def __init__(self, x_pos, x_trend_points, x_home):
+        self.pos = x_pos
+        self.trend_points = x_trend_points
+        self.home = x_home
+
 class TestDataGenerator(object):
 
     def __init__(self):
@@ -29,26 +35,27 @@ class TestDataGenerator(object):
         for game in game_day:
             ht = game.get_home_team()
             hp = game.get_home_points()
-            (pos_home, pos_home_trend, x_pos_home, x_pos_home_trend, home_home, x_home_home) =\
-                self.extractInput(table, trends, table_home, ht)
+            input_home = self.extractInput(table, trends, table_home, ht)
 
             at = game.get_away_team()
             ap = game.get_away_points()
-            (pos_away, pos_away_trend, x_pos_away, x_pos_away_trend, home_away, x_home_away) =\
-                self.extractInput(table, trends, table_away, at)
+            input_away = self.extractInput(table, trends, table_away, at)
 
             y_points_home = self.get_output_for_points(hp, ap)
             y_points_away = self.get_output_for_points(ap, hp)
 
             result = self.calculate_result(hp, ap)
-            input = [x_pos_home, x_home_home]
-            input.extend(x_pos_home_trend)
-            input.extend([x_pos_away, x_home_away])
-            input.extend(x_pos_away_trend)
+            input = []
+            self.add_input(input, input_home)
+            self.add_input(input, input_away)
 
             output = [y_points_home, y_points_away]
             game_day_data.append((input, output, [result], game.get_home_team()))
         return game_day_data
+
+    def add_input(self, input, data_input):
+        input.extend([data_input.pos, data_input.home])
+        input.extend(data_input.trend_points)
 
     def extractInput(self, table, trend_tables, table_home, team):
         pos = table.get_position(team)
@@ -60,7 +67,7 @@ class TestDataGenerator(object):
         home = table_home.get_position(team)
         x_home = self.get_input_for_position(home)
 
-        return (pos, relative_points, x_pos, x_trend_points, home, x_home)
+        return TestDataInput(x_pos, x_trend_points, x_home)
 
     def get_input_for_relative_points(self, fraction):
         input = max(fraction, 0.01)

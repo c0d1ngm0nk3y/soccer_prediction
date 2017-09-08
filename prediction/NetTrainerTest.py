@@ -48,7 +48,7 @@ class MyTestCase(unittest.TestCase):
         (result_2, _, _, stats) = train_and_check(self.net, ['2015'], '2016')
 
         self.assertGreater(result_2, result_1)
-        self.isInRange(result_2, 45, range=2)
+        self.isInRange(result_2, 45, range=3)
 
         #FIXME
         #self.isInRange(stats[0], 30)
@@ -68,7 +68,7 @@ class MyTestCase(unittest.TestCase):
 
         (result, _, _, stats) = train_and_check(self.net, train_seasons, season)
 
-        self.isInRange(result, expected_result, range=2)
+        self.isInRange(result, expected_result, range=3)
 
         #FIXME
         #self.isInRange(stats[0], expected_0, range=8)
