@@ -12,3 +12,4 @@
 - extract_input: return object instead of tuple
 - default net is sometimes better
 - store latest reults
+- code duplication: get_offense / get_defense

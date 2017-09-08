@@ -56,7 +56,7 @@ class MyTestCase(unittest.TestCase):
         #self.isInRange(stats[2], 11)
 
     def test_check_2016(self):
-        self.check_season_generic('2016', ['2015'], 44, 29, 75, 15)
+        self.check_season_generic('2016', ['2015'], 46, 29, 75, 15)
 
     def test_check_2015(self):
         self.check_season_generic('2015', ['2014'], 43, 29, 80, 7)

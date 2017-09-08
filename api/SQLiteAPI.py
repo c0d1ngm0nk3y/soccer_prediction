@@ -28,7 +28,7 @@ class Game(object):
 
 class Position(object):
     def __init__(self, data):
-        (self.name, self.points, self.diff, self.offense) = data
+        (self.name, self.points, self.diff, self.offense, self.defense) = data
 
     def print_it(self):
         print(self.name, self.points, self.diff)
@@ -73,6 +73,20 @@ class GameTable(object):
         pos = self.get_position(name)
         offense = self.positions[pos - 1].offense
         return offense
+
+    def get_max_defense(self):
+        return max(self._get_defenses())
+
+    def get_min_defense(self):
+        return min(self._get_defenses())
+
+    def _get_defenses(self):
+        return map(lambda p: p.defense, self.positions)
+
+    def get_defense(self, name):
+        pos = self.get_position(name)
+        defense = self.positions[pos - 1].defense
+        return defense
 
 
 class SQLiteAPI(object):
@@ -161,7 +175,7 @@ class SQLiteAPI(object):
     def get_game_table_generic(self, league, season, game_day, additional_prop, binding):
         self.conn = sqlite3.connect('games.sqlite')
         c = self.conn.cursor()
-        data = c.execute("SELECT team, SUM(points), SUM(goals_own - goals_opponent), SUM(goals_own)"
+        data = c.execute("SELECT team, SUM(points), SUM(goals_own - goals_opponent), SUM(goals_own), SUM(goals_opponent)"
                          "FROM results "
                          "WHERE league = ? and season = ? and game_day <= ? and {0} ? "
                          ""

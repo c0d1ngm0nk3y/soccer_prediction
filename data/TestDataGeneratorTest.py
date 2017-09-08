@@ -13,16 +13,20 @@ class GenerateData(unittest.TestCase):
         self.assertTrue(len(data) > 100)
         self.assertTrue(len(data) < 1000)
 
-        input_size = 14
+        input_size = 16
 
         offenses = []
+        defenses = []
+
         for d in data:
             (input, output, result, home_team) = d
             self.assertEqual(len(input), input_size)
             self.assertTrue(len(output) == 2)
             self.assertTrue(len(result) == 1)
 
-            offenses.extend([input[6], input[13]])
+            offenses.extend([input[6], input[(len(input) / 2) + 6]])
+            defenses.extend([input[7], input[(len(input) / 2) + 7]])
+
             for i in range(0, input_size):
                 self.assertTrue(input[i] > 0)
                 self.assertTrue(input[i] <= 1)
@@ -34,6 +38,9 @@ class GenerateData(unittest.TestCase):
             self.assertTrue(result[0] in [0,1,2])
         self.assertEqual(max(offenses), 1)
         self.assertLess(min(offenses), 0.1)
+
+        self.assertEqual(max(defenses), 1)
+        self.assertLess(min(defenses), 0.1)
 
     def test_get_output_0_0(self):
         output = self.gen.get_output_for_points(0,0)
