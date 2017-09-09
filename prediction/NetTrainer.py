@@ -1,11 +1,11 @@
 from data.TestDataGenerator import TestDataGenerator
 from NeuralNetwork import NN2
 
-def create_net(alpha=0.2, input=16, hidden=14, output=2):
+def create_net(alpha=0.075, input=16, hidden=14, output=2):
     net = NN2(input, hidden, output, alpha)
     return net
 
-def train_and_check(net, train_set, check, iterations = 25, league='bl1'):
+def train_and_check(net, train_set=['2013', '2014', '2015'], check='2016', iterations = 10, league='bl1'):
     trainer = NetTrainer(net)
     for i in range(0, iterations):
         for train in train_set:

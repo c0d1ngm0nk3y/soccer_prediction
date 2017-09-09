@@ -3,15 +3,15 @@ from analysis.Util import show_plot
 
 x = []
 y = []
-STEP = 0.05
+STEP = 0.025
 
-n = 15
+n = 16
 for i in range(0, n + 1):
     alpha = STEP * i
     net = create_net(alpha = alpha)
     x.append(alpha)
 
-    (result, _, _, _) = train_and_check(net, ['2015'], '2016')
+    (result, _, _, _) = train_and_check(net)
     print 'Executed with alpha', i * STEP, ':', result
 
     y.append(result)

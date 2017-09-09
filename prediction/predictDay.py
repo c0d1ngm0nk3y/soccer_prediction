@@ -6,7 +6,7 @@ GAME_DAY = 5
 
 def create_a_net():
     net = create_net()
-    (result, _, _, _) = train_and_check(net, ['2013','2014','2015','2016'], '2016', league=LEAGUE)
+    (result, _, _, _) = train_and_check(net, ['2011','2012','2013','2014','2015','2016'], '2016', league=LEAGUE)
     print 'train:', result, '%'
     return net
 

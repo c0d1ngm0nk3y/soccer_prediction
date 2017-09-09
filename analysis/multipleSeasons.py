@@ -1,6 +1,5 @@
-import matplotlib.pyplot as plt
-
 from prediction.NetTrainer import create_net, train_and_check
+from analysis.Util import show_plot
 
 x = []
 y = []
@@ -12,11 +11,9 @@ l = len(seasons)
 
 for i in range(0, l+1):
     (result, _, _, _) = train_and_check(net, seasons[i:], '2016')
+    print 'Executed with', l-i, 'seasons:', result
+
     x.append(l-i)
     y.append(result)
 
-print 'Result', max(y)
-
-plt.plot(x, y, 'ro')
-plt.axis([0, i, 0, 100])
-plt.show()
+show_plot(x, y, i)

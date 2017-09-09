@@ -13,3 +13,6 @@
 - show confidence
 - when print a game day: show percentage
 - get rid of print_it methods
+- dynamic iterations at learning
+- adapt alpha
+- error rate
