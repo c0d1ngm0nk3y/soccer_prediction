@@ -1,20 +1,16 @@
-import matplotlib.pyplot as plt
-
 from prediction.NetTrainer import create_net, train_and_check
+from analysis.Util import show_plot
 
 x = []
 y = []
 
-n = 30
-for i in range(0, n + 1):
-    alpha = 1.1
+n = 20
+for i in range(1, n + 1):
     net = create_net(hidden = i)
     x.append(i)
 
-    result = train_and_check(net, ['2015'], '2016')
+    (result, _, _, _) = train_and_check(net, ['2015'], '2016')
+    print 'Executed with', i, 'hidden layers:', result
     y.append(result)
-print 'Result', max(y)
 
-plt.plot(x, y, 'ro')
-plt.axis([0, n, 0, 100])
-plt.show()
+show_plot(x, y, n)

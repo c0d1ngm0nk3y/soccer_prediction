@@ -1,21 +1,19 @@
-import matplotlib.pyplot as plt
-
 from prediction.NetTrainer import create_net, train_and_check
+from analysis.Util import show_plot
 
 x = []
 y = []
+STEP = 0.05
 
-n = 25
+n = 15
 for i in range(0, n + 1):
-    alpha = 0.1 * i
+    alpha = STEP * i
     net = create_net(alpha = alpha)
     x.append(alpha)
 
     (result, _, _, _) = train_and_check(net, ['2015'], '2016')
+    print 'Executed with alpha', i * STEP, ':', result
+
     y.append(result)
 
-print 'Result', max(y)
-
-plt.plot(x, y, 'ro')
-plt.axis([0, n * 0.1, 0, 100])
-plt.show()
+show_plot(x, y, n * STEP)

@@ -1,15 +1,15 @@
 - make away wins stable
-- input: points of last 4,3,2,1 games
 - output: goals made by team (fuzzy) to predict exact results
 - input: goals made/received comparison
-- reuse analysis
 - games.sqlite symlinks
-- tackles FIXME in code
+- tackle FIXME in code
 - shell script for all tests
 - coverage
 - check_season: return object instead of tuple
 - generate_from_season return object instead of tuple
-- extract_input: return object instead of tuple
 - default net is sometimes better
 - store latest reults
 - code duplication: get_offense / get_defense
+- show confidence
+- when print a game day: show percentage
+- get rid of print_it methods
