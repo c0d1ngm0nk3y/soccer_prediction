@@ -52,19 +52,19 @@ class GenerateData(unittest.TestCase):
 
     def test_get_output_1_0(self):
         output = self.gen.get_output_for_points(1, 0)
-        self.assertEqual(0.65, output)
+        self.assertEqual(0.75, output)
 
     def test_get_output_2_1(self):
         output = self.gen.get_output_for_points(2, 1)
-        self.assertEqual(0.65, output)
+        self.assertEqual(0.75, output)
 
     def test_get_output_4_2(self):
         output = self.gen.get_output_for_points(4, 2)
-        self.assertEqual(0.8, output)
+        self.assertEqual(0.99, output)
 
     def test_get_output_3_0(self):
         output = self.gen.get_output_for_points(3, 0)
-        self.assertEqual(0.95, output)
+        self.assertEqual(0.99, output)
 
     def test_get_output_0_10(self):
         output = self.gen.get_output_for_points(0, 10)
@@ -76,7 +76,7 @@ class GenerateData(unittest.TestCase):
 
     def test_get_output_0_2(self):
         output = self.gen.get_output_for_points(0, 2)
-        self.assertEqual(0.2, output)
+        self.assertEqual(0.01, output)
 
     def test_get_input_1(self):
         input = self.gen.get_input_for_position(1)

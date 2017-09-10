@@ -6,7 +6,7 @@ def create_net(alpha=0.05, input=16, hidden=14, output=2):
     net = NN2(input, hidden, output, alpha)
     return net
 
-def train_and_check(net, train_set=['2013', '2014', '2015'], check='2016', max_iterations = 100, league='bl1', min_delta=0.2):
+def train_and_check(net, train_set=['2013', '2014', '2015'], check='2016', max_iterations = 10, league='bl1', min_delta=0.2):
     trainer = NetTrainer(net)
     error = 999
     for i in range(0, max_iterations):

@@ -63,11 +63,21 @@ class PredictedResult(object):
     def set_out(self, v_out):
         self.v_out = v_out
 
+    def get_correct_prediction_marker(self):
+        a = self.get_prediction()
+        b = self.get_actual_result()
+
+        if a == b:
+            return 'X'
+        else:
+            return ''
+
     def print_it(self, debug = False):
-        print('%25s : %25s  =>  %i%%: %i (%i:%i) / %i (%i:%i)'
+        print('%25s : %25s  =>  %.2i%%: %i (%i:%i) / %i (%i:%i) %s'
               % (self.get_home_team(), self.get_away_team(), self.get_confidence(), self.get_prediction(),
                  self.get_predicted_home_points(), self.get_predicted_away_points(),
-                 self.get_actual_result(), self.get_home_points(), self.get_away_points()))
+                 self.get_actual_result(), self.get_home_points(), self.get_away_points(),
+                 self.get_correct_prediction_marker()))
         if debug:
             print self.v_in, '=>', self.v_out[0], self.v_out[1]
 
