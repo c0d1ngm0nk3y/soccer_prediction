@@ -20,3 +20,9 @@
 - test: best selected net
 - logging
 - alpha pro train
+
+next:
+- coverage
+- confidence
+- predict exact result
+- fix coverage
