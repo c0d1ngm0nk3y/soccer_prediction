@@ -138,6 +138,9 @@ class SQLiteAPI(object):
         self.conn.close()
 
     def get_result(self, game):
+        if not len(game):
+            return None
+
         for result in game['MatchResults']:
             if result['ResultName'] == 'Endergebnis':
                 return result

@@ -22,7 +22,9 @@
 - alpha pro train
 
 next:
-- coverage
 - confidence
+- delta for draw > 0.05
 - predict exact result
+- make tests stable
+- coverage
 - fix coverage

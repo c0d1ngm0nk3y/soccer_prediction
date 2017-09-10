@@ -49,6 +49,22 @@ class PredictedResult(object):
         else:
             return 0
 
+    def get_confidence(self):
+        outcome = self.get_prediction()
+        confidence = 0
+
+        if outcome == 1:
+            delta = self.v_out[0] - self.v_out[1]
+            confidence = delta * 100
+        elif outcome == 2:
+            delta = self.v_out[1] - self.v_out[0]
+            confidence = delta * 100
+        else:
+            delta = abs(self.v_out[0] - self.v_out[1])
+            confidence = 100 - (delta * 100)
+
+        return round(min(confidence, 99))
+
     def get_prediction(self):
         prediction = self.trainer.interprete(self.v_out)
         return prediction
@@ -60,8 +76,8 @@ class PredictedResult(object):
         self.v_out = v_out
 
     def print_it(self, debug = False):
-        print('%25s : %25s  =>  %i (%i:%i) / %i (%i:%i)'
-              % (self.get_home_team(), self.get_away_team(), self.get_prediction(),
+        print('%25s : %25s  =>  %i%%: %i (%i:%i) / %i (%i:%i)'
+              % (self.get_home_team(), self.get_away_team(), self.get_confidence(), self.get_prediction(),
                  self.get_predicted_home_points(), self.get_predicted_away_points(),
                  self.get_actual_result(), self.get_home_points(), self.get_away_points()))
         if debug:
