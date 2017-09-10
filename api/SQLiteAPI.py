@@ -30,6 +30,13 @@ class Position(object):
     def __init__(self, data):
         (self.name, self.points, self.diff, self.offense, self.defense) = data
 
+    def __getitem__(self, item):
+        if item == 'defense':
+            return self.defense
+        elif item == 'offense':
+            return self.offense
+        return None
+
     def print_it(self):
         print(self.name, self.points, self.diff)
 
@@ -60,33 +67,28 @@ class GameTable(object):
         for p in self.positions:
             p.print_it()
 
-    def get_max_offense(self):
-        return max(self._get_offenses())
+    def _get_max_offense(self):
+        return max(self._get_position_property('offense'))
 
-    def get_min_offense(self):
-        return min(self._get_offenses())
+    def _get_min_offense(self):
+        return min(self._get_position_property('offense'))
 
-    def _get_offenses(self):
-        return map(lambda p: p.offense, self.positions)
-
-    def get_offense(self, name):
+    def get_property(self, name, property):
         pos = self.get_position(name)
-        offense = self.positions[pos - 1].offense
-        return offense
+        value = self.positions[pos - 1][property]
+        return value
 
-    def get_max_defense(self):
-        return max(self._get_defenses())
+    def get_agg_property(self, agg, property):
+        return agg(self._get_position_property(property))
 
-    def get_min_defense(self):
-        return min(self._get_defenses())
+    def _get_max_defense(self):
+        return max(self._get_position_property('defense'))
 
-    def _get_defenses(self):
-        return map(lambda p: p.defense, self.positions)
+    def _get_min_defense(self):
+        return min(self._get_position_property('defense'))
 
-    def get_defense(self, name):
-        pos = self.get_position(name)
-        defense = self.positions[pos - 1].defense
-        return defense
+    def _get_position_property(self, property):
+        return map(lambda p: p[property], self.positions)
 
 
 class SQLiteAPI(object):

@@ -1,17 +1,16 @@
 from api.SQLiteAPI import SQLiteAPI
 
 class TestDataInput(object):
-    def __init__(self, x_pos, x_trend_points, x_home, x_offense, x_defense):
+    def __init__(self, x_pos, x_trend_points, x_home, x_goals):
         self.pos = x_pos
         self.trend_points = x_trend_points
         self.home = x_home
-        self.offense = x_offense
-        self.defense = x_defense
+        self.goals = x_goals
 
     def fill_input(self, input):
         input.extend([self.pos, self.home])
         input.extend(self.trend_points)
-        input.extend([self.offense,self.defense])
+        input.extend(self.goals)
 
 
 class TestDataGenerator(object):
@@ -71,26 +70,17 @@ class TestDataGenerator(object):
 
         home = table_home.get_position(team)
         x_home = self.get_input_for_position(home)
-        x_offense = self.get_offense(team, table)
-        x_defense = self.get_defense(team, table)
+        offense = self.get_relative_table_property(team, table, 'offense')
+        defense = self.get_relative_table_property(team, table, 'defense')
+        x_goals = [offense, defense]
 
-        return TestDataInput(x_pos, x_trend_points, x_home, x_offense, x_defense)
+        return TestDataInput(x_pos, x_trend_points, x_home, x_goals)
 
-    def get_offense(self, team, table):
-        _max = table.get_max_offense()
-        _min = table.get_min_offense()
+    def get_relative_table_property(self, team, table, property):
+        _max = table.get_agg_property(max, property)
+        _min = table.get_agg_property(min, property)
 
-        x = table.get_offense(team)
-        delta = max(x -_min, 0.1)
-        delta_max = max(_max - _min, 0.1)
-        value = 1.0 * delta / delta_max
-        return max(round(value, 2), 0.01)
-
-    def get_defense(self, team, table):
-        _max = table.get_max_defense()
-        _min = table.get_min_defense()
-
-        x = table.get_defense(team)
+        x = table.get_property(team, property)
         delta = max(x -_min, 0.1)
         delta_max = max(_max - _min, 0.1)
         value = 1.0 * delta / delta_max
