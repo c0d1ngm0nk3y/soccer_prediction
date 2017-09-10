@@ -18,3 +18,5 @@
 - iterative selection for prediction
 - allow large train sets
 - test: best selected net
+- logging
+- alpha pro train

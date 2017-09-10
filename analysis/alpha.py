@@ -5,7 +5,7 @@ x = []
 y = []
 STEP = 0.025
 
-n = 16
+n = 12
 for i in range(0, n + 1):
     alpha = STEP * i
     net = create_net(alpha = alpha)

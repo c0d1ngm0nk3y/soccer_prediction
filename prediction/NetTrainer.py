@@ -1,15 +1,21 @@
 from data.TestDataGenerator import TestDataGenerator
 from NeuralNetwork import NN2
 
-def create_net(alpha=0.075, input=16, hidden=14, output=2):
+def create_net(alpha=0.05, input=16, hidden=14, output=2):
     net = NN2(input, hidden, output, alpha)
     return net
 
-def train_and_check(net, train_set=['2013', '2014', '2015'], check='2016', iterations = 10, league='bl1'):
+def train_and_check(net, train_set=['2013', '2014', '2015'], check='2016', max_iterations = 100, league='bl1', min_delta=0.2):
     trainer = NetTrainer(net)
-    for i in range(0, iterations):
-        for train in train_set:
-            trainer.train_season(league, train)
+    error = 999
+    for i in range(0, max_iterations):
+        prev_error = error
+        error = trainer.train_seasons(league, train_set)
+        delta = prev_error - error
+        #print 'iteration', i + 1, 'error:', error, 'delta:', delta
+        if delta < min_delta:
+            break
+
     tuple = trainer.check_season(league, check)
     return tuple
 
@@ -44,12 +50,20 @@ class NetTrainer(object):
         self.hits = 0
         self.statistics = [0, 0, 0]
 
-    def train_season(self, league, season):
-        season_data = self.generator.generateFromSeason(league, season)
+    def train_seasons(self, league, seasons):
+        train_data = []
+        for season in seasons:
+            season_data = self.generator.generateFromSeason(league, season)
+            train_data.extend(season_data)
 
-        for data in season_data:
+        total_error = 0
+        for data in train_data:
             (input, output, result, _) = data
-            self.net.train(input, output)
+            (_, errors) = self.net.train(input, output)
+            single_error = abs(errors[0][0]) + abs(errors[1][0])
+            total_error = total_error + single_error
+
+        return total_error
 
     def check_season(self, league, season):
         season_data = self.generator.generateFromSeason(league, season)

@@ -9,7 +9,7 @@ for i in range(1, n + 1):
     net = create_net(hidden = i)
     x.append(i)
 
-    (result, _, _, _) = train_and_check(net, ['2015'], '2016')
+    (result, _, _, _) = train_and_check(net)
     print 'Executed with', i, 'hidden layers:', result
     y.append(result)
 
