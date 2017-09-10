@@ -8,10 +8,13 @@
 - check_season: return object instead of tuple
 - generate_from_season return object instead of tuple
 - default net is sometimes better
-- store latest reults
+- store latest results
 - show confidence
 - when print a game day: show percentage
 - get rid of print_it methods
 - dynamic iterations at learning
 - adapt alpha
 - error rate
+- iterative selection for prediction
+- allow large train sets
+- test: best selected net
