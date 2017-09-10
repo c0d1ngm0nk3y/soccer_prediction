@@ -50,20 +50,8 @@ class PredictedResult(object):
             return 0
 
     def get_confidence(self):
-        outcome = self.get_prediction()
-        confidence = 0
-
-        if outcome == 1:
-            delta = self.v_out[0] - self.v_out[1]
-            confidence = delta * 100
-        elif outcome == 2:
-            delta = self.v_out[1] - self.v_out[0]
-            confidence = delta * 100
-        else:
-            delta = abs(self.v_out[0] - self.v_out[1])
-            confidence = 100 - (delta * 100)
-
-        return round(min(confidence, 99))
+        confidence = self.trainer.calculate_confidence(self.v_out)
+        return confidence
 
     def get_prediction(self):
         prediction = self.trainer.interprete(self.v_out)

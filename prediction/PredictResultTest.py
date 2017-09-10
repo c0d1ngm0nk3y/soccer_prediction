@@ -1,5 +1,6 @@
+from __future__ import absolute_import
 import unittest
-from Oracle import PredictedResult
+from prediction.Oracle import PredictedResult
 
 
 class PredictResultTest(unittest.TestCase):

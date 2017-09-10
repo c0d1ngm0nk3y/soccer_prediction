@@ -1,4 +1,5 @@
 from api.SQLiteAPI import SQLiteAPI
+from prediction.Util import calculate_output_for_points
 
 class TestDataInput(object):
     def __init__(self, x_pos, x_trend_points, x_home, x_goals):
@@ -95,9 +96,7 @@ class TestDataGenerator(object):
         return round(input, 2)
 
     def get_output_for_points(self, x, y):
-        diff = x - y
-        out = 0.5 + (0.15 * diff)
-        out = max(min(out, 0.99), 0.01)
+        out = calculate_output_for_points(x, y)
         return out
 
     def calculate_result(self, home, away):
