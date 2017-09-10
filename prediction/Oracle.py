@@ -25,6 +25,16 @@ class PredictedResult(object):
     def get_away_points(self):
         return int(self.game['PointsTeam2'])
 
+    def get_actual_result(self):
+        p1 = self.get_home_points()
+        p2 = self.get_away_points()
+        if p1 > p2:
+            return 1
+        elif p2 > p1:
+            return 2
+        else:
+            return 0
+
     def get_predicted_home_points(self):
         prediction = self.get_prediction()
         if prediction == 1:
@@ -50,10 +60,10 @@ class PredictedResult(object):
         self.v_out = v_out
 
     def print_it(self, debug = False):
-        print('%25s : %25s  =>  %i (%i:%i) / %i:%i'
+        print('%25s : %25s  =>  %i (%i:%i) / %i (%i:%i)'
               % (self.get_home_team(), self.get_away_team(), self.get_prediction(),
                  self.get_predicted_home_points(), self.get_predicted_away_points(),
-                 self.get_home_points(), self.get_away_points()))
+                 self.get_actual_result(), self.get_home_points(), self.get_away_points()))
         if debug:
             print self.v_in, '=>', self.v_out[0], self.v_out[1]
 
