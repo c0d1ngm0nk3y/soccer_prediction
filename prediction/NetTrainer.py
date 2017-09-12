@@ -66,22 +66,25 @@ class NetTrainer(object):
 
         return total_error
 
+    def check_game_day(self, league, season, game_day):
+        game_day_data = self.generator.genererateFromGameDay(league, season, game_day)
+        rc = self._check_data(game_day_data)
+        return rc
+
     def check_season(self, league, season):
         season_data = self.generator.generateFromSeason(league, season)
+        rc = self._check_data(season_data)
+        return rc
 
+    def _check_data(self, all_data):
         self._reset_statistics()
-        for data in season_data:
+        for data in all_data:
             (input, output, result, _) = data
             result = result[0]
             query_output = self.net.query(input)
             query_result = self.interprete(query_output)
-            #if result == 0:
-                #print query_result, query_output
-
             self._update_statistics(result, query_result)
-
         rc = self._get_result()
-
         return rc
 
     def _reset_statistics(self):

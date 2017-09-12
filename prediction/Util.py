@@ -18,13 +18,13 @@ def calculate_confidence(out):
 
     if outcome == 1:
         delta = out[0] - out[1] - (2*THRESHOLD)
-        confidence = delta / (1 - (2*THRESHOLD)) * 100
+        confidence = 50 + delta / (1 - (2*THRESHOLD)) * 50
     elif outcome == 2:
         delta = out[1] - out[0] - (2 * THRESHOLD)
-        confidence = delta / (1 - (2 * THRESHOLD)) * 100
+        confidence = 50 + delta / (1 - (2 * THRESHOLD)) * 50
     else:
         delta = abs(out[0] - out[1])
-        confidence = 100 - ((delta / (MID_POINT + THRESHOLD)) * 100)
+        confidence = 100 - ((delta / (2 * THRESHOLD)) * 50)
 
     return round(max(min(confidence, 99), 0.01))
 
