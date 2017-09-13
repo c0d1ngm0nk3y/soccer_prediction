@@ -41,6 +41,13 @@ class PickHome(object):
     def train(self, input_list, target_list):
         pass
 
+class PickAway(object):
+    def query(self, input_list):
+        return [0.01, 0.99]
+
+    def train(self, input_list, target_list):
+        pass
+
 
 class NetTrainer(object):
 
