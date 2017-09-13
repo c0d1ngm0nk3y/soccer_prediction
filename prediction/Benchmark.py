@@ -13,7 +13,6 @@ PAST_RESULTS = [ GameDayResult('bl1', '2017', 3, 3),
 
 def verify(net):
     trainer = NetTrainer(net)
-
     expected = 0
     actual = 0
 
@@ -23,7 +22,7 @@ def verify(net):
         actual = actual + actual_hits
 
     verified = actual >= expected
-    if not verified:
-        print actual, 'results correct, expected ', expected
+    #if not verified:
+     #   print actual, 'results correct, expected ', expected
 
     return verified

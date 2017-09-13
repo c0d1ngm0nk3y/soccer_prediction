@@ -1,5 +1,6 @@
 from prediction.NetTrainer import create_net, train_and_check
 from analysis.Util import show_plot
+from prediction.Benchmark import verify
 
 x = []
 y = []
@@ -12,7 +13,8 @@ for i in range(0, n + 1):
     x.append(alpha)
 
     (result, _, _, _) = train_and_check(net)
-    print 'Executed with alpha', i * STEP, ':', result
+    verified = verify(net)
+    print 'Executed with alpha', i * STEP, ':', result, 'verified', verified
 
     y.append(result)
 
