@@ -20,6 +20,13 @@ class BenchmarkTest(unittest.TestCase):
                 break
         self.assertTrue(verified)
 
+    def test_default_net_will_predict_each(self):
+        net = create_net()
+        (_, _, _, stats) = train_and_check(net)
+
+        self.assertGreater(stats[0], 1)
+        self.assertGreater(stats[1], 1)
+        self.assertGreater(stats[2], 1)
 
 if __name__ == '__main__':
     unittest.main()
