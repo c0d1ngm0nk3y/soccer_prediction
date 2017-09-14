@@ -28,3 +28,4 @@ next:
 - make tests stable
 - coverage
 - fix coverage
+- pylint
