@@ -24,8 +24,8 @@ for i in range(TRIES):
     if not net:
         raise BaseException('no net created')
 
-oracle = Oracle(net)
-games = oracle.predict_game_day(LEAGUE, '2017', GAME_DAY)
-for game in games:
+ORACLE = Oracle(net)
+GAMES = ORACLE.predict_game_day(LEAGUE, '2017', GAME_DAY)
+for game in GAMES:
     game.print_it(False)
 

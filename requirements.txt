@@ -3,3 +3,4 @@ scipy==0.13.1
 requests==2.18.1
 pandas==0.20.3
 coverage==4.4.1
+pylint==1.7.2
