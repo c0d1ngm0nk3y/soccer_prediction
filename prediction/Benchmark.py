@@ -23,6 +23,6 @@ def verify(net):
 
     verified = actual >= expected
     #if not verified:
-     #   print actual, 'results correct, expected ', expected
+    #print actual, 'results correct, expected ', expected
 
     return verified

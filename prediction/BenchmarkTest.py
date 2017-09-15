@@ -1,12 +1,12 @@
 from __future__ import absolute_import
 import unittest
 from prediction.Benchmark import verify
-from prediction.NetTrainer import PickAway, create_net, train_and_check
+from prediction.NetTrainer import PickDraw, create_net, train_and_check
 
 
 class BenchmarkTest(unittest.TestCase):
-    def test_PickAway_will_not_verify(self):
-        net = PickAway()
+    def test_PickLeader_will_not_verify(self):
+        net = PickDraw()
         verified = verify(net)
         self.assertFalse(verified)
 

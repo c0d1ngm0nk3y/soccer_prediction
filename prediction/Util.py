@@ -28,8 +28,8 @@ def calculate_confidence(out):
 
     return round(max(min(confidence, 99), 0.01))
 
-def calculate_output_for_points(x, y):
-    diff = x - y
+def calculate_output_for_points(points_a, points_b):
+    diff = points_a - points_b
     out = MID_POINT + (DIFF_PER_GOAL * diff)
     out = max(min(out, 0.99), 0.01)
     return out

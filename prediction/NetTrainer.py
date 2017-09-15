@@ -33,7 +33,6 @@ class PickLeader(object):
     def train(self, input_list, target_list):
         pass
 
-
 class PickHome(object):
     def query(self, input_list):
         return [0.99, 0.01]
@@ -44,6 +43,13 @@ class PickHome(object):
 class PickAway(object):
     def query(self, input_list):
         return [0.01, 0.99]
+
+    def train(self, input_list, target_list):
+        pass
+
+class PickDraw(object):
+    def query(self, input_list):
+        return [0.5, 0.5]
 
     def train(self, input_list, target_list):
         pass
