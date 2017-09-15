@@ -3,7 +3,7 @@ from prediction.NetTrainer import create_net, train_and_check
 from prediction.Benchmark import verify
 
 LEAGUE = 'bl1'
-GAME_DAY = 3
+GAME_DAY = 4
 BEST_OF_N = 3
 TRIES = 1
 
