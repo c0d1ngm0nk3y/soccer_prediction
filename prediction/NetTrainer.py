@@ -1,5 +1,5 @@
 from data.TestDataGenerator import TestDataGenerator
-from NeuralNetwork import NN2
+from net.NeuralNetwork import NN2
 from prediction.Util import calculate_confidence, interprete
 
 def create_net(alpha=0.05, input=16, hidden=14, output=2):

@@ -2,7 +2,6 @@ from __future__ import absolute_import
 import unittest
 from data.TestDataGenerator import TestDataGenerator
 
-
 class GenerateData(unittest.TestCase):
     def setUp(self):
         self.gen = TestDataGenerator()

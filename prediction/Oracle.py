@@ -1,7 +1,7 @@
 from api.OpenLigaDB import OpenLigaDB
+from api.SQLiteAPI import SQLiteAPI
 from data.TestDataGenerator import TestDataGenerator
 from prediction.NetTrainer import NetTrainer
-from api.SQLiteAPI import SQLiteAPI
 
 class PredictedResult(object):
     def __init__(self, data):
@@ -26,28 +26,28 @@ class PredictedResult(object):
         return int(self.game['PointsTeam2'])
 
     def get_actual_result(self):
-        p1 = self.get_home_points()
-        p2 = self.get_away_points()
-        if p1 > p2:
+        points_1 = self.get_home_points()
+        points_2 = self.get_away_points()
+        if points_1 > points_2:
             return 1
-        elif p2 > p1:
+        elif points_2 > points_1:
             return 2
-        else:
-            return 0
+
+        return 0
 
     def get_predicted_home_points(self):
         prediction = self.get_prediction()
         if prediction == 1:
             return 1
-        else:
-            return 0
+
+        return 0
 
     def get_predicted_away_points(self):
         prediction = self.get_prediction()
         if prediction == 2:
             return 1
-        else:
-            return 0
+
+        return 0
 
     def get_confidence(self):
         confidence = self.trainer.calculate_confidence(self.v_out)
@@ -64,19 +64,20 @@ class PredictedResult(object):
         self.v_out = v_out
 
     def get_correct_prediction_marker(self):
-        a = self.get_prediction()
-        b = self.get_actual_result()
+        prediction = self.get_prediction()
+        actual_result = self.get_actual_result()
 
-        if a == b:
+        if prediction == actual_result:
             return 'X'
-        else:
-            return ''
 
-    def print_it(self, debug = False):
+        return ''
+
+    def print_it(self, debug=False):
         print('%25s : %25s  =>  %.2i%%: %i (%i:%i) / %i (%i:%i) %s'
-              % (self.get_home_team(), self.get_away_team(), self.get_confidence(), self.get_prediction(),
-                 self.get_predicted_home_points(), self.get_predicted_away_points(),
-                 self.get_actual_result(), self.get_home_points(), self.get_away_points(),
+              % (self.get_home_team(), self.get_away_team(), self.get_confidence(),
+                 self.get_prediction(), self.get_predicted_home_points(),
+                 self.get_predicted_away_points(), self.get_actual_result(),
+                 self.get_home_points(), self.get_away_points(),
                  self.get_correct_prediction_marker()))
         if debug:
             print self.v_in, '=>', self.v_out[0], self.v_out[1]

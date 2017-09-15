@@ -13,7 +13,6 @@ class TestDataInput(object):
         input.extend(self.trend_points)
         input.extend(self.goals)
 
-
 class TestDataGenerator(object):
 
     def __init__(self):
