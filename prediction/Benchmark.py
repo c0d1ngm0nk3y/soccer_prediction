@@ -7,9 +7,11 @@ class GameDayResult(object):
         self.game_day = game_day
         self.hits = hits
 
-
 PAST_RESULTS = [ GameDayResult('bl1', '2017', 3, 3),
-                 GameDayResult('bl2', '2017', 5, 3) ]
+                 GameDayResult('bl1', '2017', 4, 5),
+                 GameDayResult('bl2', '2017', 5, 3),
+                 GameDayResult('bl2', '2017', 6, 2)]
+
 
 def verify(net):
     trainer = NetTrainer(net)
