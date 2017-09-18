@@ -121,12 +121,17 @@ class SQLiteAPI(object):
 
     def import_game_day(self, league, season, game_day, debug=False):
         self.conn = sqlite3.connect('games.sqlite')
+        self._delete_game_day(league, season, game_day)
 
         data = self.api.request_data_game_day(league, season, game_day)
         self._import_data(league, season, data, debug)
 
         self.conn.commit()
         self.conn.close()
+
+    def _delete_game_day(self, league, season, game_day):
+        self.conn.execute(u"DELETE FROM results WHERE league = '{0}' AND season = '{1}' AND game_day = '{2}'"
+                          .format(league, season, game_day))
 
     def import_season(self, league, season, debug=False):
         self.conn = sqlite3.connect('games.sqlite')
