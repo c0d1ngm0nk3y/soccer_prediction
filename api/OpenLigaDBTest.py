@@ -1,5 +1,5 @@
 import unittest
-from OpenLigaDB import OpenLigaDB
+from api.OpenLigaDB import OpenLigaDB
 
 
 class OpenLigaDBTest(unittest.TestCase):
@@ -15,7 +15,7 @@ class OpenLigaDBTest(unittest.TestCase):
         self.assertEquals('Werder Bremen', game1['Team2']['TeamName'])
         self.assertEquals(6, game1['Goals'][-1]['ScoreTeam1'])
 
-        game305 = data [305]
+        game305 = data[305]
         self.assertEquals(34, game305['Group']['GroupOrderID'])
 
 if __name__ == '__main__':

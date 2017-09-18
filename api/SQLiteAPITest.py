@@ -1,6 +1,6 @@
 import unittest
 
-import SQLiteAPI
+import api.SQLiteAPI as SQLiteAPI
 
 
 class SQLiteDataTest(unittest.TestCase):
