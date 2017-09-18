@@ -2,10 +2,10 @@ from prediction.Oracle import Oracle
 from prediction.NetTrainer import create_net, train_and_check
 from prediction.Benchmark import verify
 
-LEAGUE = 'bl2'
+LEAGUE = 'bl1'
 GAME_DAY = 5
-BEST_OF_N = 1
-TRIES = 1
+BEST_OF_N = 3
+TRIES = 3
 
 SEASONS = ['2011', '2012', '2013', '2014', '2015', '2016']
 
@@ -23,8 +23,11 @@ def create_a_net():
 
 for i in range(TRIES):
     net = create_a_net()
-    if not net:
-        raise BaseException('no net created')
+    if net:
+        break
+
+if not net:
+    raise BaseException('no net created')
 
 ORACLE = Oracle(net)
 GAMES = ORACLE.predict_game_day(LEAGUE, '2017', GAME_DAY)

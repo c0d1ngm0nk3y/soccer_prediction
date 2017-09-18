@@ -15,7 +15,7 @@ class PredictResultTest(unittest.TestCase):
         self.assertEqual(self.cut.get_confidence(), 99)
 
     def test_close_home_win(self):
-        self.cut.set_out([0.61, 0.39])
+        self.cut.set_out([0.56, 0.44])
 
         self.assertEqual(self.cut.get_prediction(), 1)
         self.assertEqual(self.cut.get_confidence(), 51)
@@ -27,10 +27,10 @@ class PredictResultTest(unittest.TestCase):
         self.assertEqual(self.cut.get_confidence(), 99)
 
     def test_close_away_win(self):
-        self.cut.set_out([0.39, 0.65])
+        self.cut.set_out([0.44, 0.56])
 
         self.assertEqual(self.cut.get_prediction(), 2)
-        self.assertEqual(self.cut.get_confidence(), 54)
+        self.assertEqual(self.cut.get_confidence(), 51)
 
     def test_clear_draw(self):
         self.cut.set_out([0.5, 0.5])
@@ -39,10 +39,10 @@ class PredictResultTest(unittest.TestCase):
         self.assertEqual(self.cut.get_confidence(), 99)
 
     def test_close_draw(self):
-        self.cut.set_out([0.48, 0.8])
+        self.cut.set_out([0.46, 0.8])
 
         self.assertEqual(self.cut.get_prediction(), 0)
-        self.assertEqual(self.cut.get_confidence(), 20)
+        self.assertEqual(self.cut.get_confidence(), 0)
 
 
 if __name__ == '__main__':
