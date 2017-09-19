@@ -5,13 +5,13 @@ from prediction.NetTrainer import PickDraw, create_net, train_and_check
 
 
 class BenchmarkTest(unittest.TestCase):
-    def test_PickLeader_will_not_verify(self):
+    def test_pick_leader_will_not_verify(self):
         net = PickDraw()
         verified = verify(net)
         self.assertFalse(verified)
 
-    def test_default_net_will_verify_in_3_tries(self):
-        for i in range(0, 3):
+    def test_default_net_will_verify(self):
+        for _ in range(0, 3):
             net = create_net()
             train_and_check(net)
 

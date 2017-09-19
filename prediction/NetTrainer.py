@@ -2,23 +2,25 @@ from data.TestDataGenerator import TestDataGenerator
 from net.NeuralNetwork import NN2
 from prediction.Util import calculate_confidence, interprete
 
-def create_net(alpha=0.05, input=16, hidden=14, output=2):
-    net = NN2(input, hidden, output, alpha)
+def create_net(alpha=0.05, input_layer=16, hidden_layer=14, output_layer=2):
+    net = NN2(input_layer, hidden_layer, output_layer, alpha)
     return net
 
-def train_and_check(net, train_set=['2013', '2014', '2015'], check='2016', max_iterations = 10, league='bl1', min_delta=0.2):
+def train_and_check(net, train_set=None, check='2016',
+                    max_iterations=10, league='bl1', min_delta=0.2):
+    if train_set == None:
+        train_set = ['2013', '2014', '2015']
     trainer = NetTrainer(net)
     error = 999
-    for i in range(0, max_iterations):
+    for _ in range(0, max_iterations):
         prev_error = error
         error = trainer.train_seasons(league, train_set)
         delta = prev_error - error
-        #print 'iteration', i + 1, 'error:', error, 'delta:', delta
         if delta < min_delta:
             break
 
-    tuple = trainer.check_season(league, check)
-    return tuple
+    result_tuple = trainer.check_season(league, check)
+    return result_tuple
 
 class PickLeader(object):
     def query(self, input_list):
@@ -27,31 +29,31 @@ class PickLeader(object):
 
         if home > away:
             return [0.99, 0.01]
-        else:
-            return [0.01, 0.99]
 
-    def train(self, input_list, target_list):
+        return [0.01, 0.99]
+
+    def train(self, _input_list, _target_list):
         pass
 
 class PickHome(object):
-    def query(self, input_list):
+    def query(self, _input_list):
         return [0.99, 0.01]
 
-    def train(self, input_list, target_list):
+    def train(self, _input_list, _target_list):
         pass
 
 class PickAway(object):
-    def query(self, input_list):
+    def query(self, _input_list):
         return [0.01, 0.99]
 
-    def train(self, input_list, target_list):
+    def train(self, _input_list, _target_list):
         pass
 
 class PickDraw(object):
-    def query(self, input_list):
+    def query(self, _input_list):
         return [0.5, 0.5]
 
-    def train(self, input_list, target_list):
+    def train(self, _input_list, _target_list):
         pass
 
 
@@ -72,8 +74,8 @@ class NetTrainer(object):
 
         total_error = 0
         for data in train_data:
-            (input, output, result, _) = data
-            (_, errors) = self.net.train(input, output)
+            (input_list, output_list, _, _) = data
+            (_, errors) = self.net.train(input_list, output_list)
             single_error = abs(errors[0][0]) + abs(errors[1][0])
             total_error = total_error + single_error
 
@@ -81,24 +83,24 @@ class NetTrainer(object):
 
     def check_game_day(self, league, season, game_day):
         game_day_data = self.generator.genererateFromGameDay(league, season, game_day)
-        rc = self._check_data(game_day_data)
-        return rc
+        return_code = self._check_data(game_day_data)
+        return return_code
 
     def check_season(self, league, season):
         season_data = self.generator.generateFromSeason(league, season)
-        rc = self._check_data(season_data)
-        return rc
+        return_code = self._check_data(season_data)
+        return return_code
 
     def _check_data(self, all_data):
         self._reset_statistics()
         for data in all_data:
-            (input, output, result, _) = data
+            (input_list, _, result, _) = data
             result = result[0]
-            query_output = self.net.query(input)
+            query_output = self.net.query(input_list)
             query_result = self.interprete(query_output)
             self._update_statistics(result, query_result)
-        rc = self._get_result()
-        return rc
+        return_code = self._get_result()
+        return return_code
 
     def _reset_statistics(self):
         self.count = 0

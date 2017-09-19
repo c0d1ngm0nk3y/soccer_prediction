@@ -2,6 +2,10 @@ from __future__ import absolute_import
 import unittest
 from prediction.Oracle import PredictedResult
 
+def create_result(home, away):
+    return {'ResultName': 'Endergebnis',
+            'PointsTeam1': home,
+            'PointsTeam2': away}
 
 class PredictResultTest(unittest.TestCase):
 
@@ -45,15 +49,15 @@ class PredictResultTest(unittest.TestCase):
         self.assertEqual(self.cut.get_confidence(), 0)
 
     def test_actual_result_home(self):
-        self.cut = PredictedResult({'MatchResults': [{'ResultName': 'Endergebnis', 'PointsTeam1': 2, 'PointsTeam2': 1}]})
+        self.cut = PredictedResult({'MatchResults': [create_result(2, 1)]})
         self.assertEqual(self.cut.get_actual_result(), 1)
 
     def test_actual_result_away(self):
-        self.cut = PredictedResult({'MatchResults': [{'ResultName': 'Endergebnis', 'PointsTeam1': 0, 'PointsTeam2': 1}]})
+        self.cut = PredictedResult({'MatchResults': [create_result(1, 2)]})
         self.assertEqual(self.cut.get_actual_result(), 2)
 
     def test_actual_result_draw(self):
-        self.cut = PredictedResult({'MatchResults': [{'ResultName': 'Endergebnis', 'PointsTeam1': 0, 'PointsTeam2': 0}]})
+        self.cut = PredictedResult({'MatchResults': [create_result(0, 0)]})
         self.assertEqual(self.cut.get_actual_result(), 0)
 
     def test_predicted_home_points(self):

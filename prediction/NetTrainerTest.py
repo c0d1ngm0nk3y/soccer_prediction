@@ -23,7 +23,7 @@ class MyTestCase(unittest.TestCase):
         self.net = PickHome()
         self.trainer = NetTrainer(self.net)
 
-        (result, hits, count, _) = train_and_check(self.net, [], '2016')
+        (result, _, count, _) = train_and_check(self.net, [], '2016')
 
         self.assertEqual(count, 252)
         self.assertEqual(result, 50)
@@ -32,15 +32,14 @@ class MyTestCase(unittest.TestCase):
         self.net = PickLeader()
         self.trainer = NetTrainer(self.net)
 
-        (result, hits, count, _) = train_and_check(self.net, [], '2016')
+        (result, _, count, _) = train_and_check(self.net, [], '2016')
 
         self.assertEqual(count, 252)
         self.assertEqual(result, 47)
 
-    #FIXME
-    def isInRange(self, value, expected, range=4):
-        self.assertLessEqual(value, expected + range)
-        self.assertGreaterEqual(value, expected - range)
+    def is_in_range(self, value, expected, range_value):
+        self.assertLessEqual(value, expected + range_value)
+        self.assertGreaterEqual(value, expected - range_value)
 
     def test_training_improves(self):
         (result_1, _, _, _) = train_and_check(self.net, [], '2016')
@@ -48,33 +47,31 @@ class MyTestCase(unittest.TestCase):
         (result_2, _, _, stats) = train_and_check(self.net, ['2015'], '2016')
 
         self.assertGreater(result_2, result_1)
-        self.isInRange(result_2, 45, range=5)
+        self.is_in_range(result_2, 45, range_value=5)
 
-        #FIXME
-        #self.isInRange(stats[0], 30)
-        #self.isInRange(stats[1], 74)
-        #self.isInRange(stats[2], 11)
+        self.assertGreater(stats[0], 5)
+        self.assertGreater(stats[1], 5)
+        self.assertGreater(stats[2], 3)
 
     def test_check_2016(self):
-        self.check_season_generic('2016', ['2015'], 47, 0, 0, 0)
+        self.check_season_generic('2016', ['2015'], 47)
 
     def test_check_2015(self):
-        self.check_season_generic('2015', ['2014'], 42, 0, 0, 0)
+        self.check_season_generic('2015', ['2014'], 42)
 
     def test_check_2014(self):
-        self.check_season_generic('2014', ['2013'], 44, 0, 0, 0)
+        self.check_season_generic('2014', ['2013'], 44)
 
-    def check_season_generic(self, season, train_seasons, expected_result, expected_0, expected_1, expected_2):
+    def check_season_generic(self, season, train_seasons, expected_result):
 
         (result, _, _, stats) = train_and_check(self.net, train_seasons, season)
 
         #print stats
-        self.isInRange(result, expected_result, range=5)
+        self.is_in_range(result, expected_result, range_value=5)
 
-        #FIXME
-        #self.isInRange(stats[0], expected_0, range=5)
-        #self.isInRange(stats[1], expected_1, range=5)
-        #self.isInRange(stats[2], expected_2, range=5)
+        self.assertGreater(stats[0], 5)
+        self.assertGreater(stats[1], 5)
+        self.assertGreater(stats[2], 3)
 
     def test_interprete_0_low(self):
         result = self.trainer.interprete([0.4, 0.45])

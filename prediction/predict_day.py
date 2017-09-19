@@ -2,8 +2,8 @@ from prediction.Oracle import Oracle
 from prediction.NetTrainer import create_net, train_and_check
 from prediction.Benchmark import verify
 
-LEAGUE = 'bl1'
-GAME_DAY = 5
+LEAGUE = 'bl2'
+GAME_DAY = 7
 BEST_OF_N = 3
 TRIES = 3
 
@@ -25,6 +25,7 @@ for i in range(TRIES):
     net = create_a_net()
     if net:
         break
+    print 'no net found...'
 
 if not net:
     raise BaseException('no net created')

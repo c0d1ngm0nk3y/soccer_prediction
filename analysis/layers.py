@@ -8,7 +8,7 @@ y = []
 START = 1
 n = 10
 for i in range(START, START + n + 1):
-    net = create_net(hidden = i)
+    net = create_net(hidden_layer= i)
     x.append(i)
 
     (result, _, _, _) = train_and_check(net)
