@@ -72,6 +72,21 @@ class PredictResultTest(unittest.TestCase):
         self.cut.set_out([0.5, 0.5])
         self.assertEqual(self.cut.get_predicted_home_points(), self.cut.get_predicted_away_points())
 
+    def test_prediction_marker_x_home(self):
+        self.cut = PredictedResult({'MatchResults': [create_result(2, 1)]})
+        self.cut.set_out([0.9, 0.1])
+        self.assertEqual(self.cut.get_correct_prediction_marker(), 'X')
+
+    def test_prediction_marker_x_away(self):
+        self.cut = PredictedResult({'MatchResults': [create_result(1, 2)]})
+        self.cut.set_out([0.2, 0.8])
+        self.assertEqual(self.cut.get_correct_prediction_marker(), 'X')
+
+    def test_prediction_marker___draw(self):
+        self.cut = PredictedResult({'MatchResults': [create_result(1, 1)]})
+        self.cut.set_out([0.6, 0.4])
+        self.assertEqual(self.cut.get_correct_prediction_marker(), '')
+
 
 if __name__ == '__main__':
     unittest.main()
