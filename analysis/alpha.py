@@ -1,21 +1,27 @@
 from prediction.NetTrainer import create_net, train_and_check
-from analysis.Util import show_plot
 from prediction.Benchmark import verify
+from analysis.Util import show_plot
 
-x = []
-y = []
-STEP = 0.025
 
-n = 12
-for i in range(0, n + 1):
-    alpha = STEP * i
-    net = create_net(alpha = alpha)
-    x.append(alpha)
+def main():
+    x_axis = []
+    y_axis = []
+    step = 0.025
 
-    (result, _, _, _) = train_and_check(net)
-    verified = verify(net)
-    print 'Executed with alpha', i * STEP, ':', result, 'verified', verified
+    n = 12
+    for i in range(0, n + 1):
+        alpha = step * i
+        net = create_net(alpha=alpha)
+        x_axis.append(alpha)
 
-    y.append(result)
+        (result, _, _, _) = train_and_check(net)
+        verified = verify(net)
+        print 'Executed with alpha', i * step, ':', result, 'verified', verified
 
-show_plot(x, y, n * STEP)
+        y_axis.append(result)
+
+    show_plot(x_axis, y_axis, n * step)
+
+
+if __name__ == "__main__":
+    main()

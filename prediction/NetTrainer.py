@@ -8,7 +8,7 @@ def create_net(alpha=0.05, input_layer=16, hidden_layer=14, output_layer=2):
 
 def train_and_check(net, train_set=None, check='2016',
                     max_iterations=10, league='bl1', min_delta=0.2):
-    if train_set == None:
+    if train_set is None:
         train_set = ['2013', '2014', '2015']
     trainer = NetTrainer(net)
     error = 999

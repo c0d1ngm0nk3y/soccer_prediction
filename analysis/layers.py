@@ -1,20 +1,26 @@
 from prediction.NetTrainer import create_net, train_and_check
-from analysis.Util import show_plot
 from prediction.Benchmark import verify
+from analysis.Util import show_plot
 
-x = []
-y = []
 
-START = 1
-n = 10
-for i in range(START, START + n + 1):
-    net = create_net(hidden_layer= i)
-    x.append(i)
+def main():
+    x_axis = []
+    y_axis = []
 
-    (result, _, _, _) = train_and_check(net)
-    verified = verify(net)
+    start = 1
+    n = 10
+    for i in range(start, start + n + 1):
+        net = create_net(hidden_layer=i)
+        x_axis.append(i)
 
-    print 'Executed with', i, 'hidden layers:', result, 'verified', verified
-    y.append(result)
+        (result, _, _, _) = train_and_check(net)
+        verified = verify(net)
 
-show_plot(x, y, START + n)
+        print 'Executed with', i, 'hidden layers:', result, 'verified', verified
+        y_axis.append(result)
+
+    show_plot(x_axis, y_axis, start + n)
+
+
+if __name__ == "__main__":
+    main()
