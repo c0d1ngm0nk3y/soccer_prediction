@@ -12,10 +12,10 @@ PAST_RESULTS = [GameDayResult('bl1', '2017', 3, 3),
                 GameDayResult('bl1', '2017', 5, 8),
                 GameDayResult('bl2', '2017', 5, 3),
                 GameDayResult('bl2', '2017', 6, 2),
-                GameDayResult('bl2', '2017', 7, 3)]
+                GameDayResult('bl2', '2017', 7, 4)]
 
 
-def verify(net):
+def verify(net, factor=0.9):
     trainer = NetTrainer(net)
     expected = 0
     actual = 0
@@ -27,7 +27,7 @@ def verify(net):
                                                         result.game_day)
         actual = actual + actual_hits
 
-    verified = actual >= expected
+    verified = actual >= (expected * factor)
     #if not verified:
         #print actual, 'results correct, expected ', expected
 

@@ -10,12 +10,12 @@ class BenchmarkTest(unittest.TestCase):
         verified = verify(net)
         self.assertFalse(verified)
 
-    def _test_default_net_will_verify(self):
-        for _ in range(0, 10):
+    def test_default_net_will_verify(self):
+        for _ in range(0, 3):
             net = create_net()
             train_and_check(net)
 
-            verified = verify(net)
+            verified = verify(net, factor=0.85)
             if verified:
                 break
         self.assertTrue(verified)
