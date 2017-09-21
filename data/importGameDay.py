@@ -1,8 +1,8 @@
 from api import SQLiteAPI
 
-league = 'bl1'
+league = 'bl2'
 season = '2017'
-#game_day = 6
+game_day = 7
 
 api = SQLiteAPI.SQLiteAPI()
 for game_day in range(4, 35):

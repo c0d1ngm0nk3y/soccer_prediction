@@ -2,12 +2,12 @@ from prediction.Oracle import Oracle
 from prediction.NetTrainer import create_net, train_and_check
 from prediction.Benchmark import verify
 
-LEAGUE = 'bl2'
-GAME_DAY = 7
-BEST_OF_N = 3
-TRIES = 3
+LEAGUE = 'bl1'
+GAME_DAY = 6
+BEST_OF_N = 5
+TRIES = 5
 
-SEASONS = ['2011', '2012', '2013', '2014', '2015', '2016']
+SEASONS = ['2009','2010','2011', '2012', '2013', '2014', '2015', '2016']
 
 def create_a_net():
     best_net = None

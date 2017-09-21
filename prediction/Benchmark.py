@@ -9,8 +9,10 @@ class GameDayResult(object):
 
 PAST_RESULTS = [GameDayResult('bl1', '2017', 3, 3),
                 GameDayResult('bl1', '2017', 4, 5),
+                GameDayResult('bl1', '2017', 5, 8),
                 GameDayResult('bl2', '2017', 5, 3),
-                GameDayResult('bl2', '2017', 6, 2)]
+                GameDayResult('bl2', '2017', 6, 2),
+                GameDayResult('bl2', '2017', 7, 3)]
 
 
 def verify(net):
@@ -27,6 +29,6 @@ def verify(net):
 
     verified = actual >= expected
     #if not verified:
-    #print actual, 'results correct, expected ', expected
+        #print actual, 'results correct, expected ', expected
 
     return verified
