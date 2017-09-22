@@ -6,14 +6,14 @@ def main():
     x_axis = []
     y_axis = []
 
-    n = 10
+    n = 20
     for i in range(0, n + 1):
         net = create_net()
         x_axis.append(i + 1)
 
         (untrained, _, _, _) = train_and_check(net, [])
         (result, _, _, _) = train_and_check(net, league='bl1')
-        verified = verify(net)
+        verified = verify(net, debug=False)
 
         print 'Executed ', i + 1, ':', untrained, '=>', result, 'verified', verified
 

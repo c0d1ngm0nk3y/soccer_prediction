@@ -15,7 +15,7 @@ PAST_RESULTS = [GameDayResult('bl1', '2017', 3, 3),
                 GameDayResult('bl2', '2017', 7, 4)]
 
 
-def verify(net, factor=0.9):
+def verify(net, factor=1.0, delta=0, debug=False):
     trainer = NetTrainer(net)
     expected = 0
     actual = 0
@@ -27,8 +27,8 @@ def verify(net, factor=0.9):
                                                         result.game_day)
         actual = actual + actual_hits
 
-    verified = actual >= (expected * factor)
-    #if not verified:
-        #print actual, 'results correct, expected ', expected
+    verified = actual >= min((expected * factor), (expected - delta))
+    if debug:
+        print 'verify:', actual, '/', expected, verified
 
     return verified

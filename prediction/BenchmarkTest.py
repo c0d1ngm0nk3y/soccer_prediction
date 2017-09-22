@@ -15,7 +15,7 @@ class BenchmarkTest(unittest.TestCase):
             net = create_net()
             train_and_check(net)
 
-            verified = verify(net, factor=0.85)
+            verified = verify(net, factor=0.8, debug=False)
             if verified:
                 break
         self.assertTrue(verified)
