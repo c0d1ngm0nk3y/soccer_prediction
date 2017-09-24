@@ -1,5 +1,5 @@
 from api.SQLiteAPI import SQLiteAPI
-from prediction.judger.DrawDiff import calculate_output_for_points
+from prediction.judger.DrawDiff import calculate_out_vector
 
 class TestDataInput(object):
     def __init__(self, x_pos, x_trend_points, x_home, x_goals):
@@ -48,16 +48,13 @@ class TestDataGenerator(object):
             ap = game.get_away_points()
             input_away = self.extractInput(table, trends, table_away, at)
 
-            y_points_home = calculate_output_for_points(hp, ap)
-            y_points_away = calculate_output_for_points(ap, hp)
-
             result = self.calculate_result(hp, ap)
 
             input = []
             input_home.fill_input(input)
             input_away.fill_input(input)
+            output = calculate_out_vector(hp, ap)
 
-            output = [y_points_home, y_points_away]
             game_day_data.append((input, output, [result], game.get_home_team()))
         return game_day_data
 

@@ -33,3 +33,11 @@ def calculate_output_for_points(points_a, points_b):
     out = MID_POINT + (DIFF_PER_GOAL * diff)
     out = max(min(out, 0.99), 0.01)
     return out
+
+def calculate_out_vector(home_points, away_points):
+    y_points_home = calculate_output_for_points(home_points, away_points)
+    y_points_away = calculate_output_for_points(away_points, home_points)
+
+    output = [y_points_home, y_points_away]
+    return output
+
