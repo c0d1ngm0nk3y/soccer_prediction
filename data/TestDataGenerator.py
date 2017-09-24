@@ -68,12 +68,12 @@ class TestDataGenerator(object):
         home = table_home.get_position(team)
         x_home = self.get_input_for_position(home)
         offense = self.get_relative_table_property(team, table, 'offense')
-        defense = self.get_relative_table_property(team, table, 'defense')
+        defense = self.get_relative_table_property(team, table, 'defense', reverse=True)
         x_goals = [offense, defense]
 
         return TestDataInput(x_pos, x_trend_points, x_home, x_goals)
 
-    def get_relative_table_property(self, team, table, property):
+    def get_relative_table_property(self, team, table, property, reverse=False):
         _max = table.get_agg_property(max, property)
         _min = table.get_agg_property(min, property)
 
@@ -81,7 +81,10 @@ class TestDataGenerator(object):
         delta = max(x -_min, 0.1)
         delta_max = max(_max - _min, 0.1)
         value = 1.0 * delta / delta_max
-        return max(round(value, 2), 0.01)
+        value = max(value, 0.01)
+        if reverse:
+            value = 1.01 - value
+        return round(value, 2)
 
     def get_input_for_relative_points(self, fraction):
         input = max(fraction, 0.01)
