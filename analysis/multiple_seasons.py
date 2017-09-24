@@ -11,9 +11,9 @@ def main():
 
     for i in range(0, length+1):
         net = create_net()
-        (result, _, _, _) = train_and_check(net, seasons[i:], '2016')
-        verified = verify(net)
-        print 'Executed with', length-i, 'seasons:', result, 'verified', verified
+        (result, _, _, stats) = train_and_check(net, seasons[i:], '2016')
+        verified = verify(net, delta=1, debug=True)
+        print 'Executed with', length-i, 'seasons:', result, 'verified', verified, stats
 
         x_axis.append(length-i)
         y_axis.append(result)

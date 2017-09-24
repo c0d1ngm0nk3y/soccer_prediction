@@ -1,5 +1,6 @@
 from prediction.NetTrainer import NetTrainer
 
+
 class GameDayResult(object):
     def __init__(self, league, season, game_day, hits):
         self.league = league
@@ -7,22 +8,25 @@ class GameDayResult(object):
         self.game_day = game_day
         self.hits = hits
 
-PAST_RESULTS = [GameDayResult('bl1', '2017', 3, 3),
-                GameDayResult('bl1', '2017', 4, 5),
-                GameDayResult('bl1', '2017', 5, 8)
-                ]
 
-                #GameDayResult('bl2', '2017', 5, 3),
-                #GameDayResult('bl2', '2017', 6, 2),
-                #GameDayResult('bl2', '2017', 7, 4)
+PAST_RESULTS = {'bl1': [GameDayResult('bl1', '2017', 3, 3),
+                        GameDayResult('bl1', '2017', 4, 5),
+                        GameDayResult('bl1', '2017', 5, 8),
+                        GameDayResult('bl1', '2017', 6, 5)
+                        ],
+
+                'bl2': [GameDayResult('bl2', '2017', 5, 3),
+                        GameDayResult('bl2', '2017', 6, 2),
+                        GameDayResult('bl2', '2017', 7, 4)
+                        ]}
 
 
-def verify(net, factor=1.0, delta=0, debug=False):
+def verify(net, league='bl1', factor=1.0, delta=0, debug=False):
     trainer = NetTrainer(net)
     expected = 0
     actual = 0
 
-    for result in PAST_RESULTS:
+    for result in PAST_RESULTS[league]:
         expected = expected + result.hits
         (_, actual_hits, _, _) = trainer.check_game_day(result.league,
                                                         result.season,
