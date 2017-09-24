@@ -177,7 +177,7 @@ class SQLiteAPI(object):
         return table
 
     def get_game_table_trend(self, league, season, game_day, trend=2):
-        table = self.get_game_table_generic(league, season, game_day, "game_day >=",
+        table = self.get_game_table_generic(league, season, game_day, "game_day >",
                                             (game_day - trend))
         return table
 

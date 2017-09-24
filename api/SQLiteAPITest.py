@@ -109,7 +109,7 @@ class SQLiteDataTest(unittest.TestCase):
 
         table = api.get_game_table_trend('bl1', '2015', 32)
         self.assertEquals(u'Borussia Dortmund', table.get_name(1))
-        self.assertEquals(9, table.get_points(1))
+        self.assertEquals(6, table.get_points(1))
         self.assertEquals(0, table.get_points(18))
         self.assertEquals(u'VfB Stuttgart', table.get_name(18))
 
@@ -130,6 +130,22 @@ class SQLiteDataTest(unittest.TestCase):
         self.assertEquals(28, table.get_points(2))
         self.assertEquals(3, table.get_points(18))
         self.assertEquals(u'SV Darmstadt 98', table.get_name(18))
+
+    def test_trend_table_1(self):
+        api = SQLiteAPI.SQLiteAPI()
+
+        table = api.get_game_table_trend('bl1', '2016', 16, trend=1)
+
+        self.assertEquals(table.get_points(1), 3)
+        self.assertEquals(table.get_points(18), 0)
+
+    def test_trend_table_2(self):
+        api = SQLiteAPI.SQLiteAPI()
+
+        table = api.get_game_table_trend('bl1', '2016', 16, trend=2)
+
+        self.assertEquals(table.get_points(1), 6)
+        self.assertEquals(table.get_points(18), 0)
 
 
 if __name__ == '__main__':
