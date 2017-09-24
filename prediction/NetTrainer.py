@@ -6,21 +6,23 @@ def create_net(alpha=0.05, input_layer=16, hidden_layer=14, output_layer=2):
     net = NN2(input_layer, hidden_layer, output_layer, alpha)
     return net
 
-def train_and_check(net, train_set=None, check='2016',
+def train_and_check(net, train_set=None, check='2016', train_leagues=None,
                     max_iterations=10, league='bl1', min_delta=0.2):
     if train_set is None:
         train_set = ['2013', '2014', '2015']
+    if not train_leagues:
+        train_leagues = [league]
     trainer = NetTrainer(net)
     error = 999
     for _ in range(0, max_iterations):
-        prev_error = error
-        error = trainer.train_seasons(league, train_set)
-        delta = prev_error - error
-        if delta < min_delta:
-            break
+        for a_league in train_leagues:
+            prev_error = error
+            error = trainer.train_seasons(a_league, train_set)
+            delta = prev_error - error
+            if delta < min_delta:
+                return trainer.check_season(league, check)
 
-    result_tuple = trainer.check_season(league, check)
-    return result_tuple
+    return trainer.check_season(league, check)
 
 class PickLeader(object):
     def query(self, input_list):

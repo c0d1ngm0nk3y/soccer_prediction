@@ -9,10 +9,12 @@ class GameDayResult(object):
 
 PAST_RESULTS = [GameDayResult('bl1', '2017', 3, 3),
                 GameDayResult('bl1', '2017', 4, 5),
-                GameDayResult('bl1', '2017', 5, 8),
-                GameDayResult('bl2', '2017', 5, 3),
-                GameDayResult('bl2', '2017', 6, 2),
-                GameDayResult('bl2', '2017', 7, 4)]
+                GameDayResult('bl1', '2017', 5, 8)
+                ]
+
+                #GameDayResult('bl2', '2017', 5, 3),
+                #GameDayResult('bl2', '2017', 6, 2),
+                #GameDayResult('bl2', '2017', 7, 4)
 
 
 def verify(net, factor=1.0, delta=0, debug=False):
