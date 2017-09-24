@@ -7,7 +7,7 @@ def main():
     x_axis = []
     y_axis = []
 
-    seasons = ['2011', '2012', '2013', '2014', '2015']#, '2016']
+    #seasons = None#['2013', '2014', '2015']#, '2016']
 
     n = 15
     for i in range(0, n + 1):
@@ -15,8 +15,8 @@ def main():
         x_axis.append(i + 1)
 
         (untrained, _, _, _) = train_and_check(net, [])
-        (result, _, _, _) = train_and_check(net, train_set=seasons, league='bl1', train_leagues=['bl1','bl2'])
-        verified = verify(net, debug=False, delta=2)
+        (result, _, _, _) = train_and_check(net)
+        verified = verify(net, debug=True, delta=2)
 
         print 'Executed ', i + 1, ':', untrained, '=>', result, 'verified', verified
 

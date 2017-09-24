@@ -13,7 +13,7 @@ def train_and_check(net, train_set=None, check='2016', train_leagues=None,
     if not train_leagues:
         train_leagues = [league]
     trainer = NetTrainer(net)
-    error = 999
+    error = 99999
     for _ in range(0, max_iterations):
         for a_league in train_leagues:
             prev_error = error
