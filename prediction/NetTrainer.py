@@ -1,6 +1,6 @@
 from data.TestDataGenerator import TestDataGenerator
 from net.NeuralNetwork import NN2
-from prediction.Util import calculate_confidence, interprete
+from prediction.judger.DrawDiff import calculate_confidence, interprete
 
 def create_net(alpha=0.05, input_layer=16, hidden_layer=14, output_layer=2):
     net = NN2(input_layer, hidden_layer, output_layer, alpha)
@@ -99,7 +99,7 @@ class NetTrainer(object):
             (input_list, _, result, _) = data
             result = result[0]
             query_output = self.net.query(input_list)
-            query_result = self.interprete(query_output)
+            query_result = interprete(query_output)
             self._update_statistics(result, query_result)
         return_code = self._get_result()
         return return_code
@@ -119,9 +119,3 @@ class NetTrainer(object):
         percent = 100.0 * self.hits / self.count
         performance = int(percent)
         return (performance, self.hits, self.count, self.statistics)
-
-    def interprete(self, out):
-        return interprete(out)
-
-    def calculate_confidence(self, out):
-        return calculate_confidence(out)

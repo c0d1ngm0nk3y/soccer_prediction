@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 import unittest
 from data.TestDataGenerator import TestDataGenerator
+from prediction.judger.DrawDiff import calculate_output_for_points
 
 class GenerateData(unittest.TestCase):
     def setUp(self):
@@ -42,39 +43,39 @@ class GenerateData(unittest.TestCase):
         self.assertLess(min(defenses), 0.1)
 
     def test_get_output_0_0(self):
-        output = self.gen.get_output_for_points(0,0)
+        output = calculate_output_for_points(0,0)
         self.assertEqual(0.5, output)
 
     def test_get_output_5_5(self):
-        output = self.gen.get_output_for_points(5, 5)
+        output = calculate_output_for_points(5, 5)
         self.assertEqual(0.5, output)
 
     def test_get_output_1_0(self):
-        output = self.gen.get_output_for_points(1, 0)
+        output = calculate_output_for_points(1, 0)
         self.assertEqual(0.75, output)
 
     def test_get_output_2_1(self):
-        output = self.gen.get_output_for_points(2, 1)
+        output = calculate_output_for_points(2, 1)
         self.assertEqual(0.75, output)
 
     def test_get_output_4_2(self):
-        output = self.gen.get_output_for_points(4, 2)
+        output = calculate_output_for_points(4, 2)
         self.assertEqual(0.99, output)
 
     def test_get_output_3_0(self):
-        output = self.gen.get_output_for_points(3, 0)
+        output = calculate_output_for_points(3, 0)
         self.assertEqual(0.99, output)
 
     def test_get_output_0_10(self):
-        output = self.gen.get_output_for_points(0, 10)
+        output = calculate_output_for_points(0, 10)
         self.assertEqual(0.01, output)
 
     def test_get_output_4_0(self):
-        output = self.gen.get_output_for_points(4, 0)
+        output = calculate_output_for_points(4, 0)
         self.assertEqual(0.99, output)
 
     def test_get_output_0_2(self):
-        output = self.gen.get_output_for_points(0, 2)
+        output = calculate_output_for_points(0, 2)
         self.assertEqual(0.01, output)
 
     def test_get_input_1(self):

@@ -1,5 +1,5 @@
 from api.SQLiteAPI import SQLiteAPI
-from prediction.Util import calculate_output_for_points
+from prediction.judger.DrawDiff import calculate_output_for_points
 
 class TestDataInput(object):
     def __init__(self, x_pos, x_trend_points, x_home, x_goals):
@@ -48,8 +48,8 @@ class TestDataGenerator(object):
             ap = game.get_away_points()
             input_away = self.extractInput(table, trends, table_away, at)
 
-            y_points_home = self.get_output_for_points(hp, ap)
-            y_points_away = self.get_output_for_points(ap, hp)
+            y_points_home = calculate_output_for_points(hp, ap)
+            y_points_away = calculate_output_for_points(ap, hp)
 
             result = self.calculate_result(hp, ap)
 
@@ -93,10 +93,6 @@ class TestDataGenerator(object):
     def get_input_for_position(self, position):
         input = max(((18 - position) / 17.0), 0.01)
         return round(input, 2)
-
-    def get_output_for_points(self, x, y):
-        out = calculate_output_for_points(x, y)
-        return out
 
     def calculate_result(self, home, away):
         if home > away:

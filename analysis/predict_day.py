@@ -3,9 +3,9 @@ from prediction.NetTrainer import create_net, train_and_check
 from prediction.Benchmark import verify
 
 LEAGUE = 'bl1'
-GAME_DAY = 5
+GAME_DAYS = [4, 5, 6]
 
-BEST_OF_N = 8
+BEST_OF_N = 5
 TRIES = 5
 
 SEASONS = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015']
@@ -16,9 +16,9 @@ def create_a_net():
     best_result = 0
     for _ in range(BEST_OF_N):
         a_net = create_net()
-        (result, _, _, _) = train_and_check(a_net, train_set=SEASONS, league='bl1', train_leagues=['bl1'])
-        print '->', result, '%'
-        if result > best_result and verify(a_net, delta=2, debug=False):
+        (result, _, _, stats) = train_and_check(a_net, train_set=SEASONS, league='bl1', train_leagues=['bl1'])
+        print '->', result, '% ', stats
+        if result > best_result and verify(a_net, delta=2, debug=True):
             print 'OK'
             best_net = a_net
             best_result = result
@@ -40,6 +40,9 @@ if not net:
     raise BaseException('no net created')
 
 ORACLE = Oracle(net)
-GAMES = ORACLE.predict_game_day(LEAGUE, '2017', GAME_DAY)
-for game in GAMES:
-    game.print_it(False)
+
+for game_day in GAME_DAYS:
+    print 'game day:', game_day
+    GAMES = ORACLE.predict_game_day(LEAGUE, '2017', game_day)
+    for game in GAMES:
+        game.print_it(False)

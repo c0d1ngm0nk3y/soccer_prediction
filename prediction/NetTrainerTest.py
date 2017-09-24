@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 import unittest
 from prediction.NetTrainer import NetTrainer, PickHome, PickLeader, create_net, train_and_check
+from prediction.judger.DrawDiff import interprete
 
 ITERATIONS = 5
 
@@ -57,10 +58,10 @@ class MyTestCase(unittest.TestCase):
         self.check_season_generic('2016', ['2015'], 47)
 
     def test_check_2015(self):
-        self.check_season_generic('2015', ['2014'], 42)
+        self.check_season_generic('2015', ['2014'], 44)
 
     def test_check_2014(self):
-        self.check_season_generic('2014', ['2013'], 44)
+        self.check_season_generic('2014', ['2013'], 46)
 
     def check_season_generic(self, season, train_seasons, expected_result):
 
@@ -74,27 +75,27 @@ class MyTestCase(unittest.TestCase):
         self.assertGreater(stats[2], 3)
 
     def test_interprete_0_low(self):
-        result = self.trainer.interprete([0.4, 0.45])
+        result = interprete([0.4, 0.45])
         self.assertEqual(result, 0)
 
     def test_interprete_0_high(self):
-        result = self.trainer.interprete([0.7, 0.6])
+        result = interprete([0.7, 0.6])
         self.assertEqual(result, 0)
 
     def test_interprete_0_middle(self):
-        result = self.trainer.interprete([0.58, 0.48])
+        result = interprete([0.58, 0.48])
         self.assertEqual(result, 0)
 
     def test_interprete_0_middle_2(self):
-        result = self.trainer.interprete([0.48, 0.58])
+        result = interprete([0.48, 0.58])
         self.assertEqual(result, 0)
 
     def test_interprete_1(self):
-        result = self.trainer.interprete([0.61, 0.39])
+        result = interprete([0.61, 0.39])
         self.assertEqual(result, 1)
 
     def test_interprete_2(self):
-        result = self.trainer.interprete([0.3, 0.7])
+        result = interprete([0.3, 0.7])
         self.assertEqual(result, 2)
 
 

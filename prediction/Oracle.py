@@ -2,6 +2,7 @@ from api.OpenLigaDB import OpenLigaDB
 from api.SQLiteAPI import SQLiteAPI
 from data.TestDataGenerator import TestDataGenerator
 from prediction.NetTrainer import NetTrainer
+from prediction.judger.DrawDiff import calculate_confidence, interprete
 
 class PredictedResult(object):
     def __init__(self, data):
@@ -50,11 +51,11 @@ class PredictedResult(object):
         return 0
 
     def get_confidence(self):
-        confidence = self.trainer.calculate_confidence(self.v_out)
+        confidence = calculate_confidence(self.v_out)
         return confidence
 
     def get_prediction(self):
-        prediction = self.trainer.interprete(self.v_out)
+        prediction = interprete(self.v_out)
         return prediction
 
     def set_in(self, v_in):
