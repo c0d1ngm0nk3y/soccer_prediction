@@ -6,15 +6,16 @@ def main():
     x_axis = []
     y_axis = []
 
-    n = 30
-    for i in range(0, n + 1, 2):
-        net = create_net()
+    n = 100
+    alpha=0.05
+    for i in range(0, n + 1, 5):
+        net = create_net(alpha=alpha)
         x_axis.append(i)
 
-        (result, _, _, _) = train_and_check(net, max_iterations=i)
+        (result, _, _, stats) = train_and_check(net, max_iterations=i)
         verified = verify(net)
 
-        print 'Executed with ', i, 'iterations:', result, 'verified:', verified
+        print 'Executed with ', i, 'iterations:', result, 'verified:', verified, stats
         y_axis.append(result)
 
     show_plot(x_axis, y_axis, n)

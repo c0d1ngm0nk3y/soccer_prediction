@@ -15,10 +15,10 @@ def main():
         x_axis.append(i + 1)
 
         (untrained, _, _, _) = train_and_check(net, [])
-        (result, _, _, _) = train_and_check(net)
+        (result, _, _, stats) = train_and_check(net)
         verified = verify(net, debug=True, delta=2)
 
-        print 'Executed ', i + 1, ':', untrained, '=>', result, 'verified', verified
+        print 'Executed ', i + 1, ':', untrained, '=>', result, 'verified', verified, stats
 
         y_axis.append(result)
 
