@@ -3,7 +3,20 @@ import unittest
 from data.TestDataGenerator import TestDataGenerator
 from prediction.judger.DrawDiff import calculate_output_for_points
 
+
+class TableStub(object):
+    def __init__(self):
+        self.index = {'A': 0, 'B': 1, 'C': 2}
+        self.values = {'x': [4, 8, 16], 'y':[0, 1, 3]}
+
+    def get_agg_property(self, agg, prop):
+        return agg(self.values[prop])
+
+    def get_property(self, team, prop):
+        return self.values[prop][self.index[team]]
+
 class GenerateData(unittest.TestCase):
+
     def setUp(self):
         self.gen = TestDataGenerator()
 
@@ -89,6 +102,31 @@ class GenerateData(unittest.TestCase):
     def test_get_input_9(self):
         input = self.gen.get_input_for_position(9)
         self.assertEqual(0.53, input)
+
+    def test_relative_table_property_low(self):
+        table = TableStub()
+        value = self.gen.get_relative_table_property('A', table, 'x')
+        self.assertEqual(value, 0.01)
+
+    def test_relative_table_property_middle(self):
+        table = TableStub()
+        value = self.gen.get_relative_table_property('B', table, 'x')
+        self.assertEqual(value, 0.33)
+
+    def test_relative_table_property_high(self):
+        table = TableStub()
+        value = self.gen.get_relative_table_property('C', table, 'x')
+        self.assertEqual(value, 1)
+
+    def test_relative_table_property_not_reversed(self):
+        table = TableStub()
+        value = self.gen.get_relative_table_property('B', table, 'y', reverse=False)
+        self.assertEqual(value, 0.33)
+
+    def test_relative_table_property_reversed(self):
+        table = TableStub()
+        value = self.gen.get_relative_table_property('B', table, 'y', reverse=True)
+        self.assertEqual(value, 0.68)
 
 
 if __name__ == '__main__':
