@@ -5,11 +5,7 @@ from prediction.Benchmark import verify
 LEAGUE = 'bl1'
 GAME_DAYS = [4, 5, 6]
 
-#LEAGUE = 'bl2'
-#GAME_DAYS = [6, 7, 8]
-
-
-BEST_OF_N = 25
+BEST_OF_N = 50
 TRIES = 3
 
 SEASONS = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015']
@@ -22,7 +18,6 @@ def create_a_net():
         a_net = create_net()
         (pre_result, _, _, _) = train_and_check(a_net, train_set=['2015'], league=LEAGUE)
         if pre_result >= best_pre_result:
-            best_pre_result = pre_result
             print 'candidate:', pre_result, '%'
         else:
             print 'skip', pre_result, '%'
@@ -30,7 +25,8 @@ def create_a_net():
 
         (result, _, _, stats) = train_and_check(a_net, train_set=SEASONS, league=LEAGUE)
         print '->', result, '% ', stats
-        if result > best_result and verify(a_net, league=LEAGUE, delta=2, debug=True):
+        if result > best_result and verify(a_net, league=LEAGUE, delta=1, debug=True):
+            best_pre_result = pre_result
             print 'OK'
             best_net = a_net
             best_result = result

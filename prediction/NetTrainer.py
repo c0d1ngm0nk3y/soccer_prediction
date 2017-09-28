@@ -2,12 +2,12 @@ from data.TestDataGenerator import TestDataGenerator
 from net.NeuralNetwork import NN2
 from prediction.judger.DrawDiff import calculate_confidence, interprete
 
-def create_net(alpha=0.05, input_layer=16, hidden_layer=14, output_layer=2):
+def create_net(alpha=0.1, input_layer=16, hidden_layer=14, output_layer=2):
     net = NN2(input_layer, hidden_layer, output_layer, alpha)
     return net
 
 def train_and_check(net, train_set=None, check='2016', train_leagues=None,
-                    max_iterations=10, league='bl1', min_delta=0.2):
+                    max_iterations=2, league='bl1', min_delta=0.2):
     if train_set is None:
         train_set = ['2013', '2014', '2015']
     if not train_leagues:
