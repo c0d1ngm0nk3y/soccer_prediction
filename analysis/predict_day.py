@@ -4,9 +4,9 @@ from prediction.Benchmark import verify
 from prediction.QueryStatistics import QueryStatistics
 
 LEAGUE = 'bl1'
-GAME_DAYS = [7]
+GAME_DAYS = [7, 8]
 
-BEST_OF_N = 50
+BEST_OF_N = 100
 TRIES = 3
 
 SEASONS = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015']
@@ -15,25 +15,28 @@ def create_a_net():
     best_net = None
     best_result = QueryStatistics()
     best_pre_result = 0
-    for _ in range(BEST_OF_N):
+    best_expectation = 1.01
+    for i in range(BEST_OF_N):
+        if (i+1) % 10 == 0:
+           print 'iteration', i+1
         a_net = create_net()
         first_result = train_and_check(a_net, train_set=['2015'], league=LEAGUE)
         pre_result = first_result.get_performance()
-        if pre_result >= best_pre_result:
-            print 'candidate:', pre_result, '%'
-        else:
-            print 'skip', pre_result, '%'
+        if pre_result < best_pre_result or first_result.get_expected_win_ratio() < 1:
             continue
 
         result = train_and_check(a_net, train_set=SEASONS, league=LEAGUE)
-        print '->', result
         if result.get_performance() > best_result.get_performance()\
-                and verify(a_net, league=LEAGUE, delta=2, debug=True):
+                and verify(a_net, league=LEAGUE, delta=2, debug=False)\
+                and result.get_expected_win_ratio() >= best_expectation:
 
             best_pre_result = pre_result
-            print 'OK'
+            print 'OK', result
+            verify(a_net, league=LEAGUE, delta=2, debug=True)
+
             best_net = a_net
             best_result = result
+            best_expectation = result.get_expected_win_ratio()
 
     print 'choice:', best_result
     return best_net
