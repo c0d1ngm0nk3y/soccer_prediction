@@ -12,31 +12,31 @@ class MyTestCase(unittest.TestCase):
         self.trainer = NetTrainer(None)
 
     def test_not_trained_net(self):
-        (result, hits, count, _) = train_and_check(self.net, [], '2016')
+        result = train_and_check(self.net, [], '2016')
 
-        self.assertGreater(hits, 0)
-        self.assertEqual(count, 252)
+        self.assertGreater(result.get_hits(), 0)
+        self.assertEqual(result.get_count(), 252)
 
-        self.assertGreater(result, 1)
-        self.assertLess(result, 100)
+        self.assertGreater(result.get_performance(), 1)
+        self.assertLess(result.get_performance(), 100)
 
     def test_dummy_pick_home(self):
         self.net = PickHome()
         self.trainer = NetTrainer(self.net)
 
-        (result, _, count, _) = train_and_check(self.net, [], '2016')
+        result = train_and_check(self.net, [], '2016')
 
-        self.assertEqual(count, 252)
-        self.assertEqual(result, 50)
+        self.assertEqual(result.get_count(), 252)
+        self.assertEqual(result.get_performance(), 50)
 
     def test_dummy_pick_leader(self):
         self.net = PickLeader()
         self.trainer = NetTrainer(self.net)
 
-        (result, _, count, _) = train_and_check(self.net, [], '2016')
+        result = train_and_check(self.net, [], '2016')
 
-        self.assertEqual(count, 252)
-        self.assertEqual(result, 47)
+        self.assertEqual(result.get_count(), 252)
+        self.assertEqual(result.get_performance(), 47)
 
     def is_in_range(self, value, expected, range_value):
         self.assertLessEqual(value, expected + range_value)
@@ -44,17 +44,18 @@ class MyTestCase(unittest.TestCase):
 
     def test_training_improves(self):
         for _ in range(0, 3):
-            (result_1, _, _, _) = train_and_check(self.net, [], '2016')
-            if result_1 >= 50:
+            result_1 = train_and_check(self.net, [], '2016')
+            if result_1.get_performance() >= 50:
                 self.net = create_net()
             else:
                 break
 
-        (result_2, _, _, stats) = train_and_check(self.net, ['2015'], '2016')
+        result_2 = train_and_check(self.net, ['2015'], '2016')
 
-        self.assertGreater(result_2, result_1)
-        self.is_in_range(result_2, 45, range_value=5)
+        self.assertGreater(result_2.get_performance(), result_1.get_performance())
+        self.is_in_range(result_2.get_performance(), 45, range_value=5)
 
+        stats = result_2.get_statistics()
         self.assertGreater(stats[0], 5)
         self.assertGreater(stats[1], 5)
         self.assertGreater(stats[2], 3)
@@ -63,18 +64,19 @@ class MyTestCase(unittest.TestCase):
         self.check_season_generic('2016', ['2015'], 47)
 
     def test_check_2015(self):
-        self.check_season_generic('2015', ['2014'], 44)
+        self.check_season_generic('2015', ['2014', '2013'], 44)
 
     def test_check_2014(self):
         self.check_season_generic('2014', ['2013'], 46)
 
     def check_season_generic(self, season, train_seasons, expected_result):
 
-        (result, _, _, stats) = train_and_check(self.net, train_seasons, season)
+        result = train_and_check(self.net, train_seasons, season)
 
         #print stats
-        self.is_in_range(result, expected_result, range_value=5)
+        self.is_in_range(result.get_performance(), expected_result, range_value=5)
 
+        stats = result.get_statistics()
         self.assertGreater(stats[0], 5)
         self.assertGreater(stats[1], 5)
         self.assertGreater(stats[2], 3)

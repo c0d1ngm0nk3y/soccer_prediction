@@ -7,17 +7,17 @@ def main():
     x_axis = []
     y_axis = []
 
-    start = 1
+    start = 5
     n = 10
     for i in range(start, start + n + 1):
         net = create_net(hidden_layer=i)
         x_axis.append(i)
 
-        (result, _, _, _) = train_and_check(net)
+        result = train_and_check(net)
         verified = verify(net)
 
         print 'Executed with', i, 'hidden layers:', result, 'verified', verified
-        y_axis.append(result)
+        y_axis.append(result.get_performance())
 
     show_plot(x_axis, y_axis, start + n)
 

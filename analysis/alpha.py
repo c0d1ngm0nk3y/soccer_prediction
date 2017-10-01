@@ -14,11 +14,11 @@ def main():
         net = create_net(alpha=alpha)
         x_axis.append(alpha)
 
-        (result, _, _, stats) = train_and_check(net)
+        result = train_and_check(net)
         verified = verify(net)
-        print 'Executed with alpha', i * step, ':', result, 'verified', verified, stats
+        print 'Executed with alpha', i * step, ':', result, 'verified', verified
 
-        y_axis.append(result)
+        y_axis.append(result.get_performance())
 
     show_plot(x_axis, y_axis, n * step)
 

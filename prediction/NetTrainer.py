@@ -1,8 +1,10 @@
 from data.TestDataGenerator import TestDataGenerator
 from net.NeuralNetwork import NN2
-from prediction.judger.DrawDiff import calculate_confidence, interprete
+from prediction.judger.DrawDiff import interprete
+from prediction.QueryStatistics import QueryStatistics
 
-def create_net(alpha=0.1, input_layer=16, hidden_layer=14, output_layer=2):
+def create_net(alpha=0.1
+               , input_layer=16, hidden_layer=14, output_layer=2):
     net = NN2(input_layer, hidden_layer, output_layer, alpha)
     return net
 
@@ -94,28 +96,11 @@ class NetTrainer(object):
         return return_code
 
     def _check_data(self, all_data):
-        self._reset_statistics()
+        stats = QueryStatistics()
         for data in all_data:
             (input_list, _, result, _) = data
             result = result[0]
             query_output = self.net.query(input_list)
             query_result = interprete(query_output)
-            self._update_statistics(result, query_result)
-        return_code = self._get_result()
-        return return_code
-
-    def _reset_statistics(self):
-        self.count = 0
-        self.hits = 0
-        self.statistics = [0, 0, 0]
-
-    def _update_statistics(self, expected, actual):
-        self.count = self.count + 1
-        if expected == actual:
-            self.hits = self.hits + 1
-            self.statistics[actual] = self.statistics[actual] + 1
-
-    def _get_result(self):
-        percent = 100.0 * self.hits / self.count
-        performance = int(percent)
-        return (performance, self.hits, self.count, self.statistics)
+            stats.add_result(result, query_result)
+        return stats

@@ -12,7 +12,8 @@ class GameDayResult(object):
 PAST_RESULTS = {'bl1': [GameDayResult('bl1', '2017', 3, 3),
                         GameDayResult('bl1', '2017', 4, 5),
                         GameDayResult('bl1', '2017', 5, 8),
-                        GameDayResult('bl1', '2017', 6, 5)
+                        GameDayResult('bl1', '2017', 6, 5),
+                        GameDayResult('bl1', '2017', 7, 4)
                         ],
 
                 'bl2': [GameDayResult('bl2', '2017', 5, 3),
@@ -28,10 +29,10 @@ def verify(net, league='bl1', factor=1.0, delta=0, debug=False):
 
     for result in PAST_RESULTS[league]:
         expected = expected + result.hits
-        (_, actual_hits, _, _) = trainer.check_game_day(result.league,
+        results = trainer.check_game_day(result.league,
                                                         result.season,
                                                         result.game_day)
-        actual = actual + actual_hits
+        actual = actual + results.get_hits()
 
     verified = actual >= min((expected * factor), (expected - delta))
     if debug:

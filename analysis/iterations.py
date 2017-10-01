@@ -13,11 +13,11 @@ def main():
     for i in range(step, n + 1, step):
         x_axis.append(i)
 
-        (result, _, _, stats) = train_and_check(net, max_iterations=step, train_set=seasons)
+        result = train_and_check(net, max_iterations=step, train_set=seasons)
         verified = verify(net)
 
-        print 'Executed with ', i, 'iterations:', result, 'verified:', verified, stats
-        y_axis.append(result)
+        print 'Executed with ', i, 'iterations:', result, 'verified:', verified
+        y_axis.append(result.get_performance())
 
     show_plot(x_axis, y_axis, n)
 

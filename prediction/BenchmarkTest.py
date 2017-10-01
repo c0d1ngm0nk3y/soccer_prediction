@@ -32,7 +32,8 @@ class BenchmarkTest(unittest.TestCase):
 
     def test_default_net_will_predict_each(self):
         net = create_net()
-        (_, _, _, stats) = train_and_check(net)
+        result = train_and_check(net)
+        stats = result.get_statistics()
 
         self.assertGreater(stats[0], 1)
         self.assertGreater(stats[1], 1)
