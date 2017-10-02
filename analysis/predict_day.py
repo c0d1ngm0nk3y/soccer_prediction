@@ -3,7 +3,7 @@ from prediction.NetTrainer import train_and_check
 from prediction.Serializer import load_net
 
 LEAGUE = 'bl1'
-GAME_DAYS = [7, 8]
+GAME_DAYS = [6, 7, 8]
 
 def get_net():
     filename = './prediction/pickles/20171001-03.pickles'

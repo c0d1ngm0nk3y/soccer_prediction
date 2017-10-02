@@ -2,6 +2,7 @@ THRESHOLD = 0.025
 MID_POINT = 0.5
 MAX_DIFF = 2
 DIFF_PER_GOAL = (MID_POINT / MAX_DIFF)
+MIN_DIFFERENCE = 0.4
 
 def interprete(out):
     home = out[0]
@@ -16,15 +17,16 @@ def interprete(out):
 def calculate_confidence(out):
     outcome = interprete(out)
 
+
     if outcome == 1:
-        delta = out[0] - out[1] - (2*THRESHOLD)
-        confidence = 50 + delta / (1 - (2*THRESHOLD)) * 50
+        delta = out[0] - out[1] - (2*THRESHOLD) + MIN_DIFFERENCE
+        confidence = delta * 100.0
     elif outcome == 2:
-        delta = out[1] - out[0] - (2 * THRESHOLD)
-        confidence = 50 + delta / (1 - (2 * THRESHOLD)) * 50
+        delta = out[1] - out[0] - (2 * THRESHOLD) + MIN_DIFFERENCE
+        confidence = delta * 100.0
     else:
         delta = abs(out[0] - out[1])
-        confidence = 100 - ((delta / (2 * THRESHOLD)) * 50)
+        confidence = 100 - 100.0 * (delta / 0.2)
 
     return round(max(min(confidence, 99), 0.01))
 

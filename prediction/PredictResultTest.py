@@ -22,7 +22,7 @@ class PredictResultTest(unittest.TestCase):
         self.cut.set_out([0.53, 0.47])
 
         self.assertEqual(self.cut.get_prediction(), 1)
-        self.assertEqual(self.cut.get_confidence(), 51)
+        self.assertEqual(self.cut.get_confidence(), 41)
 
     def test_clear_away_win(self):
         self.cut.set_out([0, 1])
@@ -34,7 +34,7 @@ class PredictResultTest(unittest.TestCase):
         self.cut.set_out([0.47, 0.53])
 
         self.assertEqual(self.cut.get_prediction(), 2)
-        self.assertEqual(self.cut.get_confidence(), 51)
+        self.assertEqual(self.cut.get_confidence(), 41)
 
     def test_clear_draw(self):
         self.cut.set_out([0.5, 0.5])
