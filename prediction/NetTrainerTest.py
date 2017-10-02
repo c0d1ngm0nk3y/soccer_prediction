@@ -1,7 +1,9 @@
 from __future__ import absolute_import
+
 import unittest
+
+from prediction.Judger import interprete
 from prediction.NetTrainer import NetTrainer, PickHome, PickLeader, create_net, train_and_check
-from prediction.judger.DrawDiff import interprete
 
 ITERATIONS = 5
 

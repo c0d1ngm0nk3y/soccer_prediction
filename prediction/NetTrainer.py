@@ -1,6 +1,6 @@
 from data.TestDataGenerator import TestDataGenerator
 from net.NeuralNetwork import NN2
-from prediction.judger.DrawDiff import interprete
+from prediction.Judger import interprete
 from prediction.QueryStatistics import QueryStatistics
 
 def create_net(alpha=0.1

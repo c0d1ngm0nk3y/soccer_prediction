@@ -1,8 +1,9 @@
 from api.OpenLigaDB import OpenLigaDB
 from api.SQLiteAPI import SQLiteAPI
 from data.TestDataGenerator import TestDataGenerator
+from prediction.Judger import calculate_confidence, interprete
 from prediction.NetTrainer import NetTrainer
-from prediction.judger.DrawDiff import calculate_confidence, interprete
+
 
 class PredictedResult(object):
     def __init__(self, data):

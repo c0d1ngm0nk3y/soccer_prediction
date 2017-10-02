@@ -1,5 +1,5 @@
 from api.SQLiteAPI import SQLiteAPI
-from prediction.judger.DrawDiff import calculate_out_vector
+from prediction.Judger import calculate_out_vector
 
 class TestDataInput(object):
     def __init__(self, x_pos, x_trend_points, x_home, x_goals):

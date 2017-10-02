@@ -1,7 +1,9 @@
 from __future__ import absolute_import
+
 import unittest
+
 from data.TestDataGenerator import TestDataGenerator
-from prediction.judger.DrawDiff import calculate_output_for_points
+from prediction.Judger import calculate_output_for_points
 
 
 class TableStub(object):
