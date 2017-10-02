@@ -16,7 +16,8 @@ def main():
         trained = train_and_check(net)
         verified = verify(net, debug=False, delta=2)
 
-        print 'Execution {0}:'.format(i+1), untrained.get_performance(), '=>', trained, 'verified:', verified
+        print 'Execution {0}:'.format(i+1), untrained.get_performance(),\
+            '=>', trained, 'verified:', verified
 
         y_axis.append(trained.get_performance())
 

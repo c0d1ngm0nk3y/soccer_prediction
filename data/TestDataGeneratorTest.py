@@ -23,7 +23,7 @@ class GenerateData(unittest.TestCase):
         self.gen = TestDataGenerator()
 
     def test_season(self):
-        data = self.gen.generateFromSeason('bl1', '2014')
+        data = self.gen.generate_from_season('bl1', '2014')
 
         self.assertTrue(len(data) > 100)
         self.assertTrue(len(data) < 1000)

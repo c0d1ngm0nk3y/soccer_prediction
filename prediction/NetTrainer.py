@@ -73,7 +73,7 @@ class NetTrainer(object):
     def train_seasons(self, league, seasons):
         train_data = []
         for season in seasons:
-            season_data = self.generator.generateFromSeason(league, season)
+            season_data = self.generator.generate_from_season(league, season)
             train_data.extend(season_data)
 
         total_error = 0
@@ -86,12 +86,12 @@ class NetTrainer(object):
         return total_error
 
     def check_game_day(self, league, season, game_day):
-        game_day_data = self.generator.genererateFromGameDay(league, season, game_day)
+        game_day_data = self.generator.genererate_from_game_gay(league, season, game_day)
         return_code = self._check_data(game_day_data)
         return return_code
 
     def check_season(self, league, season):
-        season_data = self.generator.generateFromSeason(league, season)
+        season_data = self.generator.generate_from_season(league, season)
         return_code = self._check_data(season_data)
         return return_code
 

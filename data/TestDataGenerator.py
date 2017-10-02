@@ -8,24 +8,24 @@ class TestDataInput(object):
         self.home = x_home
         self.goals = x_goals
 
-    def fill_input(self, input):
-        input.extend([self.pos, self.home])
-        input.extend(self.trend_points)
-        input.extend(self.goals)
+    def fill_input(self, v_input):
+        v_input.extend([self.pos, self.home])
+        v_input.extend(self.trend_points)
+        v_input.extend(self.goals)
 
 class TestDataGenerator(object):
 
     def __init__(self):
         self.api = SQLiteAPI()
 
-    def generateFromSeason(self, league, season):
+    def generate_from_season(self, league, season):
         data = []
         for i in range(5, 33):
-            game_day_data = self.genererateFromGameDay(league, season, i)
+            game_day_data = self.genererate_from_game_gay(league, season, i)
             data.extend(game_day_data)
         return data
 
-    def genererateFromGameDay(self, league, season, day):
+    def genererate_from_game_gay(self, league, season, day):
         game_day_data = []
         game_day = self.api.get_game_day(league, season, day)
 
@@ -40,25 +40,25 @@ class TestDataGenerator(object):
         table_away = self.api.get_game_table_away(league, season, state)
 
         for game in game_day:
-            ht = game.get_home_team()
-            hp = game.get_home_points()
-            input_home = self.extractInput(table, trends, table_home, ht)
+            home_team = game.get_home_team()
+            home_points = game.get_home_points()
+            input_home = self.extract_input(table, trends, table_home, home_team)
 
-            at = game.get_away_team()
-            ap = game.get_away_points()
-            input_away = self.extractInput(table, trends, table_away, at)
+            away_team = game.get_away_team()
+            away_points = game.get_away_points()
+            input_away = self.extract_input(table, trends, table_away, away_team)
 
-            result = self.calculate_result(hp, ap)
+            result = self.calculate_result(home_points, away_points)
 
-            input = []
-            input_home.fill_input(input)
-            input_away.fill_input(input)
-            output = calculate_out_vector(hp, ap)
+            v_input = []
+            input_home.fill_input(v_input)
+            input_away.fill_input(v_input)
+            output = calculate_out_vector(home_points, away_points)
 
-            game_day_data.append((input, output, [result], game.get_home_team()))
+            game_day_data.append((v_input, output, [result], game.get_home_team()))
         return game_day_data
 
-    def extractInput(self, table, trend_tables, table_home, team):
+    def extract_input(self, table, trend_tables, table_home, team):
         pos = table.get_position(team)
         x_pos = self.get_input_for_position(pos)
 
@@ -73,11 +73,11 @@ class TestDataGenerator(object):
 
         return TestDataInput(x_pos, x_trend_points, x_home, x_goals)
 
-    def get_relative_table_property(self, team, table, property, reverse=False):
-        _max = table.get_agg_property(max, property)
-        _min = table.get_agg_property(min, property)
+    def get_relative_table_property(self, team, table, prop, reverse=False):
+        _max = table.get_agg_property(max, prop)
+        _min = table.get_agg_property(min, prop)
 
-        x = table.get_property(team, property)
+        x = table.get_property(team, prop)
         delta = max(x -_min, 0.1)
         delta_max = max(_max - _min, 0.1)
         value = 1.0 * delta / delta_max
@@ -87,12 +87,12 @@ class TestDataGenerator(object):
         return round(value, 2)
 
     def get_input_for_relative_points(self, fraction):
-        input = max(fraction, 0.01)
-        return round(input, 2)
+        x_input = max(fraction, 0.01)
+        return round(x_input, 2)
 
     def get_input_for_position(self, position):
-        input = max(((18 - position) / 17.0), 0.01)
-        return round(input, 2)
+        x_input = max(((18 - position) / 17.0), 0.01)
+        return round(x_input, 2)
 
     def calculate_result(self, home, away):
         if home > away:

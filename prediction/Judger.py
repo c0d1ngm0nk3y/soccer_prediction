@@ -42,4 +42,3 @@ def calculate_out_vector(home_points, away_points):
 
     output = [y_points_home, y_points_away]
     return output
-
