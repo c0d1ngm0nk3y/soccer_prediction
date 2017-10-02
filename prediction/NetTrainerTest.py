@@ -58,28 +58,27 @@ class MyTestCase(unittest.TestCase):
         stats = result_2.get_statistics()
         self.assertGreater(stats[0], 5)
         self.assertGreater(stats[1], 5)
-        self.assertGreater(stats[2], 3)
+        self.assertGreater(stats[2], 5)
 
     def test_check_2016(self):
-        self.check_season_generic('2016', ['2015'], 47)
+        self.check_season_generic('2016', ['2015', '2014'], 47)
 
     def test_check_2015(self):
         self.check_season_generic('2015', ['2014', '2013'], 44)
 
     def test_check_2014(self):
-        self.check_season_generic('2014', ['2013'], 46)
+        self.check_season_generic('2014', ['2013', '2015'], 46)
 
     def check_season_generic(self, season, train_seasons, expected_result):
 
         result = train_and_check(self.net, train_seasons, season)
 
-        #print stats
         self.is_in_range(result.get_performance(), expected_result, range_value=5)
 
         stats = result.get_statistics()
         self.assertGreater(stats[0], 5)
         self.assertGreater(stats[1], 5)
-        self.assertGreater(stats[2], 3)
+        self.assertGreater(stats[2], 5)
 
     def test_interprete_0_low(self):
         result = interprete([0.4, 0.45])

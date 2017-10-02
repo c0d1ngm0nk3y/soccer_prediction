@@ -11,7 +11,7 @@ class BenchmarkTest(unittest.TestCase):
         self.assertFalse(verified)
 
     def test_default_net_will_verify_bl1(self):
-        for _ in range(0, 3):
+        for _ in range(0, 5):
             net = create_net()
             train_and_check(net)
 
@@ -21,7 +21,7 @@ class BenchmarkTest(unittest.TestCase):
         self.assertTrue(verified)
 
     def test_default_net_will_verify_bl2(self):
-        for _ in range(0, 3):
+        for _ in range(0, 5):
             net = create_net()
             train_and_check(net, league='bl2')
 
