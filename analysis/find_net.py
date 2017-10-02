@@ -7,10 +7,10 @@ from prediction.Serializer import save_net
 LEAGUE = 'bl1'
 
 BEST_OF_N = 250
-FILENAME = './prediction/pickles/20171001-01.pickles'
-MIN_PERFORMANCE = 50
-MIN_EXPECTATION = 1.05
-VERIFY_THRESHOLD = 2
+FILENAME = './prediction/pickles/20171001-03.pickles'
+MIN_PERFORMANCE = 52
+MIN_EXPECTATION = 1.07
+VERIFY_THRESHOLD = 1
 
 SEASONS = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015']
 

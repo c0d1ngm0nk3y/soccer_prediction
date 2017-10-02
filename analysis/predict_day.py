@@ -1,55 +1,19 @@
 from prediction.Oracle import Oracle
-from prediction.NetTrainer import create_net, train_and_check
-from prediction.Benchmark import verify
-from prediction.QueryStatistics import QueryStatistics
+from prediction.NetTrainer import train_and_check
+from prediction.Serializer import load_net
 
 LEAGUE = 'bl1'
 GAME_DAYS = [7, 8]
 
-BEST_OF_N = 100
-TRIES = 3
+def get_net():
+    filename = './prediction/pickles/20171001-02.pickles'
+    net = load_net(filename)
 
-SEASONS = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015']
+    result = train_and_check(net, train_set=[])
+    print 'choice:', result
+    return net
 
-def create_a_net():
-    best_net = None
-    best_result = QueryStatistics()
-    best_pre_result = 0
-    best_expectation = 1.01
-    for i in range(BEST_OF_N):
-        if (i+1) % 10 == 0:
-           print 'iteration', i+1
-        a_net = create_net()
-        first_result = train_and_check(a_net, train_set=['2015'], league=LEAGUE)
-        pre_result = first_result.get_performance()
-        if pre_result < best_pre_result or first_result.get_expected_win_ratio() < 1:
-            continue
-
-        result = train_and_check(a_net, train_set=SEASONS, league=LEAGUE)
-        if result.get_performance() > best_result.get_performance()\
-                and verify(a_net, league=LEAGUE, delta=2, debug=False)\
-                and result.get_expected_win_ratio() >= best_expectation:
-
-            best_pre_result = pre_result
-            print 'OK', result
-            verify(a_net, league=LEAGUE, delta=2, debug=True)
-
-            best_net = a_net
-            best_result = result
-            best_expectation = result.get_expected_win_ratio()
-
-    print 'choice:', best_result
-    return best_net
-
-for i in range(TRIES):
-    net = create_a_net()
-    if net:
-        break
-    print 'no net found...'
-
-if not net:
-    raise BaseException('no net created')
-
+net = get_net()
 ORACLE = Oracle(net)
 
 for game_day in GAME_DAYS:
