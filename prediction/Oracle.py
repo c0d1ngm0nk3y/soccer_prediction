@@ -72,10 +72,10 @@ class PredictedResult(object):
         if prediction == actual_result:
             return 'X'
 
-        return ''
+        return ' '
 
     def print_it(self, debug=False):
-        print('%25s : %25s  =>  %.2i%%: %i (%i:%i) / %i (%i:%i) %s'
+        print('%25s : %25s  =>  %.2i%%: %i(%i:%i) / %i(%i:%i) %c'
               % (self.get_home_team(), self.get_away_team(), self.get_confidence(),
                  self.get_prediction(), self.get_predicted_home_points(),
                  self.get_predicted_away_points(), self.get_actual_result(),

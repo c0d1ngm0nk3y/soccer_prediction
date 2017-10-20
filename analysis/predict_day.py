@@ -1,6 +1,7 @@
 from prediction.Oracle import Oracle
 from prediction.NetTrainer import train_and_check
 from prediction.Serializer import load_net
+from prediction.Benchmark import verify
 
 LEAGUE = 'bl1'
 GAME_DAYS = [6, 7, 8]
@@ -11,6 +12,7 @@ def get_net():
 
     result = train_and_check(net, train_set=[])
     print 'choice:', result
+    verify(net, debug=True)
     return net
 
 net = get_net()
