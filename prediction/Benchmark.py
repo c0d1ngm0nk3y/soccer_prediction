@@ -15,7 +15,8 @@ PAST_RESULTS = {'bl1': [GameDayResult('bl1', '2017', 3, 3),
                         GameDayResult('bl1', '2017', 6, 5),
                         GameDayResult('bl1', '2017', 7, 4),
                         GameDayResult('bl1', '2017', 8, 4),
-                        GameDayResult('bl1', '2017', 9, 4)
+                        GameDayResult('bl1', '2017', 9, 4),
+                        GameDayResult('bl1', '2017', 10, 6)
                         ],
 
                 'bl2': [GameDayResult('bl2', '2017', 5, 3),
