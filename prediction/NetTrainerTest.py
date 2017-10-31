@@ -80,7 +80,7 @@ class MyTestCase(unittest.TestCase):
         stats = result.get_statistics()
         self.assertGreater(stats[0], 5)
         self.assertGreater(stats[1], 5)
-        self.assertGreater(stats[2], 5)
+        self.assertGreater(stats[2], 3)
 
     def test_interprete_0_low(self):
         result = interprete([0.4, 0.45])

@@ -85,7 +85,7 @@ class PredictResultTest(unittest.TestCase):
     def test_prediction_marker___draw(self):
         self.cut = PredictedResult({'MatchResults': [create_result(1, 1)]})
         self.cut.set_out([0.6, 0.4])
-        self.assertEqual(self.cut.get_correct_prediction_marker(), '')
+        self.assertEqual(self.cut.get_correct_prediction_marker(), ' ')
 
 
 if __name__ == '__main__':
