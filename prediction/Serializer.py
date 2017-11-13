@@ -1,23 +1,23 @@
 import pickle
 
 def as_string(net):
-    str = pickle.dumps(net)
-    return str
+    string = pickle.dumps(net)
+    return string
 
 def save_net(net, filename):
-    file = open(filename, 'w')
-    str = as_string(net)
-    file.write(str)
-    file.close()
+    a_file = open(filename, 'w')
+    string = as_string(net)
+    a_file.write(string)
+    a_file.close()
 
-def from_string(str):
-    net = pickle.loads(str)
+def from_string(string):
+    net = pickle.loads(string)
     return net
 
 def load_net(filename):
-    file = open(filename, 'r')
-    str = file.read()
-    net = from_string(str)
-    file.close()
+    a_file = open(filename, 'r')
+    string = a_file.read()
+    net = from_string(string)
+    a_file.close()
 
     return net

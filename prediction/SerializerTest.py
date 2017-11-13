@@ -9,8 +9,8 @@ class SerializerTest(unittest.TestCase):
         net1 = create_net()
         result1 = train_and_check(net1)
 
-        str = as_string(net1)
-        net2 = from_string(str)
+        string = as_string(net1)
+        net2 = from_string(string)
 
         result2 = train_and_check(net2, train_set=[])
 

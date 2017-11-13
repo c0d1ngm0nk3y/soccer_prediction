@@ -29,7 +29,7 @@ class QueryStatisticsTest(unittest.TestCase):
 
         self.assertRegexpMatches(self.cut.__str__(), "50%")
 
-    def test_performane_in_default_result(self):
+    def test_performane_default(self):
         self.assertRegexpMatches(self.cut.__str__(), "^0%")
 
 

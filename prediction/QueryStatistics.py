@@ -1,5 +1,6 @@
 EXPECTED_WIN = [3.25, 1.75, 2.25]
 
+
 class QueryStatistics(object):
     def __init__(self):
         self.count = 0
@@ -45,10 +46,10 @@ class QueryStatistics(object):
 
     def __str__(self):
         return '{0}% [{1}({2}%), {3}({4}%), {5}({6}%)] {7}'.format(self.get_performance(),
-                                                  self.statistics[0],
-                                                  self._get_percentage(0),
-                                                  self.statistics[1],
-                                                  self._get_percentage(1),
-                                                  self.statistics[2],
-                                                  self._get_percentage(2),
-                                                  self.get_expected_win_ratio())
+                                                                   self.statistics[0],
+                                                                   self._get_percentage(0),
+                                                                   self.statistics[1],
+                                                                   self._get_percentage(1),
+                                                                   self.statistics[2],
+                                                                   self._get_percentage(2),
+                                                                   self.get_expected_win_ratio())

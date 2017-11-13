@@ -6,11 +6,11 @@ from prediction.Serializer import save_net
 
 LEAGUE = 'bl1'
 
-BEST_OF_N = 500
-FILENAME = './prediction/pickles/20171026-01.pickles'
-MIN_PERFORMANCE = 52
-MIN_EXPECTATION = 1.08
-VERIFY_THRESHOLD = 0
+BEST_OF_N = 200
+FILENAME = './prediction/pickles/20171113-01.pickles'
+MIN_PERFORMANCE = 49
+MIN_EXPECTATION = 1.06
+VERIFY_THRESHOLD = 1
 
 SEASONS = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015']
 
