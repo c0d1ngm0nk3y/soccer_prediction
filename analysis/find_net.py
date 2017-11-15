@@ -6,10 +6,10 @@ from prediction.Serializer import save_net
 
 LEAGUE = 'bl1'
 
-BEST_OF_N = 200
+BEST_OF_N = 2000
 FILENAME = './prediction/pickles/20171113-01.pickles'
-MIN_PERFORMANCE = 49
-MIN_EXPECTATION = 1.06
+MIN_PERFORMANCE = 52
+MIN_EXPECTATION = 1.07
 VERIFY_THRESHOLD = 1
 
 SEASONS = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015']
@@ -20,7 +20,7 @@ def find_net():
     best_expectation = 0
     for i in range(BEST_OF_N):
         if (i+1) % 10 == 0:
-           print 'iteration', i+1
+            print 'iteration', i+1
         a_net = create_net()
 
         result = train_and_check(a_net, train_set=SEASONS, league=LEAGUE)

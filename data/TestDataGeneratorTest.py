@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 from __future__ import absolute_import
 
 import unittest
@@ -34,23 +35,23 @@ class GenerateData(unittest.TestCase):
         defenses = []
 
         for d in data:
-            (input, output, result, home_team) = d
-            self.assertEqual(len(input), input_size)
-            self.assertTrue(len(output) == 2)
+            (v_input, v_output, result, _) = d
+            self.assertEqual(len(v_input), input_size)
+            self.assertTrue(len(v_output) == 2)
             self.assertTrue(len(result) == 1)
 
-            offenses.extend([input[6], input[(len(input) / 2) + 6]])
-            defenses.extend([input[7], input[(len(input) / 2) + 7]])
+            offenses.extend([v_input[6], v_input[(len(v_input) / 2) + 6]])
+            defenses.extend([v_input[7], v_input[(len(v_input) / 2) + 7]])
 
             for i in range(0, input_size):
-                self.assertTrue(input[i] > 0)
-                self.assertTrue(input[i] <= 1)
+                self.assertTrue(v_input[i] > 0)
+                self.assertTrue(v_input[i] <= 1)
 
             for i in range(0, 2):
-                self.assertTrue(output[i] > 0)
-                self.assertTrue(output[i] < 1)
+                self.assertTrue(v_output[i] > 0)
+                self.assertTrue(v_output[i] < 1)
 
-            self.assertTrue(result[0] in [0,1,2])
+            self.assertTrue(result[0] in [0, 1, 2])
         self.assertEqual(max(offenses), 1)
         self.assertLess(min(offenses), 0.1)
 
@@ -58,7 +59,7 @@ class GenerateData(unittest.TestCase):
         self.assertLess(min(defenses), 0.1)
 
     def test_get_output_0_0(self):
-        output = calculate_output_for_points(0,0)
+        output = calculate_output_for_points(0, 0)
         self.assertEqual(0.5, output)
 
     def test_get_output_5_5(self):
@@ -94,16 +95,16 @@ class GenerateData(unittest.TestCase):
         self.assertEqual(0.01, output)
 
     def test_get_input_1(self):
-        input = self.gen.get_input_for_position(1)
-        self.assertEqual(1, input)
+        value = self.gen.get_input_for_position(1)
+        self.assertEqual(1, value)
 
     def test_get_input_18(self):
-        input = self.gen.get_input_for_position(18)
-        self.assertEqual(0.01, input)
+        value = self.gen.get_input_for_position(18)
+        self.assertEqual(0.01, value)
 
     def test_get_input_9(self):
-        input = self.gen.get_input_for_position(9)
-        self.assertEqual(0.53, input)
+        value = self.gen.get_input_for_position(9)
+        self.assertEqual(0.53, value)
 
     def test_relative_table_property_low(self):
         table = TableStub()

@@ -63,7 +63,7 @@ class TestDataGenerator(object):
         x_pos = self.get_input_for_position(pos)
 
         relative_points = list(map(lambda t: 1.0*t.get_points(t.get_position(team))/t.get_points(1), trend_tables))
-        x_trend_points = list(map(lambda rp: self.get_input_for_relative_points(rp), relative_points))
+        x_trend_points = list(map(self.get_input_for_relative_points, relative_points))
 
         home = table_home.get_position(team)
         x_home = self.get_input_for_position(home)
