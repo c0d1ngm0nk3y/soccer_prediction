@@ -1,4 +1,3 @@
-from prediction.Oracle import Oracle
 from prediction.NetTrainer import create_net, train_and_check
 from prediction.Benchmark import verify
 from prediction.QueryStatistics import QueryStatistics
@@ -26,7 +25,8 @@ def find_net():
         result = train_and_check(a_net, train_set=SEASONS, league=LEAGUE)
         print result
 
-        if (result.get_performance() < MIN_PERFORMANCE) or (result.get_expected_win_ratio() < MIN_EXPECTATION):
+        if (result.get_performance() < MIN_PERFORMANCE) \
+                or (result.get_expected_win_ratio() < MIN_EXPECTATION):
             continue
 
         verified = verify(a_net, league=LEAGUE, delta=VERIFY_THRESHOLD, debug=False)
@@ -42,11 +42,13 @@ def find_net():
     print 'choice:', best_result
     return best_net
 
-net = find_net()
-if not net:
-    print 'no net found!!!'
-else:
-    verify(net, league=LEAGUE, delta=VERIFY_THRESHOLD, debug=True)
-    save_net(net, FILENAME)
+def main():
+    net = find_net()
+    if not net:
+        print 'no net found!!!'
+    else:
+        verify(net, league=LEAGUE, delta=VERIFY_THRESHOLD, debug=True)
+        save_net(net, FILENAME)
 
-
+if __name__ == '__main__':
+    main()

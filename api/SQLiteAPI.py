@@ -42,7 +42,7 @@ class Position(object):
 
 class GameTable(object):
     def __init__(self, data):
-        self.positions = map(lambda d: Position(d), data)
+        self.positions = map(Position, data)
 
     def get_name(self, position):
         name = self.positions[position-1].name
@@ -88,7 +88,7 @@ class GameTable(object):
         return min(self._get_position_property('defense'))
 
     def _get_position_property(self, prop):
-        return map(lambda p: p[prop], self.positions)
+        return [p[prop] for p in self.positions]
 
 
 class SQLiteAPI(object):

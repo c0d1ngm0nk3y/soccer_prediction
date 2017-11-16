@@ -15,11 +15,15 @@ def get_net():
     verify(net, debug=True)
     return net
 
-net = get_net()
-ORACLE = Oracle(net)
+def main():
+    net = get_net()
+    oracle = Oracle(net)
 
-for game_day in GAME_DAYS:
-    print 'game day:', game_day
-    GAMES = ORACLE.predict_game_day(LEAGUE, '2017', game_day)
-    for game in GAMES:
-        game.print_it(False)
+    for game_day in GAME_DAYS:
+        print 'game day:', game_day
+        games = oracle.predict_game_day(LEAGUE, '2017', game_day)
+        for game in games:
+            game.print_it(False)
+
+if __name__ == '__main__':
+    main()
