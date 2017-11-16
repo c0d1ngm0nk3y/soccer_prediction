@@ -14,7 +14,7 @@ def main():
         x_axis.append(i)
 
         result = train_and_check(net, max_iterations=step, train_set=seasons)
-        verified = verify(net)
+        verified = verify(net, delta=1)
 
         print 'Executed with ', i, 'iterations:', result, 'verified:', verified
         y_axis.append(result.get_performance())

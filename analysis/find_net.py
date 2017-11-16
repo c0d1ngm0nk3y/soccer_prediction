@@ -5,10 +5,10 @@ from prediction.Serializer import save_net
 
 LEAGUE = 'bl1'
 
-BEST_OF_N = 2000
-FILENAME = './prediction/pickles/20171113-01.pickles'
-MIN_PERFORMANCE = 52
-MIN_EXPECTATION = 1.07
+BEST_OF_N = 50
+FILENAME = './prediction/pickles/20171116-01.pickles'
+MIN_PERFORMANCE = 50
+MIN_EXPECTATION = 1.04
 VERIFY_THRESHOLD = 1
 
 SEASONS = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015']
@@ -29,7 +29,7 @@ def find_net():
                 or (result.get_expected_win_ratio() < MIN_EXPECTATION):
             continue
 
-        verified = verify(a_net, league=LEAGUE, delta=VERIFY_THRESHOLD, debug=False)
+        verified = verify(a_net, league=LEAGUE, delta=VERIFY_THRESHOLD, debug=True)
         if not verified:
             continue
 

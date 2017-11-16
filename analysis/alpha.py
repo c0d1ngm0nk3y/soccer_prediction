@@ -8,14 +8,14 @@ def main():
     y_axis = []
     step = 0.01
 
-    n = 15
+    n = 20
     for i in range(0, n + 1):
         alpha = step * i
         net = create_net(alpha=alpha)
         x_axis.append(alpha)
 
         result = train_and_check(net)
-        verified = verify(net)
+        verified = verify(net, delta=1)
         print 'Executed with alpha', i * step, ':', result, 'verified', verified
 
         y_axis.append(result.get_performance())
