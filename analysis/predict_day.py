@@ -7,7 +7,8 @@ LEAGUE = 'bl1'
 GAME_DAYS = [10, 11, 12, 13]
 
 def get_net():
-    filename = './prediction/pickles/20171001-03.pickles'
+    #filename = './prediction/pickles/20171001-03.pickles'
+    filename = './prediction/pickles/20171120-02.pickles'
     net = load_net(filename)
 
     result = train_and_check(net, train_set=[])
