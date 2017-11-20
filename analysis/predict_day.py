@@ -4,7 +4,7 @@ from prediction.Serializer import load_net
 from prediction.Benchmark import verify
 
 LEAGUE = 'bl1'
-GAME_DAYS = [9, 10, 11, 12]
+GAME_DAYS = [10, 11, 12, 13]
 
 def get_net():
     filename = './prediction/pickles/20171001-03.pickles'
