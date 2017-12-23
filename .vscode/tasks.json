@@ -8,6 +8,12 @@
             "type": "shell",
             "command": "PYTHONUNBUFFERED=1 PYTHONPATH=/Users/ralf/PycharmProjects/NeuralNetwork python /Users/ralf/PycharmProjects/NeuralNetwork/analysis/find_net.py",
             "problemMatcher": []
+        },
+        {
+            "label": "predict",
+            "type": "shell",
+            "command": "PYTHONUNBUFFERED=1 PYTHONPATH=/Users/ralf/PycharmProjects/NeuralNetwork python /Users/ralf/PycharmProjects/NeuralNetwork/analysis/predict_day.py",
+            "problemMatcher": []
         }
     ]
 }
