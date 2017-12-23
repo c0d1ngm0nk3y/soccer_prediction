@@ -6,7 +6,7 @@ from prediction.Serializer import save_net
 
 LEAGUE = 'bl1'
 
-BEST_OF_N = 5
+BEST_OF_N = 1000
 FILENAME_TEMPLATE = './prediction/pickles/{}.pickles'
 MIN_PERFORMANCE = 50
 MIN_EXPECTATION = 1.05
