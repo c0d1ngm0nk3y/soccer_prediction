@@ -1,10 +1,11 @@
+#encoding=utf8
 from prediction.Oracle import Oracle
 from prediction.NetTrainer import train_and_check
 from prediction.Serializer import load_net
 from prediction.Benchmark import verify
 
 LEAGUE = 'bl1'
-GAME_DAYS = [14, 15, 16, 17]
+GAME_DAYS = [18]
 
 def get_net():
     filename = './prediction/pickles/20171001-03.pickles'

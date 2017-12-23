@@ -16,10 +16,10 @@ class PredictedResult(object):
         self.v_out = None
 
     def get_home_team(self):
-        return self.data['Team1']['TeamName']
+        return self.data['Team1']['TeamName'].encode('utf-8')
 
     def get_away_team(self):
-        return self.data['Team2']['TeamName']
+        return self.data['Team2']['TeamName'].encode('utf-8')
 
     def get_home_points(self):
         return int(self.game['PointsTeam1'])

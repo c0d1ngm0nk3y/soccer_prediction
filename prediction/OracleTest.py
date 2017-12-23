@@ -1,3 +1,4 @@
+#encoding=utf8
 from __future__ import absolute_import
 import unittest
 from prediction.Oracle import Oracle
@@ -16,7 +17,7 @@ class OracleTest(unittest.TestCase):
         self.assertEqual(9, len(result))
 
         game = result[0]
-        self.assertEqual(game.get_home_team(), u'1. FC K\xf6ln')
+        self.assertEqual(game.get_home_team(), '1. FC Köln')
         self.assertEqual(game.get_away_team(), u'TSG 1899 Hoffenheim')
         self.assertEqual(game.get_prediction(), 1)
 

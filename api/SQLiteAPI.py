@@ -12,13 +12,13 @@ class Game(object):
             print(x)
 
     def get_home_team(self):
-        return self.data[0]
+        return self.data[0].encode('utf-8')
 
     def get_home_points(self):
         return self.data[1]
 
     def get_away_team(self):
-        return self.data[2]
+        return self.data[2].encode('utf-8')
 
     def get_away_points(self):
         return self.data[3]
@@ -45,7 +45,7 @@ class GameTable(object):
         self.positions = map(Position, data)
 
     def get_name(self, position):
-        name = self.positions[position-1].name
+        name = self.positions[position-1].name.encode('utf-8')
         return name
 
     def get_points(self, position):

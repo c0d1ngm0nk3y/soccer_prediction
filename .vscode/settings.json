@@ -1,0 +1,11 @@
+{
+    "python.unitTest.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "*Test.py"
+    ],
+    "python.unitTest.unittestEnabled": true,
+    "python.pythonPath": "/usr/bin/python"
+}

@@ -1,3 +1,4 @@
+#encoding=utf8
 import unittest
 
 import api.SQLiteAPI as SQLiteAPI
@@ -12,7 +13,7 @@ class SQLiteDataTest(unittest.TestCase):
         api = SQLiteAPI.SQLiteAPI()
         table = api.get_game_table('bl1', '2016', 34)
 
-        self.assertEquals(u'Bayern M\xfcnchen', table.get_name(1))
+        self.assertEquals('Bayern München', table.get_name(1))
         self.assertEquals(82, table.get_points(1))
         self.assertEquals(3, table.get_position('Borussia Dortmund'))
         self.assertEquals(-35, table.get_goal_diff(18))
@@ -27,7 +28,7 @@ class SQLiteDataTest(unittest.TestCase):
         api = SQLiteAPI.SQLiteAPI()
         table = api.get_game_table('bl1', '2015', 34)
 
-        self.assertEquals(u'Bayern M\xfcnchen', table.get_name(1))
+        self.assertEquals('Bayern München', table.get_name(1))
         self.assertEquals(88, table.get_points(1))
 
     def _test_insert_season_bl1_2014(self):
@@ -38,7 +39,7 @@ class SQLiteDataTest(unittest.TestCase):
         api = SQLiteAPI.SQLiteAPI()
         table = api.get_game_table('bl1', '2014', 34)
 
-        self.assertEquals(u'Bayern M\xfcnchen', table.get_name(1))
+        self.assertEquals('Bayern München', table.get_name(1))
         self.assertEquals(u'VfL Wolfsburg', table.get_name(2))
         self.assertEquals(79, table.get_points(1))
         self.assertEquals(40, table.get_points(11))
@@ -74,7 +75,7 @@ class SQLiteDataTest(unittest.TestCase):
         api = SQLiteAPI.SQLiteAPI()
 
         table = api.get_game_table('bl1', '2012', 34)
-        self.assertEquals(u'Bayern M\xfcnchen', table.get_name(1))
+        self.assertEquals('Bayern München', table.get_name(1))
         self.assertEquals(91, table.get_points(1))
         self.assertEquals(21, table.get_points(18))
         self.assertEquals(u'SpVgg Greuther Fuerth', table.get_name(18))
