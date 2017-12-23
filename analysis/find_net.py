@@ -1,3 +1,4 @@
+from datetime import datetime
 from prediction.NetTrainer import create_net, train_and_check
 from prediction.Benchmark import verify
 from prediction.QueryStatistics import QueryStatistics
@@ -5,8 +6,8 @@ from prediction.Serializer import save_net
 
 LEAGUE = 'bl1'
 
-BEST_OF_N = 2500
-FILENAME = './prediction/pickles/20171121-01.pickles'
+BEST_OF_N = 5
+FILENAME_TEMPLATE = './prediction/pickles/{}.pickles'
 MIN_PERFORMANCE = 50
 MIN_EXPECTATION = 1.05
 VERIFY_THRESHOLD = 1
@@ -48,7 +49,9 @@ def main():
         print 'no net found!!!'
     else:
         verify(net, league=LEAGUE, delta=VERIFY_THRESHOLD, debug=True)
-        save_net(net, FILENAME)
+        filename = FILENAME_TEMPLATE.format(datetime.now().strftime("%Y%m%d_%H%M"))
+        print "Using filename: {}".format(filename)
+        save_net(net, filename)
 
 if __name__ == '__main__':
     main()
