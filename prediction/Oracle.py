@@ -74,15 +74,22 @@ class PredictedResult(object):
 
         return ' '
 
+    def get_actual_result_string(self):
+        line = ''
+        if self.get_home_points() != -1:
+            line = '/ %i(%i:%i) %c' % (self.get_actual_result(),
+                                       self.get_home_points(), self.get_away_points(),
+                                       self.get_correct_prediction_marker())
+        return line
+
     def print_it(self, debug=False):
-        print('%25s : %25s  =>  %.2i%%: %i(%i:%i) / %i(%i:%i) %c'
+        print('%25s : %25s  =>  %.2i%%: %i(%i:%i) %s'
               % (self.get_home_team(), self.get_away_team(), self.get_confidence(),
                  self.get_prediction(), self.get_predicted_home_points(),
-                 self.get_predicted_away_points(), self.get_actual_result(),
-                 self.get_home_points(), self.get_away_points(),
-                 self.get_correct_prediction_marker()))
+                 self.get_predicted_away_points(), self.get_actual_result_string()))
         if debug:
             print self.v_in, '=>', self.v_out[0], self.v_out[1]
+
 
 class Oracle(object):
     def __init__(self, net):
@@ -93,7 +100,8 @@ class Oracle(object):
     def predict_game_day(self, league, season, game_day):
         data = self.api.request_data_game_day(league, season, game_day)
 
-        test_data = self.generator.genererate_from_game_gay(league, season, game_day)
+        test_data = self.generator.genererate_from_game_gay(
+            league, season, game_day)
         result = []
 
         for i in range(len(data)):
