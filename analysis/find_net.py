@@ -1,6 +1,6 @@
 from datetime import datetime
 from prediction.NetTrainer import create_net, train_and_check
-from prediction.Benchmark import verify
+from prediction.Benchmark import verify, load_and_check
 from prediction.QueryStatistics import QueryStatistics
 from prediction.Serializer import save_net
 
@@ -8,7 +8,7 @@ LEAGUE = 'bl1'
 
 BEST_OF_N = 1000
 FILENAME_TEMPLATE = './prediction/pickles/{}.pickles'
-MIN_PERFORMANCE = 50
+MIN_PERFORMANCE = 52
 MIN_EXPECTATION = 1.00
 VERIFY_THRESHOLD = 1
 
@@ -40,18 +40,17 @@ def find_net():
             best_result = result
             best_expectation = result.get_expected_win_ratio()
 
-    print 'choice:', best_result
+    print 'best net found:', best_result
     return best_net
 
 def main():
     net = find_net()
-    if not net:
-        print 'no net found!!!'
-    else:
-        verify(net, league=LEAGUE, delta=VERIFY_THRESHOLD, debug=True)
+    if net:
         filename = FILENAME_TEMPLATE.format(datetime.now().strftime("%Y%m%d_%H%M"))
-        print "Using filename: {}".format(filename)
+        print "Saving net: {}".format(filename)
         save_net(net, filename)
+        load_and_check(filename)
+
 
 if __name__ == '__main__':
     main()
