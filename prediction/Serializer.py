@@ -19,5 +19,4 @@ def load_net(filename):
     string = a_file.read()
     net = from_string(string)
     a_file.close()
-
     return net

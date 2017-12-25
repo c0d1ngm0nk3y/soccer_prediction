@@ -1,19 +1,13 @@
 #encoding=utf8
 from prediction.Oracle import Oracle
-from prediction.NetTrainer import train_and_check
-from prediction.Serializer import load_net
-from prediction.Benchmark import verify
+from prediction.Benchmark import load_and_check
 
 LEAGUE = 'bl1'
 GAME_DAYS = [17, 18]
 
 def get_net():
     filename = './prediction/pickles/20171001-03.pickles'
-    net = load_net(filename)
-
-    result = train_and_check(net, train_set=[])
-    print 'choice:', result
-    verify(net, debug=True)
+    net = load_and_check(filename)
     return net
 
 def main():

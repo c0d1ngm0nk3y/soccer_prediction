@@ -1,4 +1,5 @@
-from prediction.NetTrainer import NetTrainer
+from prediction.NetTrainer import NetTrainer, train_and_check
+from prediction.Serializer import load_net
 
 
 class GameDayResult(object):
@@ -49,3 +50,11 @@ def verify(net, league='bl1', factor=1.0, delta=0, debug=False):
         print 'verify:', actual, '/', expected, verified
 
     return verified
+
+def load_and_check(filename):
+    net = load_net(filename)
+
+    result = train_and_check(net, train_set=[])
+    print filename, result
+    verify(net, debug=True)
+    return net
