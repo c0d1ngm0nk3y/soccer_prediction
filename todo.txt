@@ -22,10 +22,12 @@
 - alpha pro train
 
 next:
+- python logging
+- select best net (prediction)
+- find_net: learn iterative
+
 - confidence
 - delta for draw > 0.05
 - predict exact result
 - make tests stable
-- coverage
 - fix coverage
-- pylint
