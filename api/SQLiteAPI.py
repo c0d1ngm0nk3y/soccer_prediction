@@ -96,7 +96,7 @@ class SQLiteAPI(object):
         self.api = OpenLigaDB.OpenLigaDB()
         self.conn = None
 
-    def _import_data(self, league, season, data, debug):
+    def _import_data(self, league, season, data, debug=False):
         for game in data:
             if debug:
                 print(game)

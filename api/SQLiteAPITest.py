@@ -1,14 +1,9 @@
 #encoding=utf8
 import unittest
-
 import api.SQLiteAPI as SQLiteAPI
 
 
 class SQLiteDataTest(unittest.TestCase):
-    def _test_insert_season_bl1_2016(self):
-        api = SQLiteAPI.SQLiteAPI()
-        api.import_season('bl1', '2016')
-
     def test_season_bl1_2016(self):
         api = SQLiteAPI.SQLiteAPI()
         table = api.get_game_table('bl1', '2016', 34)
