@@ -1,8 +1,8 @@
 #encoding=utf8
 import logging
-import matplotlib.pyplot as plt
 
 def show_plot(coord_x, coord_y, max_x):
+    import matplotlib.pyplot as plt
     print 'result', min(coord_y), '<->', max(coord_y)
 
     plt.plot(coord_x, coord_y, 'ro')
