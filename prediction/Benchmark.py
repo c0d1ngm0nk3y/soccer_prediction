@@ -1,3 +1,4 @@
+import logging
 from prediction.NetTrainer import NetTrainer, train_and_check
 from prediction.Serializer import load_net
 
@@ -33,7 +34,8 @@ PAST_RESULTS = {'bl1': [GameDayResult('bl1', '2017', 3, 3),
                        ]}
 
 
-def verify(net, league='bl1', factor=1.0, delta=0, debug=False):
+def verify(net, league='bl1', factor=1.0, delta=0):
+    logger = logging.getLogger()
     trainer = NetTrainer(net)
     expected = 0
     actual = 0
@@ -46,8 +48,7 @@ def verify(net, league='bl1', factor=1.0, delta=0, debug=False):
         actual = actual + results.get_hits()
 
     verified = actual >= min((expected * factor), (expected - delta))
-    if debug:
-        print 'verify:', actual, '/', expected, verified
+    logger.debug('verify: %d / %d -> %s', actual, expected, verified)
 
     return verified
 
@@ -56,5 +57,5 @@ def load_and_check(filename):
 
     result = train_and_check(net, train_set=[])
     print filename, result
-    verify(net, debug=True)
+    verify(net)
     return net

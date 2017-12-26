@@ -82,13 +82,11 @@ class PredictedResult(object):
                                        self.get_correct_prediction_marker())
         return line
 
-    def print_it(self, debug=False):
-        print('%25s : %25s  =>  %.2i%%: %i(%i:%i) %s'
+    def print_it(self):
+        print('%30s : %30s  =>  %.2i%%: %i(%i:%i) %s'
               % (self.get_home_team(), self.get_away_team(), self.get_confidence(),
                  self.get_prediction(), self.get_predicted_home_points(),
                  self.get_predicted_away_points(), self.get_actual_result_string()))
-        if debug:
-            print self.v_in, '=>', self.v_out[0], self.v_out[1]
 
 
 class Oracle(object):
