@@ -14,7 +14,7 @@ def main():
 
         untrained = train_and_check(net, [])
         trained = train_and_check(net)
-        verified = verify(net, debug=False, delta=2)
+        verified = verify(net, delta=2)
 
         print 'Execution {0}:'.format(i+1), untrained.get_performance(),\
             '=>', trained, 'verified:', verified
