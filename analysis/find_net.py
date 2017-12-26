@@ -54,7 +54,8 @@ def find_net():
 def main():
     logger = logging.getLogger()
     start_time = time()
-    logger.warning('searching net with %d%% and %.2f (%d iterations)', MIN_PERFORMANCE, MIN_EXPECTATION, BEST_OF_N)
+    logger.warning('searching net with %d%% and %.2f (%d iterations)',
+                   MIN_PERFORMANCE, MIN_EXPECTATION, BEST_OF_N)
     net = find_net()
     end_time = time()
     duration_min = int((end_time - start_time) / 60)

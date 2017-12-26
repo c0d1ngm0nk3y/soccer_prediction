@@ -1,5 +1,6 @@
 from api.OpenLigaDB import OpenLigaDB
 from api.SQLiteAPI import SQLiteAPI
+from analysis.Util import string_with_fixed_length
 from data.TestDataGenerator import TestDataGenerator
 from prediction.Judger import calculate_confidence, interprete
 from prediction.NetTrainer import NetTrainer
@@ -84,7 +85,8 @@ class PredictedResult(object):
 
     def print_it(self):
         print('%30s : %30s  =>  %.2i%%: %i(%i:%i) %s'
-              % (self.get_home_team(), self.get_away_team(), self.get_confidence(),
+              % (string_with_fixed_length(self.get_home_team()),
+                 string_with_fixed_length(self.get_away_team()), self.get_confidence(),
                  self.get_prediction(), self.get_predicted_home_points(),
                  self.get_predicted_away_points(), self.get_actual_result_string()))
 

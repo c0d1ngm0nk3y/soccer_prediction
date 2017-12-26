@@ -1,3 +1,4 @@
+#encoding=utf8
 import logging
 import matplotlib.pyplot as plt
 
@@ -12,3 +13,6 @@ def init_logging():
     log_format = '%(asctime)-15s %(levelno)s %(message)s'
     logging.basicConfig(format=log_format)
     logging.getLogger().setLevel(logging.INFO)
+
+def string_with_fixed_length(string):
+    return string.replace('ü', 'u').replace('ö', 'o').replace('ä', 'a')

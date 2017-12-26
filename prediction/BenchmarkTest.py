@@ -15,7 +15,7 @@ class BenchmarkTest(unittest.TestCase):
             net = create_net()
             train_and_check(net)
 
-            verified = verify(net, factor=0.85, debug=False)
+            verified = verify(net, factor=0.85)
             if verified:
                 break
         self.assertTrue(verified)
@@ -25,7 +25,7 @@ class BenchmarkTest(unittest.TestCase):
             net = create_net()
             train_and_check(net, league='bl2')
 
-            verified = verify(net, league='bl2', factor=0.85, debug=False)
+            verified = verify(net, league='bl2', factor=0.85)
             if verified:
                 break
         self.assertTrue(verified)
