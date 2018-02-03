@@ -121,6 +121,20 @@ class SQLiteAPI(object):
                 self.insert_game(league, season, game_day, team, home,
                                  goals_own, goals_opponent, points, match)
 
+    def select_first_after_break(self, league, season):
+        self.conn = sqlite3.connect('games.sqlite')
+        cursor = self.conn.cursor()
+        result = cursor.execute("SELECT game_day_after "
+                                "FROM breaks "
+                                "WHERE league = ? and season = ?", [league, season]).fetchall()
+        self.conn.close()
+
+        if not result:
+            return -99
+
+        (game_day,) = result[0]
+        return game_day
+
     def import_game_day(self, league, season, game_day, debug=False):
         self.conn = sqlite3.connect('games.sqlite')
         self._delete_game_day(league, season, game_day)

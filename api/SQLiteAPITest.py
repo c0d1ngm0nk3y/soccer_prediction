@@ -19,6 +19,16 @@ class SQLiteDataTest(unittest.TestCase):
         api = SQLiteAPI.SQLiteAPI()
         api.import_season('bl1', '2015')
 
+    def test_break_day(self):
+        api = SQLiteAPI.SQLiteAPI()
+        game_day = api.select_first_after_break('bl1', '2016')
+        self.assertEquals(17, game_day)
+
+    def test_break_day_unknown(self):
+        api = SQLiteAPI.SQLiteAPI()
+        game_day = api.select_first_after_break('xxx', '9999')
+        self.assertEquals(-99, game_day)
+
     def test_season_bl1_2015(self):
         api = SQLiteAPI.SQLiteAPI()
         table = api.get_game_table('bl1', '2015', 34)

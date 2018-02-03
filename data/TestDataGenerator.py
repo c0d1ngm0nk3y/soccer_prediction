@@ -15,12 +15,30 @@ class TestDataInput(object):
 
 class TestDataGenerator(object):
 
+    SKIP_FIRST_N_GAME_DAYS = 4
+    SKIP_LAST_N_GAME_DAYS = 2
+    TOTAL_GAME_DAYS = 34
+
     def __init__(self):
         self.api = SQLiteAPI()
 
+    def ignore_game_day(self, game_day, league, season):
+        if game_day > self.TOTAL_GAME_DAYS - self.SKIP_LAST_N_GAME_DAYS:
+            return True
+        if game_day <= self.SKIP_FIRST_N_GAME_DAYS:
+            return True
+        first_game_day_after_break = self.api.select_first_after_break(league, season)
+        after_break = game_day >= first_game_day_after_break
+        not_into_season = game_day < first_game_day_after_break + self.SKIP_FIRST_N_GAME_DAYS
+        if after_break and not_into_season:
+            return True
+        return False
+
     def generate_from_season(self, league, season):
         data = []
-        for i in range(5, 33):
+        for i in range(1, self.TOTAL_GAME_DAYS):
+            if self.ignore_game_day(i, league, season):
+                continue
             game_day_data = self.genererate_from_game_gay(league, season, i)
             data.extend(game_day_data)
         return data

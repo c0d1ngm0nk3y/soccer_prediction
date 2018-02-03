@@ -58,6 +58,11 @@ class GenerateData(unittest.TestCase):
         self.assertEqual(max(defenses), 1)
         self.assertLess(min(defenses), 0.1)
 
+    def test_season_data_count(self):
+        data = self.gen.generate_from_season('bl1', '2016')
+        expected = 9 * (34 - 4 - 4 -2)
+        self.assertEquals(expected, len(data))
+
     def test_get_output_0_0(self):
         output = calculate_output_for_points(0, 0)
         self.assertEqual(0.5, output)
