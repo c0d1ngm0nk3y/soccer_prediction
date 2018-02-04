@@ -21,13 +21,10 @@
 - logging
 - alpha pro train
 
-next:
-- python logging
-- select best net (prediction)
-- find_net: learn iterative
-
-- confidence
-- delta for draw > 0.05
-- predict exact result
+next steps:
 - make tests stable
-- fix coverage
+- coverage gap
+- implement "load_best_net"
+- test to compare algorithms to net
+- combine inputs
+
