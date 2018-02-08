@@ -5,7 +5,7 @@ from prediction.Oracle import Oracle
 from prediction.Benchmark import load_and_check
 
 LEAGUE = 'bl1'
-GAME_DAYS = [20, 21]
+GAME_DAYS = [21, 22]
 
 def get_net():
     filename = './prediction/pickles/20171001-03.pickles'
