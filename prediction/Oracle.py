@@ -121,4 +121,18 @@ class Oracle(object):
             day_prediction = PredictedResult(x)
             if day_prediction.get_home_team() == home_team:
                 return day_prediction
+
+        for x in data:
+            day_prediction = PredictedResult(x)
+            if self.is_similar_teamname(day_prediction.get_home_team(), home_team):
+                return day_prediction
+
         raise BaseException('game not found')
+
+    def is_similar_teamname(self, team1, team2):
+        for token in team1.split(" "):
+            if len(token) < 4:
+                continue
+            if token in team2:
+                return True
+        return False
