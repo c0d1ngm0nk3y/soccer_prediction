@@ -11,7 +11,7 @@ class OpenLigaDBTest(unittest.TestCase):
         game1 = data[0]
 
         self.assertEquals(1, game1['Group']['GroupOrderID'])
-        self.assertEquals('FC Bayern', game1['Team1']['ShortName'])
+        self.assertEquals('FCB', game1['Team1']['ShortName'])
         self.assertEquals('Werder Bremen', game1['Team2']['TeamName'])
         self.assertEquals(6, game1['Goals'][-1]['ScoreTeam1'])
 
