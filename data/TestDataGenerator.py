@@ -60,10 +60,10 @@ class TestDataGenerator(object):
         for game in game_day:
             home_team = game.get_home_team()
             home_points = game.get_home_points()
-            input_home = self.extract_input(table, trends, table_home, home_team)
 
             away_team = game.get_away_team()
             away_points = game.get_away_points()
+            input_home = self.extract_input(table, trends, table_home, home_team)
             input_away = self.extract_input(table, trends, table_away, away_team)
 
             result = self.calculate_result(home_points, away_points)

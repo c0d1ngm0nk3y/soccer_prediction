@@ -104,7 +104,7 @@ class Oracle(object):
             league, season, game_day)
         result = []
 
-        for i in range(len(data)):
+        for i in range(len(test_data)):
             (v_in, _, _, home_team) = test_data[i]
             day_prediction = self.find_game_prediction(data, home_team)
 

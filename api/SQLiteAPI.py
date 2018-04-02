@@ -50,6 +50,8 @@ class Position(object):
 class GameTable(object):
     def __init__(self, data):
         self.positions = map(Position, data)
+        if len(self.positions) != 18:
+            raise BaseException("Unexpected table length: " + str(len(self.positions)))
 
     def get_name(self, position):
         name = self.positions[position-1].name.encode('utf-8')
