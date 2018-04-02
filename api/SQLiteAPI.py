@@ -2,6 +2,13 @@ import sqlite3
 
 import api.OpenLigaDB as OpenLigaDB
 
+def is_similar_teamname(team1, team2):
+    for token in team1.split(" "):
+        if len(token) < 4:
+            continue
+        if token in team2:
+            return True
+    return False
 
 class Game(object):
     def __init__(self, data):
@@ -57,7 +64,12 @@ class GameTable(object):
             n = self.get_name(i)
             if n == name:
                 return i
-        return -1
+
+        for i in range(1, len(self.positions)+1):
+            n = self.get_name(i)
+            if is_similar_teamname(n, name):
+                return i
+        raise BaseException("Team not found in GameTable: " + name)
 
     def get_goal_diff(self, position):
         diff = self.positions[position - 1].diff

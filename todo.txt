@@ -21,6 +21,8 @@
 - logging
 - alpha pro train
 
+- clean up: is similar name, use id
+
 next steps:
 - make tests stable
 - coverage gap
