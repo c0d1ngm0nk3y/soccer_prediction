@@ -8,7 +8,7 @@ LEAGUE = 'bl1'
 GAME_DAYS = [28, 29]
 
 def get_net():
-    filename = './prediction/pickles/20180324_2219.pickles'
+    filename = './prediction/pickles/20180404_2210.pickles'
     net = load_and_check(filename)
     return net
 
