@@ -19,7 +19,6 @@
 - allow large train sets
 - test: best selected net
 - logging
-- alpha pro train
 
 - clean up: is similar name, use id
 
