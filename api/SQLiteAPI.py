@@ -1,6 +1,7 @@
 import sqlite3
 
 import api.OpenLigaDB as OpenLigaDB
+from analysis.Util import normalize_team_name
 
 def is_similar_teamname(team1, team2):
     for token in team1.split(" "):
@@ -194,6 +195,7 @@ class SQLiteAPI(object):
 
     def insert_game(self, league, season, game_day, team, home, goals_own,
                     goals_opponent, points, match):
+        team = normalize_team_name(team)
         cursor = self.conn.cursor()
         cursor.execute(u"INSERT INTO results VALUES"
                        u"('{0}', '{1}', {2}, '{3}', {4}, {5}, {6}, {7}, {8})"

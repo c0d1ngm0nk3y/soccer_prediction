@@ -16,3 +16,11 @@ def init_logging():
 
 def string_with_fixed_length(string):
     return string.replace('ü', 'u').replace('ö', 'o').replace('ä', 'a')
+
+def normalize_team_name(name):
+    if name == "FC Bayern":
+        name = u"Bayern München"
+    elif name == "Leverkusen":
+        name = "Bayer 04 Leverkusen"
+
+    return name
