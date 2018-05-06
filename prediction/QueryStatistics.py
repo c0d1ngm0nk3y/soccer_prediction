@@ -1,4 +1,4 @@
-EXPECTED_WIN = [3.30, 1.75, 2.00]
+EXPECTED_WIN = [3.40, 1.75, 1.975]
 
 
 class QueryStatistics(object):
