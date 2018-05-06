@@ -42,7 +42,7 @@ PAST_RESULTS = {'bl1': [GameDayResult('bl1', '2017', 3, 3),
                         GameDayResult('bl1', '2017', 31, 5),
                         GameDayResult('bl1', '2017', 32, 3),
                         GameDayResult('bl1', '2017', 33, 6)
-                                              ],
+                       ],
 
                 'bl2': [GameDayResult('bl2', '2017', 5, 3),
                         GameDayResult('bl2', '2017', 6, 2),
@@ -67,6 +67,7 @@ def verify(net, league='bl1', factor=1.0, delta=0):
     logger.debug('verify: %d / %d -> %s', actual, expected, verified)
 
     return verified
+
 
 def load_and_check(filename):
     logger = logging.getLogger()
