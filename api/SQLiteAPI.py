@@ -165,8 +165,14 @@ class SQLiteAPI(object):
                           u"AND season = '{1}' AND game_day = '{2}'"
                           .format(league, season, game_day))
 
+    def _delete_season(self, league, season):
+        self.conn.execute(u"DELETE FROM results WHERE league = '{0}' "
+                          u"AND season = '{1}'"
+                          .format(league, season))
+
     def import_season(self, league, season, debug=False):
         self.conn = sqlite3.connect('games.sqlite')
+        self._delete_season(league, season)
 
         data = self.api.request_data(league, season)
         self._import_data(league, season, data, debug)

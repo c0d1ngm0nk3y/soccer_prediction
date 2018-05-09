@@ -1,7 +1,7 @@
 from api import SQLiteAPI
 
 LEAGUE = 'bl2'
-SEASONS = ['2010', '2009', '2008', '2007', '2006']
+SEASONS = ['2017']
 
 
 def main():
