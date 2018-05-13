@@ -7,12 +7,12 @@ from prediction.Benchmark import verify, load_and_check
 from prediction.QueryStatistics import QueryStatistics
 from prediction.Serializer import save_net
 
-LEAGUE = 'bl1'
+LEAGUE = 'bl2'
 
 BEST_OF_N = 2500
-FILENAME_TEMPLATE = './prediction/pickles/{}.pickles'
-MIN_PERFORMANCE = 53
-MIN_EXPECTATION = 1.08
+FILENAME_TEMPLATE = './prediction/pickles/' + LEAGUE + '/{}.pickles'
+MIN_PERFORMANCE = 47
+MIN_EXPECTATION = 1
 VERIFY_THRESHOLD = 0
 DEBUG = False
 
@@ -63,7 +63,7 @@ def main():
         filename = FILENAME_TEMPLATE.format(datetime.now().strftime("%Y%m%d_%H%M"))
         logger.info("saving net: %s", filename)
         save_net(net, filename)
-        load_and_check(filename)
+        load_and_check(filename, league=LEAGUE)
     logger.warning("time for %d iterations: %d min", BEST_OF_N, duration_min)
 
 if __name__ == '__main__':

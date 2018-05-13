@@ -69,12 +69,12 @@ def verify(net, league='bl1', factor=1.0, delta=0):
     return verified
 
 
-def load_and_check(filename):
+def load_and_check(filename, league):
     logger = logging.getLogger()
     net = load_net(filename)
 
     result = train_and_check(net, train_set=[])
     logger.debug('using file %s', filename)
     logger.info(result)
-    verify(net)
+    verify(net, league=league)
     return net

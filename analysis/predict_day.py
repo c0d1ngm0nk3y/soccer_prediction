@@ -4,12 +4,14 @@ from analysis.Util import init_logging
 from prediction.Oracle import Oracle
 from prediction.Benchmark import load_and_check
 
-LEAGUE = 'bl1'
+LEAGUE = 'bl2'
 GAME_DAYS = [33, 34]
+NETS = {'bl1': './prediction/pickles/20180404_2210.pickles',
+        'bl2': './prediction/pickles/bl2/20180513_1728.pickles'}
 
 def get_net():
-    filename = './prediction/pickles/20180404_2210.pickles'
-    net = load_and_check(filename)
+    filename = NETS[LEAGUE]
+    net = load_and_check(filename, league=LEAGUE)
     return net
 
 def main():
