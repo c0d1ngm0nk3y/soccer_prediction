@@ -79,6 +79,7 @@ class GameTable(object):
         raise BaseException("Team not found in GameTable: " + name)
 
     def is_new_to_league(self, name):
+        #TODO Find better solution
         return name in ['Fortuna Düsseldorf', '1. FC Nürnberg']
 
     def get_goal_diff(self, position):
