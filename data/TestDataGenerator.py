@@ -39,23 +39,27 @@ class TestDataGenerator(object):
         for i in range(1, self.TOTAL_GAME_DAYS):
             if self.ignore_game_day(i, league, season):
                 continue
-            game_day_data = self.genererate_from_game_gay(league, season, i)
+            game_day_data = self.generate_from_game_gay(league, season, i)
             data.extend(game_day_data)
         return data
 
-    def genererate_from_game_gay(self, league, season, day):
+    def generate_from_game_gay(self, league, season, day):
         game_day_data = []
         game_day = self.api.get_game_day(league, season, day)
 
-        state = day - 1
-        table = self.api.get_game_table(league, season, state)
-        table_trend4 = self.api.get_game_table_trend(league, season, state, trend=4)
-        table_trend3 = self.api.get_game_table_trend(league, season, state, trend=3)
-        table_trend2 = self.api.get_game_table_trend(league, season, state, trend=2)
-        table_trend1 = self.api.get_game_table_trend(league, season, state, trend=1)
+        prev_day = day - 1
+        if prev_day == 0:
+            prev_day = 34
+            season = str(int(season) - 1)
+
+        table = self.api.get_game_table(league, season, prev_day)
+        table_trend4 = self.api.get_game_table_trend(league, season, prev_day, trend=4)
+        table_trend3 = self.api.get_game_table_trend(league, season, prev_day, trend=3)
+        table_trend2 = self.api.get_game_table_trend(league, season, prev_day, trend=2)
+        table_trend1 = self.api.get_game_table_trend(league, season, prev_day, trend=1)
         trends = [table_trend1, table_trend2, table_trend3, table_trend4]
-        table_home = self.api.get_game_table_home(league, season, state)
-        table_away = self.api.get_game_table_away(league, season, state)
+        table_home = self.api.get_game_table_home(league, season, prev_day)
+        table_away = self.api.get_game_table_away(league, season, prev_day)
 
         for game in game_day:
             home_team = game.get_home_team()

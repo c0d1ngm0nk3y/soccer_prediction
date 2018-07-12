@@ -100,7 +100,7 @@ class Oracle(object):
     def predict_game_day(self, league, season, game_day):
         data = self.api.request_data_game_day(league, season, game_day)
 
-        test_data = self.generator.genererate_from_game_gay(
+        test_data = self.generator.generate_from_game_gay(
             league, season, game_day)
         result = []
 

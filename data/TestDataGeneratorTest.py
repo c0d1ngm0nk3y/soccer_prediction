@@ -23,6 +23,10 @@ class GenerateData(unittest.TestCase):
     def setUp(self):
         self.gen = TestDataGenerator()
 
+    def test_first_day_of_season(self):
+        data = self.gen.generate_from_game_gay('bl1', '2018', 1)
+        self.assertEquals(len(data), 9)
+
     def test_season(self):
         data = self.gen.generate_from_season('bl1', '2014')
 

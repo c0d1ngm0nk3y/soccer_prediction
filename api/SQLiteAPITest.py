@@ -40,6 +40,15 @@ class SQLiteDataTest(unittest.TestCase):
         api = SQLiteAPI.SQLiteAPI()
         api.import_season('bl1', '2014')
 
+    def _test_insert_season_bl1_2018(self):
+        api = SQLiteAPI.SQLiteAPI()
+        api.import_season('bl1', '2018')
+
+    def test_season_bl1_2018_gameday_1(self):
+        api = SQLiteAPI.SQLiteAPI()
+        data = api.get_game_day('bl1', '2018', 1)
+        self.assertEquals(len(data), 9)
+
     def test_season_bl1_2014(self):
         api = SQLiteAPI.SQLiteAPI()
         table = api.get_game_table('bl1', '2014', 34)

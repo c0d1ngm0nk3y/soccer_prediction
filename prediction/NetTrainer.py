@@ -86,7 +86,7 @@ class NetTrainer(object):
         return total_error
 
     def check_game_day(self, league, season, game_day):
-        game_day_data = self.generator.genererate_from_game_gay(league, season, game_day)
+        game_day_data = self.generator.generate_from_game_gay(league, season, game_day)
         return_code = self._check_data(game_day_data)
         return return_code
 

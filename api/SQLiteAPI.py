@@ -1,3 +1,4 @@
+#encoding=utf8
 import sqlite3
 
 import api.OpenLigaDB as OpenLigaDB
@@ -72,7 +73,13 @@ class GameTable(object):
             n = self.get_name(i)
             if is_similar_teamname(n, name):
                 return i
+
+        if self.is_new_to_league(name):
+            return 18
         raise BaseException("Team not found in GameTable: " + name)
+
+    def is_new_to_league(self, name):
+        return name in ['Fortuna Düsseldorf', '1. FC Nürnberg']
 
     def get_goal_diff(self, position):
         diff = self.positions[position - 1].diff
@@ -238,7 +245,13 @@ class SQLiteAPI(object):
                               [league, season, game_day, binding]).fetchall()
         self.conn.close()
 
-        return GameTable(data)
+        try:
+            table = GameTable(data)
+        except:
+            debug_info = "season: {}, game day: {}, property: {}".format(season, game_day, additional_prop)
+            print(debug_info)
+            raise
+        return table
 
     def get_game_day(self, league, season, game_day):
         games = []
