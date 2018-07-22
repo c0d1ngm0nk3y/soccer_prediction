@@ -7,7 +7,7 @@ from prediction.Benchmark import load_and_check
 LEAGUE = 'bl1'
 GAME_DAYS = [1]
 SEASON = '2018'
-NETS = {'bl1': './prediction/pickles/20180404_2210.pickles',
+NETS = {'bl1': './prediction/pickles/bl1/20180404_2210.pickles',
         'bl2': './prediction/pickles/bl2/20180513_1728.pickles'}
 
 def get_net():

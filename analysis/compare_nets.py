@@ -4,7 +4,7 @@ from analysis.Util import init_logging
 from prediction.Benchmark import load_and_check
 
 
-LEAGUE = 'bl2'
+LEAGUE = 'bl1'
 NET_PATH = "./prediction/pickles/" + LEAGUE
 
 def main():

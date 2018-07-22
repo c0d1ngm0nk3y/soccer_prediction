@@ -7,16 +7,16 @@ from prediction.Benchmark import verify, load_and_check
 from prediction.QueryStatistics import QueryStatistics
 from prediction.Serializer import save_net
 
-LEAGUE = 'bl2'
+LEAGUE = 'bl1'
 
 BEST_OF_N = 2500
 FILENAME_TEMPLATE = './prediction/pickles/' + LEAGUE + '/{}.pickles'
 MIN_PERFORMANCE = 47
 MIN_EXPECTATION = 1
-VERIFY_THRESHOLD = 0
+VERIFY_THRESHOLD = 1
 DEBUG = False
 
-SEASONS = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015']
+SEASONS = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016']
 
 def find_net():
     logger = logging.getLogger()
@@ -30,7 +30,7 @@ def find_net():
             logger.info('iteration %d: %s', i+1, current_result_string)
         a_net = create_net()
 
-        result = train_and_check(a_net, train_set=SEASONS, league=LEAGUE)
+        result = train_and_check(a_net, train_set=SEASONS, league=LEAGUE, check='2017')
         logger.debug(result)
 
         if (result.get_performance() < MIN_PERFORMANCE) \
