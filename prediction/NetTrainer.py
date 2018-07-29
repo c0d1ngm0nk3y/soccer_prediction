@@ -8,7 +8,7 @@ def create_net(alpha=0.1
     net = NN2(input_layer, hidden_layer, output_layer, alpha)
     return net
 
-def train_and_check(net, train_set=None, check='2016', train_leagues=None,
+def train_and_check(net, train_set=None, check='2017', train_leagues=None,
                     max_iterations=2, league='bl1', min_delta=0.2):
     if train_set is None:
         train_set = ['2013', '2014', '2015']
