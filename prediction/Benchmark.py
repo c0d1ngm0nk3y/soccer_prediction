@@ -2,6 +2,10 @@ import logging
 from prediction.NetTrainer import NetTrainer, train_and_check
 from prediction.Serializer import load_net
 
+class NetEntry(object):
+    def __init__(self, path, points):
+        self.path = path
+        self.points = points
 
 class GameDayResult(object):
     def __init__(self, league, season, game_day, hits):
@@ -66,15 +70,21 @@ def verify(net, league='bl1', factor=1.0, delta=0):
     verified = actual >= min((expected * factor), (expected - delta))
     logger.debug('verify: %d / %d -> %s', actual, expected, verified)
 
-    return verified
+    return (verified, (actual - expected))
 
 
 def load_and_check(filename, league):
     logger = logging.getLogger()
     net = load_net(filename)
 
-    result = train_and_check(net, train_set=[])
+    query_stats = train_and_check(net, train_set=[])
     logger.debug('using file %s', filename)
-    logger.info(result)
-    verify(net, league=league)
-    return net
+    logger.info(query_stats)
+    (_, verify_result) = verify(net, league=league)
+    points = calculate_points(query_stats, verify_result)
+    entry = NetEntry(filename, points)
+    return (net, entry)
+
+#FIXME: add calculation here
+def calculate_points(stats, verify_result):
+    return 100 + verify_result

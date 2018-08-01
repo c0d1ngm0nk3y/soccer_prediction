@@ -24,7 +24,8 @@ def train_and_check(net, train_set=None, check='2017', train_leagues=None,
             if delta < min_delta:
                 return trainer.check_season(league, check)
 
-    return trainer.check_season(league, check)
+    query_stats = trainer.check_season(league, check)
+    return query_stats
 
 class PickLeader(object):
     def query(self, input_list):
@@ -92,8 +93,8 @@ class NetTrainer(object):
 
     def check_season(self, league, season):
         season_data = self.generator.generate_from_season(league, season)
-        return_code = self._check_data(season_data)
-        return return_code
+        query_stats = self._check_data(season_data)
+        return query_stats
 
     def _check_data(self, all_data):
         stats = QueryStatistics()

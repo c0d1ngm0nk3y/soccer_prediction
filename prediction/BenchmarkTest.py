@@ -7,7 +7,7 @@ from prediction.NetTrainer import PickAway, create_net, train_and_check
 class BenchmarkTest(unittest.TestCase):
     def test_pick_leader_wont_verify(self):
         net = PickAway()
-        verified = verify(net)
+        (verified, _) = verify(net)
         self.assertFalse(verified)
 
     def test_net_will_verify_bl1(self):
@@ -15,7 +15,7 @@ class BenchmarkTest(unittest.TestCase):
             net = create_net()
             train_and_check(net)
 
-            verified = verify(net, factor=0.85)
+            (verified, _) = verify(net, factor=0.85)
             if verified:
                 break
         self.assertTrue(verified)
@@ -25,7 +25,7 @@ class BenchmarkTest(unittest.TestCase):
             net = create_net()
             train_and_check(net, league='bl2')
 
-            verified = verify(net, league='bl2', factor=0.85)
+            (verified, _) = verify(net, league='bl2', factor=0.85)
             if verified:
                 break
         self.assertTrue(verified)
