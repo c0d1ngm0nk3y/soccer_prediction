@@ -12,7 +12,7 @@ NETS = {'bl1': './prediction/pickles/bl1/20180404_2210.pickles',
 
 def get_net():
     filename = NETS[LEAGUE]
-    net = load_and_check(filename, league=LEAGUE)
+    (net, _) = load_and_check(filename, league=LEAGUE)
     return net
 
 def main():
