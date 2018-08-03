@@ -3,17 +3,14 @@ from datetime import datetime
 from time import time
 from analysis.Util import init_logging
 from prediction.NetTrainer import create_net, train_and_check
-from prediction.Benchmark import verify, load_and_check
+from prediction.Benchmark import verify, load_and_check, calculate_points
 from prediction.QueryStatistics import QueryStatistics
 from prediction.Serializer import save_net
 
 LEAGUE = 'bl1'
 
-BEST_OF_N = 2500
+BEST_OF_N = 1000
 FILENAME_TEMPLATE = './prediction/pickles/' + LEAGUE + '/{}.pickles'
-MIN_PERFORMANCE = 52
-MIN_EXPECTATION = 1.05
-VERIFY_THRESHOLD = 0
 DEBUG = False
 
 SEASONS = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016']
@@ -22,7 +19,7 @@ def find_net():
     logger = logging.getLogger()
     best_net = None
     best_result = QueryStatistics()
-    best_expectation = 0
+    best_points = 0
     current_result_string = None
 
     for i in range(BEST_OF_N):
@@ -30,23 +27,18 @@ def find_net():
             logger.info('iteration %d: %s', i+1, current_result_string)
         a_net = create_net()
 
-        result = train_and_check(a_net, train_set=SEASONS, league=LEAGUE, check='2017')
-        logger.debug(result)
+        query_stats = train_and_check(a_net, train_set=SEASONS, league=LEAGUE, check='2017')
+        (_, verify_result) = verify(a_net, league=LEAGUE)
 
-        if (result.get_performance() < MIN_PERFORMANCE) \
-                or (result.get_expected_win_ratio() < MIN_EXPECTATION):
+        points = calculate_points(query_stats, verify_result)
+
+        if points <= best_points:
             continue
 
-        verified = verify(a_net, league=LEAGUE, delta=VERIFY_THRESHOLD)
-        if not verified:
-            continue
-
-        if result.get_performance() >= best_result.get_performance() \
-                and result.get_expected_win_ratio() >= best_expectation:
-            best_net = a_net
-            best_result = result
-            best_expectation = result.get_expected_win_ratio()
-            current_result_string = "{}% / {}".format(best_result, best_expectation)
+        best_net = a_net
+        best_result = query_stats
+        best_points = points
+        current_result_string = "{}%  ({})".format(best_result, best_points)
 
     logger.warning('best net found: %s', best_result)
     return best_net
@@ -54,8 +46,7 @@ def find_net():
 def main():
     logger = logging.getLogger()
     start_time = time()
-    logger.warning('searching net with %d%% and %.2f (%d iterations)',
-                   MIN_PERFORMANCE, MIN_EXPECTATION, BEST_OF_N)
+    logger.warning('searching net with %d iterations', BEST_OF_N)
     net = find_net()
     end_time = time()
     duration_min = int((end_time - start_time) / 60)
