@@ -7,6 +7,9 @@ class NetEntry(object):
         self.path = path
         self.points = points
 
+    def __str__(self):
+        return '{0} points: {1}'.format(self.points, self.path)
+
 class GameDayResult(object):
     def __init__(self, league, season, game_day, hits):
         self.league = league
@@ -85,7 +88,7 @@ def load_and_check(filename, league):
     entry = NetEntry(filename, points)
     return (net, entry)
 
-#FIXME: add calculation here
 def calculate_points(stats, verify_result):
-    performance_points = stats.get_performance() * 5
-    return performance_points + verify_result
+    performance_points = stats.get_performance() * 2
+    expected_points = stats.get_expected_win_ratio() * 50
+    return performance_points + expected_points + verify_result

@@ -54,21 +54,31 @@ class BenchmarkTest(unittest.TestCase):
         stats.count = 100
         stats.hits = 52
         points = calculate_points(stats, 0)
-        self.assertEquals(points, 260)
+        self.assertEquals(points, 104)
 
     def test_calculate_points_full_performance(self):
         stats = QueryStatistics()
         stats.count = 300
         stats.hits = 300
         points = calculate_points(stats, 0)
-        self.assertEquals(points, 500)
+        self.assertEquals(points, 200)
 
     def test_calculate_points_performance_with_verify(self):
         stats = QueryStatistics()
         stats.count = 200
         stats.hits = 164
         points = calculate_points(stats, 3)
-        self.assertEquals(points, 413)
+        self.assertEquals(points, 167)
+
+    def test_calculate_points_2expecy_equals_1verify(self):
+        stats = QueryStatistics()
+        stats.count = 100
+        stats.hits = 50
+        stats.win = 98
+        points1 = calculate_points(stats, 1)
+        stats.win = 100
+        points2 = calculate_points(stats, 0)
+        self.assertEquals(points1, points2)
 
 if __name__ == '__main__':
     unittest.main()

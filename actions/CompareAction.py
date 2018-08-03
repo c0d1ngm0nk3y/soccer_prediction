@@ -1,5 +1,5 @@
 import os
-from prediction.Benchmark import NetEntry, load_and_check
+from prediction.Benchmark import load_and_check
 
 NET_PATH_PREFIX = "./prediction/pickles/"
 
