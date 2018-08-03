@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 import unittest
-from prediction.Benchmark import verify
+from prediction.Benchmark import verify, calculate_points
 from prediction.NetTrainer import PickAway, create_net, train_and_check
-
+from prediction.QueryStatistics import QueryStatistics
 
 class BenchmarkTest(unittest.TestCase):
     def test_pick_leader_wont_verify(self):
@@ -38,6 +38,37 @@ class BenchmarkTest(unittest.TestCase):
         self.assertGreater(stats[0], 1)
         self.assertGreater(stats[1], 1)
         self.assertGreater(stats[2], 1)
+
+    def test_calculate_points_empty_stats_no_verify(self):
+        stats = QueryStatistics()
+        points = calculate_points(stats, 0)
+        self.assertEquals(points, 0)
+
+    def test_calculate_points_empty_stats_with_verify(self):
+        stats = QueryStatistics()
+        points = calculate_points(stats, 9)
+        self.assertEquals(points, 9)
+
+    def test_calculate_points_mid_performance(self):
+        stats = QueryStatistics()
+        stats.count = 100
+        stats.hits = 52
+        points = calculate_points(stats, 0)
+        self.assertEquals(points, 260)
+
+    def test_calculate_points_full_performance(self):
+        stats = QueryStatistics()
+        stats.count = 300
+        stats.hits = 300
+        points = calculate_points(stats, 0)
+        self.assertEquals(points, 500)
+
+    def test_calculate_points_performance_with_verify(self):
+        stats = QueryStatistics()
+        stats.count = 200
+        stats.hits = 164
+        points = calculate_points(stats, 3)
+        self.assertEquals(points, 413)
 
 if __name__ == '__main__':
     unittest.main()

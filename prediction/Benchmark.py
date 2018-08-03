@@ -87,4 +87,5 @@ def load_and_check(filename, league):
 
 #FIXME: add calculation here
 def calculate_points(stats, verify_result):
-    return 100 + verify_result
+    performance_points = stats.get_performance() * 5
+    return performance_points + verify_result
