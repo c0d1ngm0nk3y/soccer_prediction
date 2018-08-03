@@ -12,4 +12,4 @@ class CompareAction(object):
                 (_, entry) = load_and_check(filename, league=league)
                 nets.append(entry)
 
-        return nets
+        return sorted(nets, key=lambda x: x.points, reverse=True)

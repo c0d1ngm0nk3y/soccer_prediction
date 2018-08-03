@@ -14,6 +14,9 @@ class CompareActionTest(unittest.TestCase):
         list_of_nets = self.action.compare_nets('bl1')
         self.assertTrue(len(list_of_nets) > 0)
 
+        prev_points = 1000
         for entry in list_of_nets:
             points = entry.points
             self.assertTrue(points > 0)
+            self.assertLessEqual(points, prev_points)
+            prev_points = points

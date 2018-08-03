@@ -82,7 +82,7 @@ def load_and_check(filename, league):
 
     query_stats = train_and_check(net, train_set=[])
     logger.debug('using file %s', filename)
-    logger.info(query_stats)
+    logger.debug(query_stats)
     (_, verify_result) = verify(net, league=league)
     points = calculate_points(query_stats, verify_result)
     entry = NetEntry(filename, points)
