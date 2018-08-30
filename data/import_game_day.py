@@ -1,8 +1,8 @@
 from api import SQLiteAPI
 
 LEAGUE = 'bl1'
-SEASON = '2017'
-GAME_DAY = 33
+SEASON = '2018'
+GAME_DAY = 1
 
 
 def main():

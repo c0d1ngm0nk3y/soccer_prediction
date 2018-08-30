@@ -52,7 +52,7 @@ class Position(object):
 class GameTable(object):
     def __init__(self, data):
         self.positions = map(Position, data)
-        if len(self.positions) != 18:
+        if (len(self.positions) != 18) and (len(self.positions) != 9):
             raise BaseException("Unexpected table length: " + str(len(self.positions)))
 
     def get_name(self, position):
@@ -76,6 +76,10 @@ class GameTable(object):
 
         if self.is_new_to_league(name):
             return 18
+
+        #FIXME first game day(s)
+        if len(self.positions) == 9:
+            return 5
         raise BaseException("Team not found in GameTable: " + name)
 
     def is_new_to_league(self, name):
