@@ -6,7 +6,7 @@ from prediction.Benchmark import load_and_check
 from actions.CompareAction import CompareAction
 
 LEAGUE = 'bl1'
-GAME_DAYS = [3]
+GAME_DAYS = [5]
 SEASON = '2018'
 
 def get_net():
