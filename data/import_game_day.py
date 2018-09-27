@@ -2,7 +2,7 @@ from api import SQLiteAPI
 
 LEAGUE = 'bl1'
 SEASON = '2018'
-GAME_DAY = 4
+GAME_DAY = 5
 
 
 def main():
