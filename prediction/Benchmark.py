@@ -3,12 +3,14 @@ from prediction.NetTrainer import NetTrainer, train_and_check
 from prediction.Serializer import load_net
 
 class NetEntry(object):
-    def __init__(self, path, points):
+    def __init__(self, path, points, verify_results, stats):
         self.path = path
         self.points = points
+        self.verify = verify_results
+        self.stats = stats
 
     def __str__(self):
-        return '{0} points: {1}'.format(self.points, self.path)
+        return '{0} points: {1} ({2}, {3})'.format(self.points, self.path, self.verify, self.stats)
 
 class GameDayResult(object):
     def __init__(self, league, season, game_day, hits):
@@ -48,7 +50,14 @@ PAST_RESULTS = {'bl1': [GameDayResult('bl1', '2017', 3, 3),
                         GameDayResult('bl1', '2017', 30, 7),
                         GameDayResult('bl1', '2017', 31, 5),
                         GameDayResult('bl1', '2017', 32, 3),
-                        GameDayResult('bl1', '2017', 33, 6)
+                        GameDayResult('bl1', '2017', 33, 6),
+                        GameDayResult('bl1', '2017', 34, 3),
+                        GameDayResult('bl1', '2018', 1, 6),
+                        GameDayResult('bl1', '2018', 2, 3),
+                        GameDayResult('bl1', '2018', 3, 6),
+                        GameDayResult('bl1', '2018', 4, 3),
+                        GameDayResult('bl1', '2018', 5, 5),
+                        GameDayResult('bl1', '2018', 6, 3)
                        ],
 
                 'bl2': [GameDayResult('bl2', '2017', 5, 3),
@@ -85,7 +94,7 @@ def load_and_check(filename, league):
     logger.debug(query_stats)
     (_, verify_result) = verify(net, league=league)
     points = calculate_points(query_stats, verify_result)
-    entry = NetEntry(filename, points)
+    entry = NetEntry(filename, points, verify_result, query_stats)
     return (net, entry)
 
 def calculate_points(stats, verify_result):

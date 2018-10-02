@@ -6,7 +6,7 @@ from prediction.Benchmark import load_and_check
 from actions.CompareAction import CompareAction
 
 LEAGUE = 'bl1'
-GAME_DAYS = [6]
+GAME_DAYS = [6, 7]
 SEASON = '2018'
 
 def get_net():
@@ -25,7 +25,7 @@ def main():
 
     for game_day in GAME_DAYS:
         logger.info('game day: %d', game_day)
-        games = oracle.predict_game_day(LEAGUE, '2018', game_day)
+        games = oracle.predict_game_day(LEAGUE, SEASON, game_day)
         print('*' * 100)
         for game in games:
             game.print_it()
