@@ -47,7 +47,7 @@ class BenchmarkTest(unittest.TestCase):
     def test_calculate_points_empty_stats_with_verify(self):
         stats = QueryStatistics()
         points = calculate_points(stats, 9)
-        self.assertEquals(points, 9)
+        self.assertEquals(points, 18)
 
     def test_calculate_points_mid_performance(self):
         stats = QueryStatistics()
@@ -68,15 +68,15 @@ class BenchmarkTest(unittest.TestCase):
         stats.count = 200
         stats.hits = 164
         points = calculate_points(stats, 3)
-        self.assertEquals(points, 167)
+        self.assertEquals(points, 170)
 
-    def test_calculate_points_2expecy_equals_1verify(self):
+    def test_calculate_points_4expecy_equals_1verify(self):
         stats = QueryStatistics()
         stats.count = 100
         stats.hits = 50
         stats.win = 98
         points1 = calculate_points(stats, 1)
-        stats.win = 100
+        stats.win = 102
         points2 = calculate_points(stats, 0)
         self.assertEquals(points1, points2)
 

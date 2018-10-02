@@ -100,4 +100,5 @@ def load_and_check(filename, league):
 def calculate_points(stats, verify_result):
     performance_points = stats.get_performance() * 2
     expected_points = stats.get_expected_win_ratio() * 50
-    return performance_points + expected_points + verify_result
+    verify_points = 2 * verify_result
+    return performance_points + expected_points + verify_points

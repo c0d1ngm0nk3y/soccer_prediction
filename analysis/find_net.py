@@ -9,7 +9,7 @@ from prediction.Serializer import save_net
 
 LEAGUE = 'bl1'
 
-BEST_OF_N = 500
+BEST_OF_N = 1500
 FILENAME_TEMPLATE = './prediction/pickles/' + LEAGUE + '/{}.pickles'
 DEBUG = False
 
