@@ -26,7 +26,14 @@
             "type": "shell",
             "command": "PYTHONUNBUFFERED=1 PYTHONPATH=/Users/ralf/PycharmProjects/NeuralNetwork python /Users/ralf/PycharmProjects/NeuralNetwork/analysis/compare_nets.py",
             "problemMatcher": []
+        },
+        {
+            "label": "cleanup nets",
+            "type": "shell",
+            "command": "PYTHONUNBUFFERED=1 PYTHONPATH=/Users/ralf/PycharmProjects/NeuralNetwork python /Users/ralf/PycharmProjects/NeuralNetwork/analysis/cleanup_nets.py",
+            "problemMatcher": []
         }
+
 
     ]
 }
