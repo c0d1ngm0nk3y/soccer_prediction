@@ -66,11 +66,18 @@ class PredictedResult(object):
     def set_out(self, v_out):
         self.v_out = v_out
 
-    def get_correct_prediction_marker(self):
+    def is_correct(self):
         prediction = self.get_prediction()
         actual_result = self.get_actual_result()
 
         if prediction == actual_result:
+            return True
+
+        return False
+
+
+    def get_correct_prediction_marker(self):
+        if self.is_correct():
             return 'X'
 
         return ' '
