@@ -4,7 +4,7 @@ from analysis.Util import init_logging
 from actions.CompareAction import CompareAction
 
 LEAGUE = 'bl1'
-DELTA = 5
+DELTA = 3
 
 def main():
     logger = logging.getLogger()
