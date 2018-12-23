@@ -66,7 +66,7 @@ class NetTrainer(object):
 
     def __init__(self, net):
         self.net = net
-        self.generator = TestDataGenerator()
+        self.generator = TestDataGenerator() #TODO Create different test data
         self.count = 0
         self.hits = 0
         self.statistics = [0, 0, 0]
