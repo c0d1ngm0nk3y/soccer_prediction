@@ -76,9 +76,10 @@ PAST_RESULTS = {'bl1': [GameDayResult('bl1', '2017', 3, 3),
                        ]}
 
 
-def verify(net, league='bl1', factor=1.0, delta=0):
+def verify(net, league='bl1', factor=1.0, delta=0, trainer=None):
     logger = logging.getLogger()
-    trainer = NetTrainer(net)
+    if not trainer:
+        trainer = NetTrainer(net)
     expected = 0
     actual = 0
 

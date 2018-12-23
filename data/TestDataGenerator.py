@@ -1,5 +1,5 @@
 from api.SQLiteAPI import SQLiteAPI
-from prediction.Judger import calculate_out_vector
+from prediction.Judger import calculate_result_out_v_home_away
 
 class TestDataInput(object):
     def __init__(self, x_pos, x_trend_points, x_home, x_goals):
@@ -19,8 +19,9 @@ class TestDataGenerator(object):
     SKIP_LAST_N_GAME_DAYS = 2
     TOTAL_GAME_DAYS = 34
 
-    def __init__(self):
+    def __init__(self, judger):
         self.api = SQLiteAPI()
+        self.judger = judger
 
     def ignore_game_day(self, game_day, league, season):
         if game_day > self.TOTAL_GAME_DAYS - self.SKIP_LAST_N_GAME_DAYS:
@@ -75,7 +76,7 @@ class TestDataGenerator(object):
             v_input = []
             input_home.fill_input(v_input)
             input_away.fill_input(v_input)
-            output = calculate_out_vector(home_points, away_points)
+            output = self.judger.calculate_out_v(home_points, away_points)
 
             game_day_data.append((v_input, output, [result], game.get_home_team()))
         return game_day_data

@@ -1,6 +1,6 @@
 from data.TestDataGenerator import TestDataGenerator
 from net.NeuralNetwork import NN2
-from prediction.Judger import interprete
+from prediction.Judger import interprete, HomeAwayJudger
 from prediction.QueryStatistics import QueryStatistics
 
 def create_net(alpha=0.1
@@ -9,12 +9,13 @@ def create_net(alpha=0.1
     return net
 
 def train_and_check(net, train_set=None, check='2017', train_leagues=None,
-                    max_iterations=2, league='bl1', min_delta=0.2):
+                    max_iterations=2, league='bl1', min_delta=0.2, trainer=None):
     if train_set is None:
         train_set = ['2013', '2014', '2015']
     if not train_leagues:
         train_leagues = [league]
-    trainer = NetTrainer(net)
+    if not trainer:
+        trainer = NetTrainer(net)
     error = 99999
     for _ in range(0, max_iterations):
         for a_league in train_leagues:
@@ -64,9 +65,12 @@ class PickDraw(object):
 
 class NetTrainer(object):
 
-    def __init__(self, net):
+    def __init__(self, net, judger=None):
         self.net = net
-        self.generator = TestDataGenerator() #TODO Create different test data
+        if not judger:
+            judger = HomeAwayJudger()
+        self.judger = judger
+        self.generator = TestDataGenerator(judger)
         self.count = 0
         self.hits = 0
         self.statistics = [0, 0, 0]
@@ -81,7 +85,9 @@ class NetTrainer(object):
         for data in train_data:
             (input_list, output_list, _, _) = data
             (_, errors) = self.net.train(input_list, output_list)
-            single_error = abs(errors[0][0]) + abs(errors[1][0])
+            single_error = 0
+            for i in range(len(errors)):
+                single_error = single_error + abs(errors[i][0])
             total_error = total_error + single_error
 
         return total_error
@@ -102,6 +108,6 @@ class NetTrainer(object):
             (input_list, _, result, _) = data
             result = result[0]
             query_output = self.net.query(input_list)
-            query_result = interprete(query_output)
+            query_result = self.judger.interprete(query_output)
             stats.add_result(result, query_result)
         return stats
