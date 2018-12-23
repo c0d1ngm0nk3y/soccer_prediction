@@ -66,3 +66,17 @@ class HomeJudger(object):
 
     def calculate_out_v(self, home_points, away_points):
         return calculate_result_out_v_home(home_points, away_points)
+
+class AwayJudger(object):
+    def interprete(self, out):
+        away = out[0]
+        if away > 0.5:
+            return 2
+
+        return 1
+
+    def calculate_out_v(self, home_points, away_points):
+        if home_points < away_points:
+            return [0.99]
+
+        return [0.01]
