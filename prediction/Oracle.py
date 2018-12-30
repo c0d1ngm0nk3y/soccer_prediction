@@ -3,14 +3,15 @@ from api.SQLiteAPI import SQLiteAPI, is_similar_teamname
 from analysis.Util import string_with_fixed_length
 from data.TestDataGenerator import TestDataGenerator
 from prediction.Judger import calculate_confidence, interprete
-from prediction.NetTrainer import NetTrainer
+#from prediction.NetTrainer import NetTrainer
 
 
 class PredictedResult(object):
-    def __init__(self, data):
+    def __init__(self, data, judger):
         self.data = data
         self.prediction = None
-        self.trainer = NetTrainer(None)
+        self.judger = judger
+        #self.trainer = NetTrainer(None)
         self.api = SQLiteAPI()
         self.game = self.api.get_result(self.data)
         self.v_in = None
@@ -53,11 +54,11 @@ class PredictedResult(object):
         return 0
 
     def get_confidence(self):
-        confidence = calculate_confidence(self.v_out)
+        confidence = self.judger.calculate_confidence(self.v_out)
         return confidence
 
     def get_prediction(self):
-        prediction = interprete(self.v_out)
+        prediction = self.judger.interprete(self.v_out)
         return prediction
 
     def set_in(self, v_in):
@@ -102,6 +103,7 @@ class Oracle(object):
     def __init__(self, net, judger):
         self.net = net
         self.api = OpenLigaDB()
+        self.judger = judger
         self.generator = TestDataGenerator(judger)
 
     def predict_game_day(self, league, season, game_day):
@@ -125,12 +127,12 @@ class Oracle(object):
 
     def find_game_prediction(self, data, home_team):
         for x in data:
-            day_prediction = PredictedResult(x)
+            day_prediction = PredictedResult(x, self.judger)
             if day_prediction.get_home_team() == home_team:
                 return day_prediction
 
         for x in data:
-            day_prediction = PredictedResult(x)
+            day_prediction = PredictedResult(x, self.judger)
             if is_similar_teamname(day_prediction.get_home_team(), home_team):
                 return day_prediction
 

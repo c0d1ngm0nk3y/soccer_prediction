@@ -7,10 +7,10 @@ from prediction.Judger import create_judger
 from actions.CompareAction import CompareAction
 
 LEAGUE = 'bl1'
-GAME_DAYS = range(1, 18)
+GAME_DAYS = range(1, 3)
 SEASON = '2018'
 
-TYPE = "default"
+TYPE = "home"
 
 def get_net():
     action = CompareAction()
