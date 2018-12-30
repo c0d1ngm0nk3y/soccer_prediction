@@ -1,6 +1,7 @@
 import logging
 from prediction.NetTrainer import NetTrainer, train_and_check
 from prediction.Serializer import load_net
+from prediction.Judger import create_judger
 
 class NetEntry(object):
     def __init__(self, path, points, verify_results, stats):
@@ -97,11 +98,12 @@ def verify(net, league='bl1', factor=1.0, delta=0, trainer=None):
     return (verified, (actual - expected))
 
 
-def load_and_check(filename, league, trainer=None):
+def load_and_check(filename, league, _type):
     logger = logging.getLogger()
     net = load_net(filename)
+    trainer = NetTrainer(net, create_judger(_type))
 
-    query_stats = train_and_check(net, train_set=[],trainer=trainer)
+    query_stats = train_and_check(net, train_set=[], trainer=trainer)
     logger.debug('using file %s', filename)
     logger.debug(query_stats)
     (_, verify_result) = verify(net, league=league, trainer=trainer)

@@ -10,20 +10,22 @@ LEAGUE = 'bl1'
 GAME_DAYS = range(1, 18)
 SEASON = '2018'
 
+TYPE = "default"
+
 def get_net():
     action = CompareAction()
-    nets = action.compare_nets(league=LEAGUE)
+    nets = action.compare_nets(league=LEAGUE, _type=TYPE)
     filename = nets[0].path
     logger = logging.getLogger()
     logger.info('loading: %s', filename)
-    (net, _) = load_and_check(filename, league=LEAGUE)
+    (net, _) = load_and_check(filename, league=LEAGUE, _type=TYPE)
     return net
 
 def main():
     logger = logging.getLogger()
     net = get_net()
 
-    judger = create_judger("default")
+    judger = create_judger(TYPE)
     oracle = Oracle(net=net, judger=judger)
 
     correct = 0
