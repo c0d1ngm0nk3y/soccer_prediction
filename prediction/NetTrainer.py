@@ -4,12 +4,12 @@ from prediction.Judger import interprete, HomeAwayJudger
 from prediction.QueryStatistics import QueryStatistics
 
 def create_net(alpha=0.1
-               , input_layer=16, hidden_layer=14, output_layer=2):
+               , input_layer=16, hidden_layer=7, output_layer=2):
     net = NN2(input_layer, hidden_layer, output_layer, alpha)
     return net
 
 def train_and_check(net, train_set=None, check='2017', train_leagues=None,
-                    max_iterations=2, league='bl1', min_delta=0.2, trainer=None):
+                    max_iterations=7, league='bl1', min_delta=0.2, trainer=None):
     if train_set is None:
         train_set = ['2013', '2014', '2015']
     if not train_leagues:

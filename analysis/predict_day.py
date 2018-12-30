@@ -3,6 +3,7 @@ import logging
 from analysis.Util import init_logging
 from prediction.Oracle import Oracle
 from prediction.Benchmark import load_and_check
+from prediction.Judger import create_judger
 from actions.CompareAction import CompareAction
 
 LEAGUE = 'bl1'
@@ -21,7 +22,9 @@ def get_net():
 def main():
     logger = logging.getLogger()
     net = get_net()
-    oracle = Oracle(net)
+
+    judger = create_judger("default")
+    oracle = Oracle(net=net, judger=judger)
 
     correct = 0
 

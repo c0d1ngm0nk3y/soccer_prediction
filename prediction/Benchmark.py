@@ -67,7 +67,8 @@ PAST_RESULTS = {'bl1': [GameDayResult('bl1', '2017', 3, 3),
                         GameDayResult('bl1', '2018', 13, 2),
                         GameDayResult('bl1', '2018', 14, 7),
                         GameDayResult('bl1', '2018', 15, 4),
-                        GameDayResult('bl1', '2018', 16, 3)
+                        GameDayResult('bl1', '2018', 16, 3),
+                        GameDayResult('bl1', '2018', 17, 3)
                                                  ],
 
                 'bl2': [GameDayResult('bl2', '2017', 5, 3),
@@ -96,14 +97,14 @@ def verify(net, league='bl1', factor=1.0, delta=0, trainer=None):
     return (verified, (actual - expected))
 
 
-def load_and_check(filename, league):
+def load_and_check(filename, league, trainer=None):
     logger = logging.getLogger()
     net = load_net(filename)
 
-    query_stats = train_and_check(net, train_set=[])
+    query_stats = train_and_check(net, train_set=[],trainer=trainer)
     logger.debug('using file %s', filename)
     logger.debug(query_stats)
-    (_, verify_result) = verify(net, league=league)
+    (_, verify_result) = verify(net, league=league, trainer=trainer)
     points = calculate_points(query_stats, verify_result)
     entry = NetEntry(filename, points, verify_result, query_stats)
     return (net, entry)

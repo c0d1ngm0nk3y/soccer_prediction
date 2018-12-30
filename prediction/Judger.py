@@ -80,3 +80,11 @@ class AwayJudger(object):
             return [0.99]
 
         return [0.01]
+
+def create_judger(judger_id):
+    if judger_id == "home":
+        return HomeJudger()
+    elif judger_id == "away":
+        return AwayJudger()
+
+    return HomeAwayJudger()

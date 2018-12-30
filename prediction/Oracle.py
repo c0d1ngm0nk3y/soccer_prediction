@@ -99,10 +99,10 @@ class PredictedResult(object):
 
 
 class Oracle(object):
-    def __init__(self, net):
+    def __init__(self, net, judger):
         self.net = net
         self.api = OpenLigaDB()
-        self.generator = TestDataGenerator()
+        self.generator = TestDataGenerator(judger)
 
     def predict_game_day(self, league, season, game_day):
         data = self.api.request_data_game_day(league, season, game_day)

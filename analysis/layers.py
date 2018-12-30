@@ -1,4 +1,5 @@
-from prediction.NetTrainer import create_net, train_and_check
+from prediction.NetTrainer import NetTrainer, create_net, train_and_check
+from prediction.Judger import create_judger
 from prediction.Benchmark import verify
 from analysis.Util import show_plot
 
@@ -10,11 +11,14 @@ def main():
     start = 5
     n = 10
     for i in range(start, start + n + 1):
-        net = create_net(hidden_layer=i)
+
+        net = create_net(hidden_layer=i, output_layer=1)
+        trainer = NetTrainer(net, create_judger("home"))
+
         x_axis.append(i)
 
-        result = train_and_check(net)
-        verified = verify(net)
+        result = train_and_check(net, trainer=trainer)
+        verified = verify(net, trainer=trainer)
 
         print 'Executed with', i, 'hidden layers:', result, 'verified', verified
         y_axis.append(result.get_performance())
