@@ -90,10 +90,34 @@ class AwayJudger(object):
     def calculate_confidence(self, out):
         return out[0] * 100
 
+class CombinedJudger(object):
+    def interprete(self, out):
+        home = out[0]
+        away = out[1]
+
+        delta = abs(home - away)
+        if delta < 0.00:
+            return 0
+
+        if home > away:
+            return 1
+
+        return 2
+
+    def calculate_out_v(self, home_points, away_points):
+        return [0]
+
+    def calculate_confidence(self, out):
+        home = out[0]
+        away = out[1]
+        return max(home, away) * 100
+
 def create_judger(judger_id):
     if judger_id == "home":
         return HomeJudger()
     elif judger_id == "away":
         return AwayJudger()
+    elif judger_id == "combined":
+        return CombinedJudger()
 
     return HomeAwayJudger()

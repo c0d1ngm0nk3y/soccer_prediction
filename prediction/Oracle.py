@@ -92,11 +92,11 @@ class PredictedResult(object):
         return line
 
     def print_it(self):
-        print('%30s : %30s  =>  %.2i%%: %i(%i:%i) %s'
+        print('%30s : %30s  =>  %.2i%%: %i(%i:%i) %s [%.2f, %.2f]'
               % (string_with_fixed_length(self.get_home_team()),
                  string_with_fixed_length(self.get_away_team()), self.get_confidence(),
                  self.get_prediction(), self.get_predicted_home_points(),
-                 self.get_predicted_away_points(), self.get_actual_result_string()))
+                 self.get_predicted_away_points(), self.get_actual_result_string(), self.v_out[0], self.v_out[1]))
 
 
 class Oracle(object):
