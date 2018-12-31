@@ -62,7 +62,7 @@ class HomeAwayJudger(object):
 class HomeJudger(object):
     def interprete(self, out):
         home = out[0]
-        if home > 0.5:
+        if home >= 0.4:
             return 1
 
         return 2
@@ -71,12 +71,12 @@ class HomeJudger(object):
         return calculate_result_out_v_home(home_points, away_points)
 
     def calculate_confidence(self, out):
-        return 0
+        return out[0] * 100
 
 class AwayJudger(object):
     def interprete(self, out):
         away = out[0]
-        if away > 0.5:
+        if away >= 0.4:
             return 2
 
         return 1
@@ -88,7 +88,7 @@ class AwayJudger(object):
         return [0.01]
 
     def calculate_confidence(self, out):
-        return 0
+        return out[0] * 100
 
 def create_judger(judger_id):
     if judger_id == "home":
