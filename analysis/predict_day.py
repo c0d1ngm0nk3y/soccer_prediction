@@ -8,10 +8,10 @@ from prediction.NetProxy import NetProxy
 from actions.CompareAction import CompareAction
 
 LEAGUE = 'bl1'
-GAME_DAYS = range(1, 18)
+GAME_DAYS = range(1, 28)
 SEASON = '2018'
 
-TYPE = "combined"
+TYPE = "default"
 
 def get_combined_net():
     home_net = get_net("home")

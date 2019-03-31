@@ -92,11 +92,11 @@ class PredictedResult(object):
         return line
 
     def print_it(self):
-        print('%30s : %30s  =>  %.2i%%: %i(%i:%i) %s [%.2f, %.2f]'
+        print('%30s : %30s  =>  %.2i%%: %i(%i:%i) %s [%.2f, %.2f, %.2f]'
               % (string_with_fixed_length(self.get_home_team()),
                  string_with_fixed_length(self.get_away_team()), self.get_confidence(),
                  self.get_prediction(), self.get_predicted_home_points(),
-                 self.get_predicted_away_points(), self.get_actual_result_string(), self.v_out[0], self.v_out[1]))
+                 self.get_predicted_away_points(), self.get_actual_result_string(), self.v_out[0], self.v_out[1], (self.v_out[0]-self.v_out[1])))
 
 
 class Oracle(object):
@@ -129,11 +129,13 @@ class Oracle(object):
         for x in data:
             day_prediction = PredictedResult(x, self.judger)
             if day_prediction.get_home_team() == home_team:
+                #print home_team
                 return day_prediction
 
         for x in data:
             day_prediction = PredictedResult(x, self.judger)
-            if is_similar_teamname(day_prediction.get_home_team(), home_team):
+            if is_similar_teamname(day_prediction.get_home_team(), home_team) and is_similar_teamname(home_team, day_prediction.get_home_team()):
+                #print "x", home_team, day_prediction.get_home_team()
                 return day_prediction
 
         raise BaseException('game not found')

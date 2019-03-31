@@ -8,9 +8,10 @@ from prediction.QueryStatistics import QueryStatistics
 from prediction.Serializer import save_net
 
 LEAGUE = 'bl1'
+TYPE = 'default'
 
-BEST_OF_N = 2
-FILENAME_TEMPLATE = './prediction/pickles/' + LEAGUE + '/{}.pickles'
+BEST_OF_N = 1000
+FILENAME_TEMPLATE = './prediction/pickles/' + LEAGUE + "/" + TYPE + '/{}.pickles'
 DEBUG = False
 
 SEASONS = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016']
@@ -54,7 +55,7 @@ def main():
         filename = FILENAME_TEMPLATE.format(datetime.now().strftime("%Y%m%d_%H%M"))
         logger.info("saving net: %s", filename)
         save_net(net, filename)
-        load_and_check(filename, league=LEAGUE)
+        load_and_check(filename, league=LEAGUE, _type=TYPE)
     logger.warning("time for %d iterations: %d min", BEST_OF_N, duration_min)
 
 if __name__ == '__main__':
