@@ -6,37 +6,37 @@
         {
             "label": "find net",
             "type": "shell",
-            "command": "PYTHONUNBUFFERED=1 PYTHONPATH=/Users/ralf/PycharmProjects/NeuralNetwork python /Users/ralf/PycharmProjects/NeuralNetwork/analysis/find_net.py",
+            "command": "PYTHONUNBUFFERED=1 PYTHONPATH=${workspaceFolder} python ${workspaceFolder}/analysis/find_net.py",
             "problemMatcher": []
         },
         {
             "label": "find 2 nets",
             "type": "shell",
-            "command": "PYTHONUNBUFFERED=1 PYTHONPATH=/Users/ralf/PycharmProjects/NeuralNetwork python /Users/ralf/PycharmProjects/NeuralNetwork/analysis/find_2nets.py",
+            "command": "PYTHONUNBUFFERED=1 PYTHONPATH=${workspaceFolder} python ${workspaceFolder}/analysis/find_2nets.py",
             "problemMatcher": []
         },
         {
             "label": "predict",
             "type": "shell",
-            "command": "PYTHONUNBUFFERED=1 PYTHONPATH=/Users/ralf/PycharmProjects/NeuralNetwork python /Users/ralf/PycharmProjects/NeuralNetwork/analysis/predict_day.py",
+            "command": "PYTHONUNBUFFERED=1 PYTHONPATH=${workspaceFolder} python ${workspaceFolder}/analysis/predict_day.py",
             "problemMatcher": []
         },
         {
             "label": "measure coverage",
             "type": "shell",
-            "command": "PYTHONUNBUFFERED=1 PYTHONPATH=/Users/ralf/PycharmProjects/NeuralNetwork coverage run -m unittest discover  -p '*Test.py' && coverage xml",
+            "command": "PYTHONUNBUFFERED=1 PYTHONPATH=${workspaceFolder} coverage run -m unittest discover  -p '*Test.py' && coverage xml",
             "problemMatcher": []
         },
         {
             "label": "compare nets",
             "type": "shell",
-            "command": "PYTHONUNBUFFERED=1 PYTHONPATH=/Users/ralf/PycharmProjects/NeuralNetwork python /Users/ralf/PycharmProjects/NeuralNetwork/analysis/compare_nets.py",
+            "command": "PYTHONUNBUFFERED=1 PYTHONPATH=${workspaceFolder} python ${workspaceFolder}/analysis/compare_nets.py",
             "problemMatcher": []
         },
         {
             "label": "cleanup nets",
             "type": "shell",
-            "command": "PYTHONUNBUFFERED=1 PYTHONPATH=/Users/ralf/PycharmProjects/NeuralNetwork python /Users/ralf/PycharmProjects/NeuralNetwork/analysis/cleanup_nets.py",
+            "command": "PYTHONUNBUFFERED=1 PYTHONPATH=${workspaceFolder} python ${workspaceFolder}/analysis/cleanup_nets.py",
             "problemMatcher": []
         }
 

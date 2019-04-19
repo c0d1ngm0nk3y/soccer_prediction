@@ -8,7 +8,7 @@ from prediction.NetProxy import NetProxy
 from actions.CompareAction import CompareAction
 
 LEAGUE = 'bl1'
-GAME_DAYS = range(1, 28)
+GAME_DAYS = range(1, 31)
 SEASON = '2018'
 
 TYPE = "default"
